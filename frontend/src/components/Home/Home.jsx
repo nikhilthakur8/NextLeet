@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input.jsx";
 import { Button } from "../ui/moving-border.jsx";
 import subscribeUser from "../../appwrite/config.js";
-import axios from "axios";
 const placeholders = [
     "payalKhanna324@gmail.com",
     "nishusharma24@outlook.com",
