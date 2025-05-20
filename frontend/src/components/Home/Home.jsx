@@ -123,7 +123,7 @@ export const Home = () => {
 
                 <div className=" w-full text-white text-start mt-10  md:text-lg xl:text-xl text-sm">
                     <p className="text-neutral-300 mb-4 text-center">
-                        Next LeetCode Daily in your inbox at 9:30 PM daily :
+                        Next LeetCode Daily in your inbox at 4:00 PM UTC daily :
                     </p>
                     {message?.message && message.message.length > 0 ? (
                         <motion.div
