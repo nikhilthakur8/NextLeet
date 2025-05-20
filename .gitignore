@@ -1,0 +1,9 @@
+.env
+**/.env
+
+node_modules/
+**/node_modules/
+
+/backend/controller/leetcode.question.js
+
+/functions/service/notify.js
