@@ -1,5 +1,4 @@
-import { Client, Databases, ID } from "appwrite";
-import { Query } from "node-appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 const client = new Client();
 client
     .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT) // Your API Endpoint
