@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BackgroundBeamsWithCollision } from "../ui/background-beams-with-collision.jsx";
 import { ColourfulText } from "../ui/colourful-text.jsx";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input.jsx";
 import { Button } from "../ui/moving-border.jsx";
 import subscribeUser from "../../appwrite/config.js";
@@ -94,14 +94,14 @@ export const Home = () => {
 
     return (
         <div className="">
-            <div className="absolute pl-8 py-2  z-20 bg-neutral-950 border-b border-b-neutral-900 w-full md:text-4xl text-3xl font-bold">
+            <div className="absolute pl-8 py-2 md:py-5  z-20 bg-neutral-950 border-b border-b-neutral-900 w-full md:text-4xl text-3xl font-bold">
                 <ColourfulText text="Next Leet" />
             </div>
-            <BackgroundBeamsWithCollision className="min-h-svh flex-col px-7 md:px-0">
-                <div className="md:text-6xl text-3xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
+            <BackgroundBeamsWithCollision className="min-h-svh flex-col px-5  md:px-5 xl:px-0">
+                <div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
                     Get Tomorrow's Leetcode Question, Today!
                 </div>
-                <p className="text-neutral-300  md:text-2xl text-sm">
+                <p className="text-neutral-300  md:text-lg xl:text-2xl text-sm">
                     For India, Next Leetcode Question is available at 9:30 PM
                     IST instead of tomorrow 5:30 AM IST.
                 </p>
@@ -121,7 +121,7 @@ export const Home = () => {
                     </Button>
                 </div>
 
-                <div className=" w-full text-white text-start mt-10  md:text-xl text-sm">
+                <div className=" w-full text-white text-start mt-10  md:text-lg xl:text-xl text-sm">
                     <p className="text-neutral-300 mb-4 text-center">
                         Next LeetCode Daily in your inbox at 9:30 PM daily :
                     </p>
