@@ -12,6 +12,7 @@
   "dependencies": {
     "@tabler/icons-react": "^3.33.0",
     "@tailwindcss/vite": "^4.1.7",
+    "@vercel/analytics": "^1.5.0",
     "appwrite": "^18.0.0",
     "clsx": "^2.1.1",
     "motion": "^12.12.1",
