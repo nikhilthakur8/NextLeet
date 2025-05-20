@@ -102,8 +102,8 @@ export const Home = () => {
                     Get Tomorrow's Leetcode Question, Today!
                 </div>
                 <p className="text-neutral-300  md:text-lg xl:text-2xl text-sm">
-                    For India, Next Leetcode Question is available at 9:30 PM
-                    IST instead of tomorrow 5:30 AM IST.
+                    Next LeetCode Daily is available at 4:00 PM UTC, instead of
+                    12:00 AM UTC
                 </p>
 
                 <div className="mt-8">
