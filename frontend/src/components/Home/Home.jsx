@@ -148,6 +148,12 @@ export const Home = () => {
                     )}
                 </div>
             </BackgroundBeamsWithCollision>
+            <footer className="absolute bottom-0 left-0 w-full text-center text-neutral-400 py-2 sm:text-lg">
+                Made With 💗 by{" "}
+                <a href="https://x.com/nikhilthakur80" className="underline" target="_blank">
+                    Nikhil Thakur
+                </a>
+            </footer>
         </div>
     );
 };
