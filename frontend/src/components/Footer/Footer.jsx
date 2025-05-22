@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => {
     return (
-        <footer className=" mt-[5rem] w-full bg-transparent text-center text-neutral-400 py-3 sm:text-lg">
+        <footer className="mt-[5rem] w-full bg-transparent text-center text-neutral-400 py-3 sm:text-lg">
             Made With 💗 by{" "}
             <a
                 href="https://x.com/nikhilthakur80"
