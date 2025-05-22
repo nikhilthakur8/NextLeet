@@ -71,7 +71,7 @@ export const Home = () => {
                 // footer={"Last Updated On : " + new Date().toDateString()}
             />
             {/* Footer */}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

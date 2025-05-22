@@ -5,7 +5,7 @@ export const Question = ({ questions, title, footer }) => {
     return (
         questions &&
         questions.length > 0 && (
-            <div className="lg:px-12 px-5 md:py-10 py-5" id="latest-question">
+            <div className="lg:px-12 px-5 md:py-10 py-5 pb-10" id="latest-question">
                 <p className="text-neutral-300 text-center md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
                     <strong className=" bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-gray-50">
                         {title}
