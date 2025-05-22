@@ -14,7 +14,10 @@ export const Question = () => {
     return (
         latestQuestion &&
         latestQuestion.length > 0 && (
-            <div className="lg:px-10 px-5 md:py-10 py-5" id="latest-question">
+            <div
+                className="min-h-screen lg:px-10 px-5 md:py-10 py-5"
+                id="latest-question"
+            >
                 <p className="text-neutral-300 text-center  md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
                     <strong> UPCOMING QUESTIONS</strong>
                 </p>

@@ -31,6 +31,7 @@ export const Home = () => {
     return (
         <div className="bg-black">
             <NavBar />
+
             <Hero />
             {/* // scroll to latest question */}
             {!hideScrollBtn && (
@@ -44,8 +45,9 @@ export const Home = () => {
             )}
             {/* Upcoming Questions */}
             <Question />
+
             {/* Footer */}
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 };
