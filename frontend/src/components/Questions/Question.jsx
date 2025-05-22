@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Row } from "./Row";
-import { getLatestQuestion } from "../../appwrite/config";
 
-export const Question = () => {
-    const [latestQuestion, setLatestQuestion] = useState([]);
-    useEffect(() => {
-        getLatestQuestion().then((question) => {
-            if (question) {
-                setLatestQuestion(question);
-            }
-        });
-    }, []);
+export const Question = ({ questions, title, footer }) => {
     return (
-        latestQuestion &&
-        latestQuestion.length > 0 && (
-            <div
-                className="lg:px-10 px-5 md:py-10 py-5"
-                id="latest-question"
-            >
-                <p className="text-neutral-300 text-center  md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
-                    <strong> UPCOMING QUESTIONS</strong>
+        questions &&
+        questions.length > 0 && (
+            <div className="lg:px-12 px-5 md:py-10 py-5" id="latest-question">
+                <p className="text-neutral-300 text-center md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
+                    <strong className=" bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-gray-50">
+                        {title}
+                    </strong>
                 </p>
                 <div className="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg">
-                    <table className="w-full text-sm sm:text-lg md:text-xl text-left rtl:text-right text-gray-700 dark:text-gray-400">
+                    <table className="w-full text-sm sm:text-base md:text-md lg:text-lg text-left rtl:text-right text-gray-700 dark:text-gray-400">
                         <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-neutral-900 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">
@@ -46,7 +36,7 @@ export const Question = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {latestQuestion.map((question, index) => (
+                            {questions.map((question, index) => (
                                 <tr
                                     key={index}
                                     className={`${
@@ -60,15 +50,16 @@ export const Question = () => {
                             ))}
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td
-                                    colSpan="5"
-                                    className="bg-neutral-900 text-white text-center py-2"
-                                >
-                                    Last Updated On :{" "}
-                                    {new Date().toDateString()}
-                                </td>
-                            </tr>
+                            {footer && (
+                                <tr>
+                                    <td
+                                        colSpan="5"
+                                        className="bg-neutral-900 text-white text-center py-2"
+                                    >
+                                        {footer}
+                                    </td>
+                                </tr>
+                            )}
                         </tfoot>
                     </table>
                 </div>

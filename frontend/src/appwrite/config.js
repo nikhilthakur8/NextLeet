@@ -50,17 +50,21 @@ export async function getLatestQuestion() {
         "date",
     ];
     const currentDate = new Date();
-    const data = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
-        [
-            Query.equal("type", "DAILY"),
-            Query.greaterThanEqual("date", getLocalDateString(currentDate)),
-            Query.orderAsc("date"),
-            Query.select(requiredDetails),
-        ]
-    );
-    return data.documents || null;
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
+            [
+                Query.equal("type", "DAILY"),
+                Query.greaterThanEqual("date", getLocalDateString(currentDate)),
+                Query.orderAsc("date"),
+                Query.select(requiredDetails),
+            ]
+        );
+        return data.documents || null;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function getTomorrowQuestion() {
@@ -68,15 +72,37 @@ export async function getTomorrowQuestion() {
     const currentDate = new Date();
     const tomorrowDate = new Date(currentDate);
     tomorrowDate.setDate(currentDate.getDate() + 1);
-    const data = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
-        [
-            Query.equal("type", "DAILY"),
-            Query.equal("date", getLocalDateString(tomorrowDate)),
-            Query.select(requiredDetails),
-            Query.limit(1),
-        ]
-    );
-    return data.documents[0].titleSlug || null;
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
+            [
+                Query.equal("type", "DAILY"),
+                Query.equal("date", getLocalDateString(tomorrowDate)),
+                Query.select(requiredDetails),
+                Query.limit(1),
+            ]
+        );
+        return data.documents[0].titleSlug || null;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getPastQuestion() {
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
+            [
+                Query.equal("type", "DAILY"),
+                Query.lessThan("date", getLocalDateString(new Date())),
+                Query.orderDesc("date"),
+                Query.limit(10),
+            ]
+        );
+        return data.documents || null;
+    } catch (error) {
+        console.log(error);
+    }
 }

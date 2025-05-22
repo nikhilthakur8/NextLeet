@@ -4,8 +4,23 @@ import { ChevronDown } from "lucide-react";
 import { Hero } from "./Hero.jsx";
 import { Footer } from "../Footer/Footer.jsx";
 import { NavBar } from "../NavBar/NavBar.jsx";
+import { getLatestQuestion, getPastQuestion } from "../../appwrite/config.js";
 export const Home = () => {
     const [hideScrollBtn, setHideScrollBtn] = useState(false);
+    useEffect(() => {
+        getLatestQuestion().then((question) => {
+            if (question) {
+                setLatestQuestion(question);
+            }
+        });
+        getPastQuestion().then((question) => {
+            if (question) {
+                setPastQuestion(question);
+            }
+        });
+    }, []);
+    const [latestQuestion, setLatestQuestion] = useState([]);
+    const [pastQuestion, setPastQuestion] = useState([]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -44,8 +59,17 @@ export const Home = () => {
                 </div>
             )}
             {/* Upcoming Questions */}
-            <Question />
-
+            <Question
+                questions={latestQuestion}
+                title={"UPCOMING QUESTIONS"}
+                footer={"Last Updated On : " + new Date().toDateString()}
+            />
+            {/* Past Question */}
+            <Question
+                questions={pastQuestion}
+                title={"PREVIOUS QUESTIONS"}
+                // footer={"Last Updated On : " + new Date().toDateString()}
+            />
             {/* Footer */}
             <Footer />
         </div>
