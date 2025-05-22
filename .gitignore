@@ -7,3 +7,6 @@ node_modules/
 /backend/controller/leetcode.question.js
 
 /functions/service/notify.js
+
+/backend/data.txt
+/backend/testData.js

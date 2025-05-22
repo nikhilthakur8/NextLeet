@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BackgroundBeamsWithCollision } from "../ui/background-beams-with-collision.jsx";
 import { ColourfulText } from "../ui/colourful-text.jsx";
 import { motion } from "motion/react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input.jsx";
 import { Button } from "../ui/moving-border.jsx";
-import subscribeUser from "../../appwrite/config.js";
+import subscribeUser, {
+    getLatestQuestion,
+    getTomorrowQuestion,
+} from "../../appwrite/config.js";
+import { Question } from "../Questions/Question.jsx";
+import { BackgroundLines } from "../ui/background-lines.jsx";
+import { ChevronDown } from "lucide-react";
 const placeholders = [
     "payalKhanna324@gmail.com",
     "nishusharma24@outlook.com",
@@ -19,10 +25,15 @@ const placeholders = [
 ];
 
 export const Home = () => {
-    const [message, setMessage] = React.useState({
+    const [message, setMessage] = useState({
         message: "",
         type: "",
     });
+    const [hideScrollBtn, setHideScrollBtn] = useState(false);
+    const [tommorrowsQuestion, setTommorowsQuestion] = useState(
+        "https://leetcode.com/problems/"
+    );
+    const [latestQuestion, setLatestQuestion] = useState([]);
     const onSubmit = async (e) => {
         e.preventDefault();
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,72 +56,57 @@ export const Home = () => {
             alert("Please enter a valid email address");
         }
     };
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 200) {
+                setHideScrollBtn(true);
+            }
+        };
 
-    // useEffect(() => {
-    //     subscribeNotification();
-    // }, []);
-    // we will see this in future
-    // async function subscribeNotification() {
-    //     const permission = await Notification.requestPermission();
-    //     if (permission !== "granted") {
-    //         alert("Please allow notifications to subscribe");
-    //         return;
-    //     }
-    //     const registration = await navigator.serviceWorker.register("/sw.js");
-    //     const publicKey =
-    //         "BPC87lEuILyQlGijtLRa812h7Ee2KxULPI-6G8ulRqd5uu6a4LW2d9ieQAnfHuoGo71WrfuCbxP6xENs_-eslRc";
-    //     const existingSubscription =
-    //         await registration.pushManager.getSubscription();
-    //     if (existingSubscription) {
-    //         return;
-    //     }
-    //     const subscription = await registration.pushManager.subscribe({
-    //         userVisibleOnly: true,
-    //         applicationServerKey: urlBase64ToUint8Array(publicKey),
-    //     });
+        window.addEventListener("scroll", handleScroll);
 
-    //     await axios.post("subscribe", subscription, {
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     });
-
-    //     alert("Subscribed successfully!");
-    // }
-    // function urlBase64ToUint8Array(base64String) {
-    //     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-    //     const base64 = (base64String + padding)
-    //         .replace(/\-/g, "+")
-    //         .replace(/_/g, "/");
-
-    //     const rawData = atob(base64);
-    //     const outputArray = new Uint8Array(rawData.length);
-
-    //     for (let i = 0; i < rawData.length; ++i) {
-    //         outputArray[i] = rawData.charCodeAt(i);
-    //     }
-    //     return outputArray;
-    // }
-
+        return () => {
+            window.removeEventListener("scroll", handleScroll); // cleanup on unmount
+        };
+    }, []);
+    useEffect(() => {
+        getLatestQuestion().then((question) => {
+            if (question) {
+                setLatestQuestion(question);
+            }
+        });
+        getTomorrowQuestion().then((question) => {
+            if (question) {
+                setTommorowsQuestion(question);
+            }
+        });
+    }, []);
+    const handleScrollClick = () => {
+        setHideScrollBtn(true);
+        const nextSection = document.getElementById("latest-question");
+        if (nextSection) {
+            nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
     return (
-        <div className="">
-            <div className="absolute pl-8 py-2 md:py-5  z-20 bg-neutral-950 border-b border-b-neutral-900 w-full md:text-4xl text-3xl font-bold">
+        <div className="bg-black">
+            <div className="fixed top-0 pl-8 py-1 md:py-2  z-20 bg-neutral-950/[0.96] border-b border-b-neutral-900 w-full md:text-4xl text-3xl font-bold ">
                 <ColourfulText text="Next Leet" />
             </div>
-            <BackgroundBeamsWithCollision className="min-h-svh flex-col px-5  md:px-5 xl:px-0">
+            <BackgroundLines className="min-h-svh px-5 flex items-center justify-center flex-col md:px-5 xl:px-0">
                 <div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
                     Get Tomorrow's Leetcode Question, Today!
                 </div>
-                <p className="text-neutral-300  md:text-lg xl:text-2xl text-sm">
-                    Next LeetCode Daily is available at 4:00 PM UTC, instead of
-                    12:00 AM UTC
+                <p className="text-neutral-300  md:text-lg xl:text-2xl text-base text-center md:max-w-max max-w-2xl">
+                    Stay ahead of the game and ace your coding interviews with
+                    ease!
                 </p>
-
                 <div className="mt-8">
                     <Button
                         onClick={() => {
                             window.open(
-                                "https://nextleet.vercel.app/",
+                                `https://leetcode.com/problems/${tommorrowsQuestion}`,
                                 "_blank"
                             );
                         }}
@@ -120,10 +116,9 @@ export const Home = () => {
                         Get TLD Now
                     </Button>
                 </div>
-
-                <div className=" w-full text-white text-start mt-10  md:text-lg xl:text-xl text-sm">
+                <div className=" w-full mt-10 text-white text-start  md:text-lg xl:text-xl text-sm">
                     <p className="text-neutral-300 mb-4 text-center">
-                        Next LeetCode Daily in your inbox at 4:00 PM UTC daily :
+                        Next LeetCode Daily directly in your inbox !
                     </p>
                     {message?.message && message.message.length > 0 ? (
                         <motion.div
@@ -133,8 +128,8 @@ export const Home = () => {
                             transition={{ duration: 1 }}
                             className={` ${
                                 message.type === "error"
-                                    ? "text-red-600/[0.8]"
-                                    : "text-green-600"
+                                    ? "text-red-500/[0.8]"
+                                    : "text-green-500"
                             }  tracking-tight flex items-center justify-center`}
                         >
                             {message.message}
@@ -147,10 +142,32 @@ export const Home = () => {
                         />
                     )}
                 </div>
-            </BackgroundBeamsWithCollision>
-            <footer className="absolute bottom-0 left-0 w-full text-center text-neutral-400 py-2 sm:text-lg">
+            </BackgroundLines>
+            {!hideScrollBtn && (
+                <div
+                    className="bottom-0  w-full flex flex-col justify-between items-center bg-transparent text-white absolute text-base sm:text-lg md:text-2xl cursor-pointer animate-bounce [animation-duration:2s]"
+                    onClick={handleScrollClick}
+                >
+                    <p>Scroll to view the upcoming questions</p>
+                    <ChevronDown />
+                </div>
+            )}
+            <div className="lg:mx-20 mx-5 md:my-10 my-5" id="latest-question">
+                <p className="text-neutral-300 text-center  md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
+                    <strong> UPCOMING QUESTIONS</strong>
+                </p>
+                {latestQuestion.length > 0 && (
+                    <Question questions={latestQuestion} />
+                )}
+            </div>
+            {/* subscribe to email */}
+            <footer className=" mt-[5rem] bottom-0 w-full bg-transparent text-center text-neutral-400 py-3 sm:text-lg">
                 Made With 💗 by{" "}
-                <a href="https://x.com/nikhilthakur80" className="underline" target="_blank">
+                <a
+                    href="https://x.com/nikhilthakur80"
+                    className="underline"
+                    target="_blank"
+                >
                     Nikhil Thakur
                 </a>
             </footer>
