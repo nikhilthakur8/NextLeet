@@ -5,6 +5,13 @@ client
     .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
 const databases = new Databases(client);
 
+function getLocalDateString(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
 export default async function subscribeUser(email) {
     try {
         const existingUser = await databases.listDocuments(
@@ -48,10 +55,7 @@ export async function getLatestQuestion() {
         import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
         [
             Query.equal("type", "DAILY"),
-            Query.greaterThanEqual(
-                "date",
-                currentDate.toISOString().split("T")[0]
-            ),
+            Query.greaterThanEqual("date", getLocalDateString(currentDate)),
             Query.orderAsc("date"),
             Query.select(requiredDetails),
         ]
@@ -69,7 +73,7 @@ export async function getTomorrowQuestion() {
         import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
         [
             Query.equal("type", "DAILY"),
-            Query.equal("date", tomorrowDate.toISOString().split("T")[0]),
+            Query.equal("date", getLocalDateString(tomorrowDate)),
             Query.select(requiredDetails),
             Query.limit(1),
         ]
