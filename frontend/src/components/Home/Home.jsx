@@ -45,7 +45,7 @@ export const Home = () => {
             {/* Upcoming Questions */}
             <Question />
             {/* Footer */}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };
