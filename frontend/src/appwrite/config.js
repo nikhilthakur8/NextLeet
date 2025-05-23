@@ -41,14 +41,14 @@ export default async function subscribeUser(email) {
     }
 }
 
+const requiredDetails = [
+    "title",
+    "titleSlug",
+    "questionId",
+    "difficulty",
+    "date",
+];
 export async function getLatestQuestion() {
-    const requiredDetails = [
-        "title",
-        "titleSlug",
-        "questionId",
-        "difficulty",
-        "date",
-    ];
     const currentDate = new Date();
     try {
         const data = await databases.listDocuments(
@@ -99,9 +99,23 @@ export async function getPastQuestion() {
                 Query.lessThan("date", getLocalDateString(new Date())),
                 Query.orderDesc("date"),
                 Query.limit(10),
+                Query.select(requiredDetails),
             ]
         );
         return data.documents || null;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getLastUpdatedDate() {
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_MICELLANEOUS_COLLECTION_ID,
+            [Query.limit(1), Query.select(["lastUpdated"])]
+        );
+        return data.documents[0].lastUpdated || null;
     } catch (error) {
         console.log(error);
     }
