@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import subscribeUser, { getTomorrowQuestion } from "../../appwrite/config";
+import subscribeUser, {
+    getTomorrowQuestion,
+    getTotalSubscriber,
+} from "../../appwrite/config";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input.jsx";
 import { BackgroundLines } from "../ui/background-lines.jsx";
 import { motion } from "motion/react";
 import { Button } from "../ui/moving-border.jsx";
 const placeholders = [
-    "payalKhanna324@gmail.com",
-    "nishusharma24@outlook.com",
-    "rahul.verma87@yahoo.com",
-    "anita_singh1990@gmail.com",
-    "arjun.mehra22@rediffmail.com",
-    "deepika.rathi11@gmail.com",
-    "manoj.patil76@outlook.com",
-    "sneha.kapoor05@gmail.com",
-    "vishal.kumar999@yahoo.com",
-    "meena.joshi321@gmail.com",
+    "emma009x@gmail.com",
+    "xrahuldev99@gmail.com",
+    "jojo_silva23@gmail.com",
+    "lucdup8824@gmail.com",
+    "camipix95@gmail.com",
+    "deva_wale89@gmail.com",
+    "petro_ana19@gmail.com",
+    "john_smk21@gmail.com",
+    "dinasus9x@gmail.com",
+    "sophiem12xy@gmail.com",
+    "ivan_the88@gmail.com",
+    "moreau.camz33@gmail.com",
+    "schmidtxl444@gmail.com",
+    "wija.gus77@gmail.com",
 ];
 export const Hero = () => {
     const [message, setMessage] = useState({
@@ -75,10 +82,11 @@ export const Hero = () => {
                     Get TLD Now
                 </Button>
             </div>
-            <div className=" w-full mt-10 text-white text-start  md:text-lg xl:text-xl text-sm">
-                <p className="text-neutral-300 mb-4 text-center">
+            <div className=" w-full mt-10 text-white space-y-2  text-center  md:text-lg xl:text-xl text-sm">
+                <p className="text-neutral-300  ">
                     Next LeetCode Daily directly in your inbox !
                 </p>
+
                 {message?.message && message.message.length > 0 ? (
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
@@ -100,6 +108,9 @@ export const Hero = () => {
                         type="email"
                     />
                 )}
+                <p className="text-sm text-white/70 mt-2 text-center">
+                    2.2K+ Subscribers and counting!
+                </p>
             </div>
         </BackgroundLines>
     );

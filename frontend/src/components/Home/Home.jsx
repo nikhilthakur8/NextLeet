@@ -34,7 +34,7 @@ export const Home = () => {
         });
         const handleScroll = () => {
             const scrollY = window.scrollY;
-            if (scrollY > 200) {
+            if (scrollY > 50) {
                 setHideScrollBtn(true);
             }
         };
