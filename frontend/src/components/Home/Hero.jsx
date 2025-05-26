@@ -82,9 +82,9 @@ export const Hero = () => {
                     Get TLD Now
                 </Button>
             </div>
-            <div className=" w-full mt-10 text-white space-y-2  text-center  md:text-lg xl:text-xl text-sm">
+            <div className=" w-full mt-10 text-white space-y-3  text-center  md:text-lg xl:text-xl text-sm">
                 <p className="text-neutral-300  ">
-                    The next update will land right in your inbox!
+                    The next update will land right in your inbox — no spam, we promise!
                 </p>
 
                 {message?.message && message.message.length > 0 ? (
@@ -109,7 +109,7 @@ export const Hero = () => {
                     />
                 )}
                 <p className="text-sm text-white/70 mt-2 text-center">
-                    2.2K+ Subscribers and counting!
+                    3K+ Subscribers and counting!
                 </p>
             </div>
         </BackgroundLines>
