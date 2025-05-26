@@ -40,7 +40,7 @@ export const Hero = () => {
                 await subscribeUser(email);
                 setMessage({
                     message:
-                        "Thanks for subscribing! You will receive the next LeetCode question in your inbox.",
+                        "Thanks for subscribing! You will receive the next update in your inbox.",
                     type: "success",
                 });
             } catch (error) {
@@ -84,7 +84,7 @@ export const Hero = () => {
             </div>
             <div className=" w-full mt-10 text-white space-y-2  text-center  md:text-lg xl:text-xl text-sm">
                 <p className="text-neutral-300  ">
-                    Next LeetCode Daily directly in your inbox !
+                    The next update will land right in your inbox!
                 </p>
 
                 {message?.message && message.message.length > 0 ? (
