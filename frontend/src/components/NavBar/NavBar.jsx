@@ -4,13 +4,13 @@ import { ColourfulText } from "../ui/colourful-text.jsx";
 const getRandomLiveUser = () => {};
 export const NavBar = () => {
     const [liveUsers, setLiveUsers] = useState(
-        Math.floor(Math.random() * (500 - 400 + 1)) + 500
+        Math.floor(Math.random() * (90 - 80 + 1)) + 80
     );
     useEffect(() => {
         const intervalId = setInterval(() => {
             const sign = Math.random() < 0.5 ? -1 : 1;
             setLiveUsers((prev) => {
-                const newCount = prev + sign * Math.floor(Math.random() * 20);
+                const newCount = prev + sign * Math.floor(Math.random() * 5);
                 return newCount < 0 ? 0 : newCount;
             });
         }, 5000);
