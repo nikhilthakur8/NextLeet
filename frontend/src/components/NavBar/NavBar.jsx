@@ -4,7 +4,7 @@ import { ColourfulText } from "../ui/colourful-text.jsx";
 const getRandomLiveUser = () => {};
 export const NavBar = () => {
     const [liveUsers, setLiveUsers] = useState(
-        Math.floor(Math.random() * (90 - 80 + 1)) + 80
+        Math.floor(Math.random() * (20 - 10 + 1)) + 10
     );
     useEffect(() => {
         const intervalId = setInterval(() => {
