@@ -70,15 +70,15 @@ export async function getLatestQuestion() {
 export async function getTomorrowQuestion() {
     const requiredDetails = ["titleSlug"];
     const currentDate = new Date();
-    const tomorrowDate = new Date(currentDate);
-    tomorrowDate.setDate(currentDate.getDate() + 1);
+    // const tomorrowDate = new Date(currentDate);
+    // tomorrowDate.setDate(currentDate.getDate() + 1);
     try {
         const data = await databases.listDocuments(
             import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
             import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
             [
                 Query.equal("type", "DAILY"),
-                Query.equal("date", getLocalDateString(tomorrowDate)),
+                Query.equal("date", getLocalDateString(currentDate)),
                 Query.select(requiredDetails),
                 Query.limit(1),
             ]
@@ -129,6 +129,19 @@ export async function getTotalSubscriber() {
             [Query.select()]
         );
         return data.total || 0;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getNotification() {
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_MICELLANEOUS_COLLECTION_ID,
+            [Query.limit(1), Query.select(["notification"])]
+        );
+        return data.documents[0] || null;
     } catch (error) {
         console.log(error);
     }

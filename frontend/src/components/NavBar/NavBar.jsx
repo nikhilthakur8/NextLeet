@@ -1,33 +1,90 @@
-import React, { useEffect, useState } from "react";
-import { ColourfulText } from "../ui/colourful-text.jsx";
+"use client";
+import {
+    Navbar,
+    NavBody,
+    NavItems,
+    MobileNav,
+    NavbarLogo,
+    NavbarButton,
+    MobileNavHeader,
+    MobileNavToggle,
+    MobileNavMenu,
+} from "../ui/resizable-navbar";
+import { useState } from "react";
+import { ColourfulText } from "../ui/colourful-text";
+export function NavBarNew() {
+    const navItems = [];
 
-const getRandomLiveUser = () => {};
-export const NavBar = () => {
-    const [liveUsers, setLiveUsers] = useState(
-        Math.floor(Math.random() * (20 - 10 + 1)) + 10
-    );
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            const sign = Math.random() < 0.5 ? -1 : 1;
-            setLiveUsers((prev) => {
-                const newCount = prev + sign * Math.floor(Math.random() * 5);
-                return newCount < 0 ? 0 : newCount;
-            });
-        }, 5000);
-        return () => clearInterval(intervalId);
-    }, []);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     return (
-        <div className="fixed top-0 flex justify-between px-8 py-1 md:py-2  z-20 bg-neutral-950/[0.96] border-b border-b-neutral-900 w-full md:text-4xl text-3xl  ">
-            <div className="font-bold">
-                <ColourfulText text="Next Leet" />
-            </div>
-            <div className="flex items-center text-lg text-white bg-gray-500/30 backdrop-blur-2xl shadow px-4 rounded-md font-medium tracking-wide uppercase">
-                <div className="w-2.5 h-2.5 mr-2 bg-green-500 rounded-full animate-pulse" />
-                <p className="mr-1 transition-all opacity-100 duration-300">
-                    {liveUsers}
-                </p>
-                <span>Live</span>
-            </div>
+        <div className="fixed w-full z-50 ">
+            <Navbar>
+                {/* Desktop Navigation */}
+                <NavBody>
+                    <div className="font-bold text-4xl">
+                        <ColourfulText text="Next Leet" />
+                    </div>
+                    <NavItems items={navItems} />
+                    <div className="flex items-center gap-4">
+                        {/* <NavbarButton variant="secondary">Login</NavbarButton>
+                        <NavbarButton variant="primary">
+                            Book a call
+                        </NavbarButton> */}
+                    </div>
+                </NavBody>
+
+                {/* Mobile Navigation */}
+                <MobileNav>
+                    <MobileNavHeader>
+                        <div className="font-bold text-2xl">
+                            <ColourfulText text="Next Leet" />
+                        </div>
+                        {navItems.length > 0 && (
+                            <MobileNavToggle
+                                isOpen={isMobileMenuOpen}
+                                onClick={() =>
+                                    setIsMobileMenuOpen(!isMobileMenuOpen)
+                                }
+                            />
+                        )}
+                    </MobileNavHeader>
+
+                    {navItems.length > 0 && (
+                        <MobileNavMenu
+                            isOpen={isMobileMenuOpen}
+                            onClose={() => setIsMobileMenuOpen(false)}
+                        >
+                            {navItems.map((item, idx) => (
+                                <a
+                                    key={`mobile-link-${idx}`}
+                                    href={item.link}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="relative text-neutral-600 dark:text-neutral-300"
+                                >
+                                    <span className="block">{item.name}</span>
+                                </a>
+                            ))}
+                            <div className="flex w-full flex-col gap-4">
+                                {/* <NavbarButton
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                variant="primary"
+                                className="w-full"
+                            >
+                                Login
+                            </NavbarButton>
+                            <NavbarButton
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                variant="primary"
+                                className="w-full"
+                            >
+                                Book a call
+                            </NavbarButton> */}
+                            </div>
+                        </MobileNavMenu>
+                    )}
+                </MobileNav>
+            </Navbar>
         </div>
     );
-};
+}

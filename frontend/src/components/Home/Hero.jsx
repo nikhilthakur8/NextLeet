@@ -65,9 +65,6 @@ export const Hero = () => {
             <div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
                 Get Tomorrow's Leetcode Question, Today!
             </div>
-            <p className="text-neutral-300  md:text-lg xl:text-2xl text-base text-center md:max-w-max max-w-2xl">
-                Stay ahead of the game and ace your coding interviews with ease!
-            </p>
             <div className="mt-8">
                 <Button
                     onClick={() => {
@@ -77,16 +74,16 @@ export const Hero = () => {
                         );
                     }}
                     borderRadius="4rem"
-                    className="bg-white cursor-pointer dark:bg-neutral-950/[0.8] text-black dark:text-white border-neutral-200 dark:border-neutral-800  text-base md:text-lg "
+                    className="bg-white cursor-pointer dark:bg-neutral-950/[0.8] text-black dark:text-neutral-400 border-neutral-200 dark:border-neutral-800  text-base md:text-lg "
                 >
-                    Get TLD Now
+                    Get POTD Now
                 </Button>
             </div>
             <div className=" w-full mt-10 text-white space-y-3  text-center  md:text-lg xl:text-xl text-sm">
-                <p className="text-neutral-300  ">
-                    The next update will land right in your inbox — no spam, we promise!
+                <p className="text-neutral-300  tracking-tight ">
+                    The next update will land right in your inbox — no spam, we
+                    promise!
                 </p>
-
                 {message?.message && message.message.length > 0 ? (
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
@@ -108,9 +105,6 @@ export const Hero = () => {
                         type="email"
                     />
                 )}
-                <p className="text-sm text-white/70 mt-2 text-center">
-                    3K+ Subscribers and counting!
-                </p>
             </div>
         </BackgroundLines>
     );
