@@ -56,11 +56,18 @@ export async function getLatestQuestion() {
             import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
             [
                 Query.equal("type", "DAILY"),
-                Query.greaterThanEqual("date", getLocalDateString(currentDate)),
-                Query.orderAsc("date"),
+                Query.or([
+                    Query.greaterThanEqual(
+                        "date",
+                        getLocalDateString(currentDate)
+                    ),
+                    Query.isNull("date"),
+                ]),
+                Query.orderAsc("id"),
                 Query.select(requiredDetails),
             ]
         );
+        
         return data.documents || null;
     } catch (error) {
         console.log(error);

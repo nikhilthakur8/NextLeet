@@ -11,7 +11,7 @@ export const Row = ({ question }) => {
     return (
         <>
             <td className="px-6 py-3 text-white whitespace-nowrap">
-                {new Date(question.date).toDateString()}
+                {question?.date ? new Date(question.date).toDateString():"Not Available"}
             </td>
             <td className="w-full font-medium whitespace-nowrap text-left text-blue-400 hover:text-blue-500 hover:underline">
                 <a
