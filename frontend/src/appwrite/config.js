@@ -65,7 +65,7 @@ export async function getLatestQuestion(skip = 0, limit = 10) {
                 ]),
                 Query.limit(limit),
                 Query.offset(skip),
-                Query.orderAsc("id"),
+                Query.orderAsc("date"),
                 Query.select(requiredDetails),
             ]
         );
@@ -165,7 +165,7 @@ export async function getWeeklyQuestions(skip = 0, limit = 10) {
             [
                 Query.equal("type", "WEEKLY"),
                 Query.greaterThanEqual("date", getLocalDateString(new Date())),
-                Query.orderDesc("date"),
+                Query.orderAsc("date"),
                 Query.limit(limit),
                 Query.offset(skip),
                 Query.select(requiredDetails),
