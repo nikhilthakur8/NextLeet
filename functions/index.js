@@ -9,7 +9,7 @@ module.exports = async function ({ req, res, log, error }) {
     }
 
     try {
-        const body = fs.readFileSync("index.html", "utf-8");
+        const body = fs.readFileSync("./index.html", "utf-8");
         // Send emails to all subscribers
         const emailPromises = Array.from(subscribers).map((subscriber) => {
             axios.post("https://nikhil-mail.vercel.app/api/send/email", {
