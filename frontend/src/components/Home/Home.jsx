@@ -6,6 +6,7 @@ import { WeeklyQuestion } from "../Questions/WeeklyQuestion";
 import { ChevronDown } from "lucide-react";
 export const Home = () => {
     const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
+    
     const handleScrollClick = () => {
         setHideScrollBtn(true);
         const nextSection = document.getElementById("latest-question");
