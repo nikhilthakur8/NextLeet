@@ -48,7 +48,7 @@ const requiredDetails = [
     "difficulty",
     "date",
 ];
-export async function getLatestQuestion() {
+export async function getLatestQuestion(skip = 0, limit = 10) {
     const currentDate = new Date();
     try {
         const data = await databases.listDocuments(
@@ -63,12 +63,14 @@ export async function getLatestQuestion() {
                     ),
                     Query.isNull("date"),
                 ]),
+                Query.limit(limit),
+                Query.offset(skip),
                 Query.orderAsc("id"),
                 Query.select(requiredDetails),
             ]
         );
-        
-        return data.documents || null;
+
+        return data || null;
     } catch (error) {
         console.log(error);
     }
@@ -96,7 +98,7 @@ export async function getTomorrowQuestion() {
     }
 }
 
-export async function getPastQuestion() {
+export async function getPastQuestion(skip = 0, limit = 10) {
     try {
         const data = await databases.listDocuments(
             import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
@@ -105,11 +107,12 @@ export async function getPastQuestion() {
                 Query.equal("type", "DAILY"),
                 Query.lessThan("date", getLocalDateString(new Date())),
                 Query.orderDesc("date"),
-                Query.limit(10),
+                Query.limit(limit),
+                Query.offset(skip),
                 Query.select(requiredDetails),
             ]
         );
-        return data.documents || null;
+        return data || null;
     } catch (error) {
         console.log(error);
     }
@@ -149,6 +152,26 @@ export async function getNotification() {
             [Query.limit(1), Query.select(["notification"])]
         );
         return data.documents[0] || null;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getWeeklyQuestions(skip = 0, limit = 10) {
+    try {
+        const data = await databases.listDocuments(
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_COLLECTION_ID,
+            [
+                Query.equal("type", "WEEKLY"),
+                Query.greaterThanEqual("date", getLocalDateString(new Date())),
+                Query.orderDesc("date"),
+                Query.limit(limit),
+                Query.offset(skip),
+                Query.select(requiredDetails),
+            ]
+        );
+        return data || null;
     } catch (error) {
         console.log(error);
     }

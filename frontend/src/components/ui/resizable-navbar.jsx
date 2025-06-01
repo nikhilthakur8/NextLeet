@@ -9,6 +9,7 @@ import {
 } from "motion/react";
 
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Navbar = ({ children, className }) => {
     const ref = useRef(null);
@@ -86,7 +87,7 @@ export const NavItems = ({ items, className, onItemClick }) => {
                 <a
                     onMouseEnter={() => setHovered(idx)}
                     onClick={onItemClick}
-                    className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+                    className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 "
                     key={`link-${idx}`}
                     href={item.link}
                 >
@@ -155,7 +156,7 @@ export const MobileNavMenu = ({ children, className, isOpen, onClose }) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className={cn(
-                        "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
+                        "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start  rounded-lg gap-y-2 bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
                         className
                     )}
                 >
