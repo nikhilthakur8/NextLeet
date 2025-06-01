@@ -1,6 +1,4 @@
 const { getAllSubscribers } = require("./appwrite/config");
-const { emailBodyGenerator } = require("./service/emailBodyGenerator");
-const { sendEmail } = require("./service/mail.brevo");
 const axios = require("axios");
 const fs = require("fs");
 module.exports = async function ({ req, res, log, error }) {
