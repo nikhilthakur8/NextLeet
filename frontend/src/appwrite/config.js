@@ -13,6 +13,9 @@ function getLocalDateString(date) {
 }
 
 export default async function subscribeUser(email) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        throw new Error("Invalid email format");
+    }
     try {
         const existingUser = await databases.listDocuments(
             import.meta.env.VITE_APPWRITE_DATABASE_ID,
@@ -37,7 +40,7 @@ export default async function subscribeUser(email) {
         );
     } catch (error) {
         console.log(error);
-        throw new Error("Failed to subscribe user: " + error.message);
+        throw new Error( error.message);
     }
 }
 

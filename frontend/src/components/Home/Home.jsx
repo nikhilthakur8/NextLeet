@@ -4,9 +4,10 @@ import { UpcomingQuestion } from "../Questions/UpcomingQuestion";
 import { PastQuestion } from "../Questions/PastQuestion";
 import { WeeklyQuestion } from "../Questions/WeeklyQuestion";
 import { ChevronDown } from "lucide-react";
+import { Footer } from "../Footer/Footer";
+import { SubscribeDialog } from "./Dialog";
 export const Home = () => {
     const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
-    
     const handleScrollClick = () => {
         setHideScrollBtn(true);
         const nextSection = document.getElementById("latest-question");
@@ -20,6 +21,9 @@ export const Home = () => {
             if (scrollY > 50) {
                 setHideScrollBtn(true);
             }
+            if (scrollY == 0) {
+                setHideScrollBtn(false);
+            }
         };
         window.addEventListener("scroll", handleScroll);
 
@@ -29,6 +33,7 @@ export const Home = () => {
     }, []);
     return (
         <div>
+            <SubscribeDialog />
             <Hero />
             {!hideScrollBtn && (
                 <div
@@ -42,6 +47,7 @@ export const Home = () => {
             <UpcomingQuestion />
             <WeeklyQuestion />
             <PastQuestion />
+            <Footer />
         </div>
     );
 };
