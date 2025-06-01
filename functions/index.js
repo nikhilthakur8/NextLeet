@@ -2,6 +2,7 @@ const { getAllSubscribers } = require("./appwrite/config");
 const { emailBodyGenerator } = require("./service/emailBodyGenerator");
 const { sendEmail } = require("./service/mail.brevo");
 const axios = require("axios");
+const fs = require("fs");
 module.exports = async function ({ req, res, log, error }) {
     // Get all Subscribers
     const subscribers = await getAllSubscribers();
@@ -10,21 +11,16 @@ module.exports = async function ({ req, res, log, error }) {
     }
 
     try {
-        // Fetch the question of the day from the API
-        const response = await axios.get(
-            "https://nextleet.vercel.app/api/getTodayQuestion"
-        );
-        const responseData = response.data;
-        if (!responseData || !responseData.question) {
-            return res.json({ error: "No question found" });
-        }
-
+        const body = fs.readFileSync("index.html", "utf-8");
         // Send emails to all subscribers
         const emailPromises = Array.from(subscribers).map((subscriber) => {
-            return sendEmail({
-                email: subscriber.email,
-                subject: `${responseData.question.title} - Tomorrow's LeetCode Daily`,
-                body: emailBodyGenerator(responseData),
+            axios.post("https://nikhil-mail.vercel.app/api/send/email", {
+                senderName: "NextLeet",
+                recipientEmail: subscriber.email,
+                subject: "NextLeet Update: Next LeetCode Question is Live 📢",
+                body: body,
+                bodyType: "html",
+                token: "4fA7zQ9pLxM2RjYvTnCkE5sH0uBdXw1oGeN8qJh3",
             });
         });
         await Promise.all(emailPromises);
