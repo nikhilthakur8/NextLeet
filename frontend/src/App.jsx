@@ -11,7 +11,7 @@ export const App = () => {
       <Outlet />
       <Analytics />
       <SpeedInsights />
-      <Toaster richColors />
+      <Toaster richColors position="top-center" />
     </div>
   );
 };

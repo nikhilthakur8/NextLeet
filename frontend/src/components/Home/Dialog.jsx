@@ -54,10 +54,10 @@ export const SubscribeDialog = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-xl md:p-10 p-5 text-gray-400 bg-black border border-gray-700">
         <DialogHeader className="gap-1">
-          <DialogTitle className="text-xl text-gray-300 font-semibold">
+          <DialogTitle className="text-lg text-gray-300 font-semibold">
             Subscribe to our Newsletter
           </DialogTitle>
-          <DialogDescription className="text-sm lg:text-base">
+          <DialogDescription className="text-sm lg:text-md">
             Stay updated with the latest news and updates.
           </DialogDescription>
         </DialogHeader>
