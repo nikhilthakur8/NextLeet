@@ -44,7 +44,7 @@ export function NavBarNew() {
                 {/* Desktop Navigation */}
                 <NavBody>
                     <div className="font-bold text-3xl">
-                        <ColourfulText text="Next Leet" />
+                        <ColourfulText text="NextLeet" />
                     </div>
                     <NavItems
                         items={navItems}
@@ -63,7 +63,7 @@ export function NavBarNew() {
                 <MobileNav>
                     <MobileNavHeader>
                         <div className="font-bold text-2xl">
-                            <ColourfulText text="Next Leet" />
+                            <ColourfulText text="NextLeet" />
                         </div>
                         {navItems.length > 0 && (
                             <MobileNavToggle

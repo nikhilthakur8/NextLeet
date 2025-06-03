@@ -33,10 +33,10 @@ export const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-8  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-20">
         <div className="md:col-span-3">
           <h3 className="font-bold text-3xl sm:text-4xl md:text-5xl mb-3">
-            <ColourfulText text="Next Leet" />
+            <ColourfulText text="NextLeet" />
           </h3>
           <p className="text-sm md:text-base text-gray-300">
-            Next Leet is a platform that gives you early access to upcoming
+            NextLeet is a platform that gives you early access to upcoming
             LeetCode Daily Questions — helping you maintain your streak
             effortlessly.
           </p>
@@ -117,7 +117,7 @@ export const Footer = () => {
 
       <div className="border border-gray-500 mx-10 md:px-10"></div>
       <div className="text-center text-md md:text-xl py-5">
-        Made with 💗 by Next Leet
+        Made with 💗 by NextLeet
       </div>
     </footer>
   );
