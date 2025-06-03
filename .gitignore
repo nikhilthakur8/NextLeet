@@ -4,13 +4,7 @@
 node_modules/
 **/node_modules/
 
-/backend/controller/leetcode.question.js
+backend/
+functions/
 
-/functions/service/notify.js
-
-/backend/data.txt
-/backend/testData.js
-/backend/data.json
-
-Latest Question Function
 .gitignore
