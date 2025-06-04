@@ -80,8 +80,8 @@ export const Footer = () => {
           </h5>
           <ul className="space-y-2 text-sm md:text-base text-gray-300">
             <li>
-              <a href="/" className="hover:underline">
-                Feedback
+              <a href="https://contestBoard.vercel.app" target="_blank" className="hover:underline">
+                  ContestBoard
               </a>
             </li>
             <li>
