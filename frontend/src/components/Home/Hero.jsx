@@ -17,7 +17,7 @@ export const Hero = () => {
     });
   }, []);
   return (
-    <BackgroundLines className="min-h-svh px-5 flex items-center justify-center flex-col md:px-5 xl:px-0">
+    <BackgroundLines className="min-h-svh flex items-center justify-center flex-col">
       <div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
         Get Tomorrow's Leetcode Question, Today!
       </div>
