@@ -10,7 +10,7 @@ const getDifficultyColor = (difficulty) => {
 export const Row = ({ question }) => {
     return (
         <>
-            <td className="px-6 py-3 text-white whitespace-nowrap">
+            <td className="px-6 py-3 text-gray-100 whitespace-nowrap">
                 {question?.date ? new Date(question.date).toDateString():"Not Available"}
             </td>
             <td className="w-full font-medium whitespace-nowrap text-left text-blue-400 hover:text-blue-500 hover:underline">
@@ -23,7 +23,7 @@ export const Row = ({ question }) => {
                             <TooltipTrigger asChild>
                                 <div className="cursor-pointer w-full px-6 py-3 text-left flex flex-row items-center space-x-2">
                                     <span>{question.title}</span>
-                                    <ExternalLink />
+                                    <ExternalLink className="size-4 md:size-5" />
                                 </div>
                             </TooltipTrigger>
 

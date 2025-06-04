@@ -27,7 +27,7 @@ export const Question = ({ questions, title, footer, paginationData }) => {
                     </strong>
                 </p>
                 <div className="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg">
-                    <table className="w-full text-sm sm:text-base md:text-md  text-left rtl:text-right text-gray-700 dark:text-gray-400">
+                    <table className="w-full text-xs sm:text-sm md:text-base  text-left rtl:text-right text-gray-700 dark:text-gray-400">
                         <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-2">
@@ -71,7 +71,7 @@ export const Question = ({ questions, title, footer, paginationData }) => {
                                     <div className="flex justify-center items-center">
                                         <button
                                             onClick={handlePrevPage}
-                                            className={`mx-2 px-4 py-1.5 flex items-center justify-center bg-gray-950/90  rounded-md hover:bg-gray-900
+                                            className={`mx-2 px-2 md:px-4 py-0.5 md:py-1.5 flex items-center justify-center bg-gray-950/90  rounded-md hover:bg-gray-900
                                                 ${
                                                     paginationData?.currentPage ===
                                                     1
@@ -88,7 +88,7 @@ export const Question = ({ questions, title, footer, paginationData }) => {
                                         </span>
                                         <button
                                             onClick={handleNextPage}
-                                            className={`mx-2 px-4 py-1.5 flex items-center justify-center bg-gray-950/90  rounded-md hover:bg-gray-900 ${
+                                            className={`mx-2 px-2 md:px-4 py-0.5 md:py-1.5 flex items-center justify-center bg-gray-950/90  rounded-md hover:bg-gray-900 ${
                                                 paginationData?.currentPage ===
                                                 paginationData?.totalPages
                                                     ? " opacity-50 cursor-not-allowed"
@@ -105,7 +105,7 @@ export const Question = ({ questions, title, footer, paginationData }) => {
                                 <tr>
                                     <td
                                         colSpan="4"
-                                        className="bg-gray-900 text-white text-sm md:text-base text-center py-2"
+                                        className="bg-gray-900 text-white text-center py-2"
                                     >
                                         {footer}
                                     </td>
