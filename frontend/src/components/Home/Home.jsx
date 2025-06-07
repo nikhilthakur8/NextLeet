@@ -3,10 +3,11 @@ import { Hero } from "./Hero";
 import { UpcomingQuestion } from "../Questions/UpcomingQuestion";
 import { PastQuestion } from "../Questions/PastQuestion";
 import { WeeklyQuestion } from "../Questions/WeeklyQuestion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
 import { Promotion } from "./Promotion";
+import { NextFeature } from "./NextFeature";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
 	const handleScrollClick = () => {
@@ -46,6 +47,7 @@ export const Home = () => {
 				</div>
 			)}
 			<Promotion />
+			<NextFeature />
 			<UpcomingQuestion />
 			<WeeklyQuestion />
 			<PastQuestion />
