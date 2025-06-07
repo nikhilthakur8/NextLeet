@@ -29,9 +29,10 @@ export const NextFeature = ({ ref }) => {
 			className="my-10 bg-gradient-to-l from-gray-950 via-gray-900 to-gray-950 text-center text-neutral-300 text-xs px-4 sm:text-base md:text-lg py-8 md:py-12"
 		>
 			<p className="text-sm md:text-lg font-semibold max-w-4xl mx-auto">
-				We’re planning to launch a new feature that gives you access to
-				all interview questions asked by a specific company — helping
-				you prepare with real, company-specific insights.
+				We're planning to launch a new feature that gives you access to
+				all the latest and regularly updated interview questions asked
+				by specific companies — helping you prepare with real,
+				company-specific insights.
 			</p>
 			<div className="flex justify-center items-center gap-2 my-4">
 				<p>Would you like to see this feature?</p>
