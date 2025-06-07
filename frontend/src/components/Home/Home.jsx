@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Hero } from "./Hero";
 import { UpcomingQuestion } from "../Questions/UpcomingQuestion";
 import { PastQuestion } from "../Questions/PastQuestion";
@@ -10,6 +10,7 @@ import { Promotion } from "./Promotion";
 import { NextFeature } from "./NextFeature";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
+	const requestRef = useRef(null);
 	const handleScrollClick = () => {
 		setHideScrollBtn(true);
 		const nextSection = document.getElementById("latest-question");
@@ -18,6 +19,12 @@ export const Home = () => {
 		}
 	};
 	useEffect(() => {
+		if (requestRef.current) {
+			requestRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+			});
+		}
 		const handleScroll = () => {
 			const scrollY = window.scrollY;
 			if (scrollY > 50) {
@@ -47,7 +54,7 @@ export const Home = () => {
 				</div>
 			)}
 			<Promotion />
-			<NextFeature />
+			<NextFeature ref={requestRef} />
 			<UpcomingQuestion />
 			<WeeklyQuestion />
 			<PastQuestion />

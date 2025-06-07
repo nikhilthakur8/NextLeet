@@ -3,7 +3,7 @@ import React from "react";
 import { registerFeedback } from "../../appwrite/config";
 import { toast } from "sonner";
 
-export const NextFeature = () => {
+export const NextFeature = ({ ref }) => {
 	const handleClick = (response) => {
 		if (localStorage.getItem("nextFeatureFeedback")) {
 			toast.error("You have already submitted your feedback.");
@@ -24,7 +24,10 @@ export const NextFeature = () => {
 			});
 	};
 	return (
-		<div className="my-10 bg-gradient-to-l from-gray-950 via-gray-900 to-gray-950 text-center text-neutral-300 text-xs px-4 sm:text-base md:text-lg py-8 md:py-12">
+		<div
+			ref={ref}
+			className="my-10 bg-gradient-to-l from-gray-950 via-gray-900 to-gray-950 text-center text-neutral-300 text-xs px-4 sm:text-base md:text-lg py-8 md:py-12"
+		>
 			<p className="text-sm md:text-lg font-semibold max-w-4xl mx-auto">
 				We’re planning to launch a new feature that gives you access to
 				all interview questions asked by a specific company — helping
