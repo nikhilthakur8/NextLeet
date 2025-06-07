@@ -19,7 +19,10 @@ export const Home = () => {
 		}
 	};
 	useEffect(() => {
-		if (requestRef.current) {
+		if (
+			requestRef.current &&
+			!localStorage.getItem("nextFeatureFeedback")
+		) {
 			requestRef.current.scrollIntoView({
 				behavior: "smooth",
 				block: "center",
