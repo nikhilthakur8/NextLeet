@@ -12,16 +12,23 @@ import {
 } from "../ui/resizable-navbar";
 import { useState } from "react";
 import { ColourfulText } from "../ui/colourful-text";
+import { Link } from "react-router-dom";
 export function NavBarNew() {
 	const itemClick = (e) => {
+		console.log(e.currentTarget);
+		if (!e.currentTarget.getAttribute("href").includes("#")) return;
 		e.preventDefault();
 		document
 			.getElementById(
-				"" + e.currentTarget.getAttribute("href")?.replace("#", "")
+				"" + e.currentTarget.getAttribute("href")?.replace("/#", "")
 			)
 			?.scrollIntoView({ behavior: "smooth" });
 	};
 	const navItems = [
+		{
+			name: "Home",
+			link: "/",
+		},
 		{
 			name: "Upcoming Q's",
 			link: "#latest-question",
@@ -31,8 +38,8 @@ export function NavBarNew() {
 			link: "#weekly-question",
 		},
 		{
-			name: "Past Q's",
-			link: "#past-question",
+			name: "Company-wise Q's",
+			link: "/company-wise-questions",
 		},
 	];
 
@@ -81,14 +88,17 @@ export function NavBarNew() {
 							onClose={() => setIsMobileMenuOpen(false)}
 						>
 							{navItems.map((item, idx) => (
-								<a
+								<Link
 									key={`mobile-link-${idx}`}
-									href={item.link}
-									onClick={() => setIsMobileMenuOpen(false)}
+									to={item.link}
+									onClick={(e) => {
+										setIsMobileMenuOpen(false);
+										itemClick(e);
+									}}
 									className="relative py-1.5 w-full text-neutral-600 dark:text-neutral-300"
 								>
 									<span className="block">{item.name}</span>
-								</a>
+								</Link>
 							))}
 						</MobileNavMenu>
 					)}

@@ -7,10 +7,8 @@ import { ChevronDown, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
 import { Promotion } from "./Promotion";
-import { NextFeature } from "./NextFeature";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
-	const requestRef = useRef(null);
 	const handleScrollClick = () => {
 		setHideScrollBtn(true);
 		const nextSection = document.getElementById("latest-question");
@@ -19,15 +17,6 @@ export const Home = () => {
 		}
 	};
 	useEffect(() => {
-		if (
-			requestRef.current &&
-			!localStorage.getItem("nextFeatureFeedback")
-		) {
-			requestRef.current.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-			});
-		}
 		const handleScroll = () => {
 			const scrollY = window.scrollY;
 			if (scrollY > 50) {
@@ -57,7 +46,6 @@ export const Home = () => {
 				</div>
 			)}
 			<Promotion />
-			<NextFeature ref={requestRef} />
 			<UpcomingQuestion />
 			<WeeklyQuestion />
 			<PastQuestion />

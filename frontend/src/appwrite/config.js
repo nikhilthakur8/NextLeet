@@ -134,19 +134,6 @@ export async function getLastUpdatedDate() {
 	}
 }
 
-export async function getTotalSubscriber() {
-	try {
-		const data = await databases.listDocuments(
-			import.meta.env.VITE_APPWRITE_DATABASE_ID,
-			import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-			[Query.select()]
-		);
-		return data.total || 0;
-	} catch (error) {
-		console.log(error);
-	}
-}
-
 export async function getNotification() {
 	try {
 		const data = await databases.listDocuments(
