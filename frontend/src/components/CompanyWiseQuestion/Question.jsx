@@ -80,7 +80,7 @@ export const Question = React.memo(({ idx, question }) => {
 							<TooltipContent
 								side="top"
 								align="center"
-								className="bg-gray-900 text-normal flex flex-col border-none text-sm sm:text-base text-gray-300"
+								className="bg-gray-900 text-normal flex flex-col border-none text-gray-300"
 								tooltipClassName="fill-gray-900"
 							>
 								<span className="">Last Asked :</span>
@@ -142,7 +142,7 @@ const FrequnecyBar = ({ frequencies }) => {
 		<TooltipProvider delayDuration={20}>
 			<Tooltip>
 				<TooltipTrigger>
-					<div className="group relative flex gap-[3px]">
+					<div className="group relative flex gap-[3px] text-sm sm:text-xl">
 						{Array.from({ length: 8 }).map((_, index) => {
 							const percent =
 								calculateWeightedFrequency(frequencies);
@@ -166,7 +166,7 @@ const FrequnecyBar = ({ frequencies }) => {
 					</div>
 				</TooltipTrigger>
 				<TooltipContent
-					className="bg-gray-900 text-normal flex flex-col border-none text-sm sm:text-lg text-gray-300"
+					className="bg-gray-900 text-normal flex flex-col border-none  text-gray-300"
 					tooltipClassName="fill-gray-900"
 					side="top"
 					align="center"

@@ -128,7 +128,7 @@ const MyDropDownMenu = ({
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<div className="inline-flex text-base md:text-xl px-5 bg-gray-900/90 py-2 rounded-md gap-5 items-center cursor-pointer">
-						<Filter className="size-4 md:size-6" />
+						<Filter className="size-4 md:size-5" />
 						<p>Filter</p>
 					</div>
 				</DropdownMenuTrigger>

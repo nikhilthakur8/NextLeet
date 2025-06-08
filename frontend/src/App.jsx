@@ -8,6 +8,7 @@ import { Footer } from "./components/Footer/Footer";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { User } from "lucide-react";
 import { UserContextProvider } from "./context/UserContextProvider";
+import { Feedback } from "./components/Feedback/Feedback";
 const fpPromise = FingerprintJS.load();
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
 			<UserContextProvider fingerprint={fingerprint}>
 				<NavBarNew />
 				<Outlet />
+				<Feedback/>
 				<Footer />
 				<Analytics />
 				<SpeedInsights />
