@@ -68,7 +68,7 @@ export const Feedback = () => {
 					<DropdownMenuGroup>
 						<DropdownMenuItem>
 							<button
-								className="ml-auto px-4 py-2 border border-gray-700 bg-gray-900 rounded-md"
+								className="ml-auto px-4 cursor-pointer py-2 border border-gray-700 bg-gray-900 rounded-md"
 								onClick={feedbackHandler}
 							>
 								Submit Feedback
