@@ -38,7 +38,10 @@ export const SearchSheet = () => {
 								className="border rounded-xl cursor-pointer border-gray-700 text-gray-300 bg-gray-900 px-4 py-1 "
 								onClick={() =>
 									navigate(
-										`/sheet/${company.split(" ").join("-")}`
+										`/sheet/${company
+											.split(" ")
+											.join("-")
+											.toLowerCase()}`
 									)
 								}
 							>
@@ -130,7 +133,10 @@ function CompanySearchBox({ favoriteCompanies, setFavoriteCompanies }) {
 								}
 								onSelect={() => {
 									navigate(
-										`/sheet/${company.split(" ").join("-")}`
+										`/sheet/${company
+											.split(" ")
+											.join("-")
+											.toLowerCase()}`
 									);
 								}}
 							>
