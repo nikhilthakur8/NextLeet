@@ -1,8 +1,8 @@
 import React from "react";
 
-export const Loading = ({ className }) => {
+export const Loading = ({ className = "size-6" }) => {
 	return (
-		<div className="text-white flex justify-center my-10">
+		<div className="text-white flex justify-center my-5">
 			<svg
 				className={`mr-3 ${className} animate-spin text-white`}
 				viewBox="0 0 24 24"

@@ -23,15 +23,32 @@ export const getQuestionByCompanyTag = async (
 	return data;
 };
 
-export const getAllCompanyNames = async (name = "") => {
-	const query = [Query.limit(30), Query.offset(0)];
-	if (name) {
-		query.push(Query.search("name", name));
-	}
+export const getAllCompanyNames = async () => {
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_COLLECTION_ID,
-		query
+		[Query.limit(1000)]
 	);
 	return data.documents.map((doc) => doc.name);
+};
+
+export const searchQuestion = async (
+	companyName,
+	searchTerm,
+	skip = 0,
+	limit = 20
+) => {
+	const query = [
+		Query.equal("companyName", companyName),
+		Query.search("title", searchTerm),
+		Query.offset(skip),
+		Query.limit(limit),
+	];
+
+	const data = await databases.listDocuments(
+		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
+		query
+	);
+	return data;
 };

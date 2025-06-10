@@ -12,15 +12,14 @@ import { PastQuestion } from "./components/Questions/PastQuestion.jsx";
 import { UpcomingQuestion } from "./components/Questions/UpcomingQuestion.jsx";
 import { WeeklyQuestion } from "./components/Questions/WeeklyQuestion.jsx";
 import { App } from "./App.jsx";
-import { CompanyWiseQuestion } from "./components/CompanyWiseQuestion/CompanyWiseQuestion.jsx";
+import { Sheet } from "./components/Sheet/Sheet.jsx";
+import { SearchSheet } from "./components/Sheet/SearchSheet.jsx";
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index element={<Home />} />
-			<Route
-				path="/company-wise-questions"
-				element={<CompanyWiseQuestion />}
-			/>
+			<Route path="/search/sheet" element={<SearchSheet />} />
+			<Route path="/sheet/:companyName" element={<Sheet />} />
 		</Route>
 	)
 );

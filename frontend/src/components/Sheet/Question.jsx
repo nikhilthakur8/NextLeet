@@ -10,12 +10,7 @@ const getDifficultyLabel = (difficulty) => {
 	if (difficulty === 2) return "Hard";
 	return "Unknown";
 };
-const getFrequencyLabel = (frequency) => {
-	if (frequency === 0) return "Low";
-	if (frequency === 1) return "Medium";
-	if (frequency === 2) return "High";
-	return "Unknown";
-};
+
 function calculateWeightedFrequency(freq) {
 	const weights = [1.0, 0.7, 0.4, 0.2];
 	const weightedScore =
@@ -50,9 +45,13 @@ export const Question = React.memo(({ idx, question }) => {
 	];
 	const [doneQuestion, setDoneQuestion] = useState(false);
 	useEffect(() => {
-		getDoneQuestion(question.titleSlug).then((res) => {
-			setDoneQuestion(res);
-		});
+		getDoneQuestion(question.titleSlug)
+			.then((res) => {
+				setDoneQuestion(res);
+			})
+			.catch((err) => {
+				console.error("Error fetching done question status:", err);
+			});
 	}, [question.titleSlug]);
 	return (
 		<div

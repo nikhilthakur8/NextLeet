@@ -38,8 +38,8 @@ export function NavBarNew() {
 			link: "#weekly-question",
 		},
 		{
-			name: "Company-wise Q's",
-			link: "/company-wise-questions",
+			name: "Company Wise Sheet",
+			link: "/search/sheet",
 		},
 	];
 

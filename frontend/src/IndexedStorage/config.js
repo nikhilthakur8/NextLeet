@@ -16,8 +16,8 @@ const dbReady = new Promise((resolve, reject) => {
 		resolve();
 	};
 
-	request.onerror = function () {
-		reject("Error opening IndexedDB");
+	request.onerror = function (e) {
+		reject(`Error opening IndexedDB: ${e.target.error}`);
 	};
 });
 
@@ -52,5 +52,22 @@ export const getDoneQuestion = async (slug) => {
 			}
 		};
 		request.onerror = () => reject("Error fetching question");
+	});
+};
+export const getAllDoneQuestions = async () => {
+	await dbReady;
+
+	const tx = db.transaction("isDone", "readonly");
+	const store = tx.objectStore("isDone");
+
+	return new Promise((resolve, reject) => {
+		const request = store.getAll();
+		request.onsuccess = () => {
+			const result = request.result.map(
+				(item) => item.slug && item.isDone
+			);
+			resolve(result);
+		};
+		request.onerror = () => reject("Error fetching questions");
 	});
 };

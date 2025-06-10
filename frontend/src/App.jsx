@@ -30,7 +30,7 @@ export const App = () => {
 			<UserContextProvider fingerprint={fingerprint}>
 				<NavBarNew />
 				<Outlet />
-				<Feedback/>
+				<Feedback />
 				<Footer />
 				<Analytics />
 				<SpeedInsights />

@@ -8,3 +8,25 @@
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
+
+@keyframes shake {
+	0% {
+		transform: translateX(0) rotate(0deg);
+	}
+	25% {
+		transform: translateX(-2px) rotate(-1deg); /* Subtle left and slight rotation */
+	}
+	50% {
+		transform: translateX(2px) rotate(1deg); /* Subtle right and slight rotation */
+	}
+	75% {
+		transform: translateX(-2px) rotate(-1deg); /* Subtle left and slight rotation */
+	}
+	100% {
+		transform: translateX(0) rotate(0deg);
+	}
+}
+
+.animate-shake {
+	animation: shake 1s ease-in-out infinite alternate;
+}
