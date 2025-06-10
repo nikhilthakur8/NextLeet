@@ -24,10 +24,15 @@ export const SearchSheet = () => {
 		window.scrollTo(0, 0);
 	}, []);
 	return (
-		<div className="text-gray-400 pt-20 md:pt-32 px-5 md:px-12 min-h-svh flex flex-col gap-10">
-			<h1 className="text-xl md:text-2xl font-bold">
-				Search Any Company Sheets
-			</h1>
+		<div className="text-gray-400 pt-20 md:pt-32 px-5 md:px-12 min-h-svh flex flex-col gap-5">
+			<div>
+				<h1 className="text-xl md:text-2xl font-bold leading-6">
+					Search Any Company Sheets
+				</h1>
+				<span className="text-xs font-normal text-gray-100">
+					(Last Updated on 1st June 2025)
+				</span>
+			</div>
 			{favoriteCompanies?.length > 0 && (
 				<div className="flex gap-2  flex-wrap md:items-center">
 					<p>Favourites:</p>
