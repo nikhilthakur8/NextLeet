@@ -29,7 +29,7 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("difficulty") || "all"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-full md:w-[200px] md:text-base text-sm bg-gray-900 border text-gray-200 border-gray-700">
+				<SelectTrigger className="w-full md:w-[250px] md:text-base text-sm bg-gray-900 border text-gray-200 border-gray-700">
 					<div className="flex items-center gap-2 md:text-lg text-sm">
 						<Gauge />
 						<SelectValue placeholder="Difficulty" />
@@ -94,7 +94,7 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("timeframe") || "allProblems"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-full md:w-[200px] bg-gray-900 border  text-gray-200 border-gray-700">
+				<SelectTrigger className="w-full md:w-[250px] bg-gray-900 border  text-gray-200 border-gray-700">
 					<div className="flex items-center gap-2 md:text-lg text-sm">
 						<Clock />
 						<SelectValue placeholder="Filter by Last Asked" />
@@ -197,7 +197,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	return (
 		<div>
 			<Popover>
-				<PopoverTrigger className="w-full md:min-w-[200px] flex flex-row md:text-lg text-sm items gap-2 items-center  text-gray-300 bg-gray-900 py-1.5 px-4  border border-gray-700 rounded-md">
+				<PopoverTrigger className="w-full md:min-w-[250px] flex flex-row md:text-lg text-sm items gap-2 items-center  text-gray-300 bg-gray-900 py-1.5 px-4  border border-gray-700 rounded-md">
 					<span>
 						<Hash size={15} />
 					</span>
