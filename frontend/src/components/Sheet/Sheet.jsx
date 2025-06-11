@@ -41,7 +41,7 @@ export const Sheet = () => {
 				setAllDoneQuestion(doc);
 			});
 		});
-	}, []);
+	}, [searchParams]);
 
 	// search question state
 	const [searchTerm, setSearchTerm] = useState("");
