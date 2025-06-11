@@ -29,7 +29,7 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("difficulty") || "all"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-[200px] bg-gray-900 border text-gray-200 border-gray-700">
+				<SelectTrigger className="w-[200px] md:text-base text-sm bg-gray-900 border text-gray-200 border-gray-700">
 					<div className="flex items-center gap-2">
 						<Gauge />
 						<SelectValue placeholder="Difficulty" />
@@ -95,14 +95,14 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 				onValueChange={handleRedirect}
 			>
 				<SelectTrigger className="w-[200px] bg-gray-900 border  text-gray-200 border-gray-700">
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 md:text-base text-sm">
 						<Clock />
 						<SelectValue placeholder="Filter by Last Asked" />
 					</div>
 				</SelectTrigger>
 				<SelectContent
 					className={
-						"bg-gray-950 text-gray-300 border-gray-800 rounded-md shadow-lg"
+						"bg-gray-950 text-gray-300 border-gray-800 rounded-md shadow-lg "
 					}
 				>
 					<SelectGroup>
@@ -189,7 +189,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	return (
 		<div>
 			<Popover>
-				<PopoverTrigger className=" flex flex-row items gap-2 items-center  text-gray-300 bg-gray-900 py-2 px-4 min-w-[200px] border border-gray-700 rounded-md">
+				<PopoverTrigger className=" flex flex-row md:text-base text-sm items gap-2 items-center  text-gray-300 bg-gray-900 py-1.5 px-4 min-w-[200px] border border-gray-700 rounded-md">
 					<span>
 						<Hash size={15} />
 					</span>

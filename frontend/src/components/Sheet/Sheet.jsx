@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import {
 	getAllQuestionTopics,
 	getQuestionByCompanyTag,
+	getTotalDoneQuestions,
 	searchQuestion,
 } from "../../appwrite/leetcode.companyTag";
 import { Question } from "./Question";
@@ -36,7 +37,9 @@ export const Sheet = () => {
 			setAllTopics(data);
 		});
 		getAllDoneQuestions().then((data) => {
-			setAllDoneQuestion(data);
+			getTotalDoneQuestions(companyName, data).then((doc) => {
+				setAllDoneQuestion(doc);
+			});
 		});
 	}, []);
 
@@ -131,14 +134,14 @@ export const Sheet = () => {
 								totalPages > 0
 									? (allDoneQuestion.length /
 											(totalPages * 20)) *
-									100
+									  100
 									: 0
 							}%`,
 						}}
 					/>
 				</div>
 			</div>
-			<div className="flex flex-col md:flex-row gap-3 leading-5">
+			<div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-3 leading-5">
 				<TimeFrameFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}

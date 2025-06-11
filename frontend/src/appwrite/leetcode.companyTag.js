@@ -46,7 +46,8 @@ export const getAllQuestionTopics = async (companyName) => {
 	const cleansedData = [];
 	data.documents.forEach(({ topics }) => {
 		topics.forEach((topic) => {
-			if (!cleansedData.includes(topic)) cleansedData.push(topic);
+			if (!cleansedData.includes(topic) && topic.length > 0)
+				cleansedData.push(topic);
 		});
 	});
 	return cleansedData;
@@ -110,4 +111,19 @@ export const getCompanyTagBySlug = async (slug) => {
 	} else {
 		throw new Error("Company tag not found");
 	}
+};
+
+export const getTotalDoneQuestions = async (companyName, data) => {
+	console.log(data);
+	const totalDoc = await databases.listDocuments(
+		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
+		[
+			Query.equal("companyName", companyName),
+			Query.select(["titleSlug"]),
+			Query.limit(10000),
+			Query.equal("titleSlug", data),
+		]
+	);
+	return totalDoc.documents.map((doc) => doc.titleSlug);
 };
