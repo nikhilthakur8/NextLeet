@@ -30,7 +30,6 @@ export const addDoneQuestion = async (slug, isDone) => {
 
 	return new Promise((resolve) => {
 		tx.oncomplete = () => {
-			console.log("Question status saved");
 			resolve(true);
 		};
 	});

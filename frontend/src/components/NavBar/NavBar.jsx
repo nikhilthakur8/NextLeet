@@ -15,7 +15,6 @@ import { ColourfulText } from "../ui/colourful-text";
 import { Link } from "react-router-dom";
 export function NavBarNew() {
 	const itemClick = (e) => {
-		console.log(e.currentTarget);
 		if (!e.currentTarget.getAttribute("href").includes("#")) return;
 		e.preventDefault();
 		document

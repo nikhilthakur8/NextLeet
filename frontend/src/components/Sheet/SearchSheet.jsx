@@ -103,7 +103,7 @@ function CompanySearchBox({ favoriteCompanies, setFavoriteCompanies }) {
 				setCompanies(data);
 			})
 			.catch((error) => {
-				console.error("Error fetching company names:", error);
+				toast.error(error.message || "Failed to fetch company names");
 			})
 			.finally(() => {
 				setLoading(false);

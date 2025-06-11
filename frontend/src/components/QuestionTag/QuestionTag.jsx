@@ -15,7 +15,6 @@ export const QuestionTag = () => {
 		setCompanyTag([]);
 		getCompanyTagBySlug(inputValue)
 			.then((data) => {
-				console.log(data);
 				setCompanyTag(data);
 			})
 			.catch((error) => {

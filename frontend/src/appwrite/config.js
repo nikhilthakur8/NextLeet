@@ -39,7 +39,6 @@ export default async function subscribeUser(email) {
 			}
 		);
 	} catch (error) {
-		console.log(error);
 		throw new Error(error.message);
 	}
 }
@@ -75,7 +74,7 @@ export async function getLatestQuestion(skip = 0, limit = 10) {
 
 		return data || null;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 	}
 }
 
@@ -176,7 +175,6 @@ export async function registerFeedback(feedback) {
 	);
 	const positiveResponse = getData.documents[0].positiveResponse + data;
 	const negativeResponse = getData.documents[0].negativeResponse + (1 - data);
-    console.log(getData.documents, positiveResponse, negativeResponse);
 	await databases.updateDocument(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_MICELLANEOUS_COLLECTION_ID,

@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 export const Footer = () => {
 	const handleSubscribe = (e) => {
-		console.log(e);
 		e.preventDefault();
 		const email = document.getElementById("email").value;
 		subscribeUser(email)

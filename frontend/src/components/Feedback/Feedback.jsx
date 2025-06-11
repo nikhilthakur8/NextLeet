@@ -31,7 +31,6 @@ export const Feedback = () => {
 				toast.success("Feedback submitted successfully!");
 			})
 			.catch((error) => {
-				console.error("Error submitting feedback:", error);
 				toast.error(
 					"Failed to submit feedback. Please try again later."
 				);
