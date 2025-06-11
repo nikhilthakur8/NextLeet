@@ -25,7 +25,6 @@ export const Sheet = () => {
 	const [filteredQuestionTotalPages, setFilteredQuestionTotalPages] =
 		useState(0);
 
-
 	const fetchQuestions = useCallback(() => {
 		const formattedCompanyName = companyName
 			.replace(/-/g, " ")
@@ -89,6 +88,15 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
+			<div className="flex flex-col  gap-3 flex-wrap leading-5">
+				<p>🚧 Hang tight! We’re working on upcoming features:</p>
+				<div>
+					<span>🔍 Filters</span>
+					<span className="ml-2 ">📊 Progress Bar</span>
+					<span className="ml-2 ">🎨 UI Improvements</span>
+				</div>
+			</div>
+
 			<div>
 				<input
 					type="text"
