@@ -116,11 +116,11 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
-			<div>
+			{/* <div>
 				<p className="mb-2">
 					Progress Bar {allDoneQuestion.length}/{totalPages * 20}
 				</p>
-				{/* <div className="w-full h-2 bg-gray-400 rounded-full">
+				<div className="w-full h-2 bg-gray-400 rounded-full">
 					<div
 						className="h-full bg-green-700 rounded-full"
 						style={{
@@ -133,8 +133,8 @@ export const Sheet = () => {
 							}%`,
 						}}
 					/>
-				</div> */}
-			</div>
+				</div>
+			</div> */}
 			<div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-3 leading-5">
 				<TimeFrameFilter
 					searchParams={searchParams}
