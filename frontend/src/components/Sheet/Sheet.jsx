@@ -1,22 +1,44 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+	getAllQuestionTopics,
 	getQuestionByCompanyTag,
 	searchQuestion,
 } from "../../appwrite/leetcode.companyTag";
 import { Question } from "./Question";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loading } from "../Loading";
-
+import { useSearchParams } from "react-router-dom";
+import { DifficultyFilter, TimeFrameFilter, TopicFilter } from "./Filter";
+import { getAllDoneQuestions } from "../../IndexedStorage/config";
 export const Sheet = () => {
 	const { companyName } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	// intial All Question Loading
 	const [questions, setQuestions] = useState([]);
 	const [pages, setPages] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
-
+	const [allDoneQuestion, setAllDoneQuestion] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const filter = useMemo(
+		() => ({
+			difficulty: searchParams.get("difficulty") || "",
+			timeFrame: searchParams.get("timeframe") || "",
+			topics: searchParams.get("topics")?.split(",") || "",
+		}),
+		[searchParams]
+	);
+
+	const [allTopics, setAllTopics] = useState([]);
+	useEffect(() => {
+		getAllQuestionTopics(companyName).then((data) => {
+			setAllTopics(data);
+		});
+		getAllDoneQuestions().then((data) => {
+			setAllDoneQuestion(data);
+		});
+	}, []);
 
 	// search question state
 	const [searchTerm, setSearchTerm] = useState("");
@@ -25,11 +47,16 @@ export const Sheet = () => {
 	const [filteredQuestionTotalPages, setFilteredQuestionTotalPages] =
 		useState(0);
 
-	const fetchQuestions = useCallback(() => {
+	const fetchQuestions = (isReset = false) => {
 		const formattedCompanyName = companyName
 			.replace(/-/g, " ")
 			.replace(/\b\w/g, (c) => c.toUpperCase());
-		getQuestionByCompanyTag(formattedCompanyName, pages * 20, 20)
+		getQuestionByCompanyTag(
+			formattedCompanyName,
+			isReset ? 0 : pages * 20,
+			20,
+			filter
+		)
 			.then(({ documents, total }) => {
 				setQuestions((prev) => [...prev, ...documents]);
 				setPages((prev) => prev + 1);
@@ -38,12 +65,14 @@ export const Sheet = () => {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [companyName, pages, totalPages]);
-
+	};
 	useEffect(() => {
 		setLoading(true);
-		fetchQuestions();
-	}, [companyName]);
+		setQuestions([]);
+		setPages(0);
+		setTotalPages(0);
+		fetchQuestions(true);
+	}, [companyName, searchParams]);
 
 	// Fetch filtered questions based on search term
 	const fetchFilteredQuestions = (isReset = false) => {
@@ -51,7 +80,8 @@ export const Sheet = () => {
 			companyName,
 			searchTerm,
 			isReset ? 0 : filteredQuestionPages * 20,
-			20
+			20,
+			filter
 		)
 			.then(({ documents, total }) => {
 				setFilteredQuestions((prev) => [...prev, ...documents]);
@@ -62,6 +92,7 @@ export const Sheet = () => {
 				setLoading(false);
 			});
 	};
+
 	useEffect(() => {
 		setFilteredQuestions([]);
 		setFilteredQuestionPages(1);
@@ -88,15 +119,40 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
-			<div className="flex flex-col  gap-3 flex-wrap leading-5">
-				<p>🚧 Hang tight! We’re working on upcoming features:</p>
-				<div>
-					<span>🔍 Filters</span>
-					<span className="ml-2 ">📊 Progress Bar</span>
-					<span className="ml-2 ">🎨 UI Improvements</span>
+			<div>
+				<p className="mb-2">
+					Progress Bar {allDoneQuestion.length}/{totalPages * 20}
+				</p>
+				<div className="w-full h-2 bg-gray-400 rounded-full">
+					<div
+						className="h-full bg-green-700 rounded-full"
+						style={{
+							width: `${
+								totalPages > 0
+									? (allDoneQuestion.length /
+											(totalPages * 20)) *
+									100
+									: 0
+							}%`,
+						}}
+					/>
 				</div>
 			</div>
-
+			<div className="flex flex-col md:flex-row gap-3 leading-5">
+				<TimeFrameFilter
+					searchParams={searchParams}
+					setSearchParams={setSearchParams}
+				/>
+				<DifficultyFilter
+					searchParams={searchParams}
+					setSearchParams={setSearchParams}
+				/>
+				<TopicFilter
+					searchParams={searchParams}
+					setSearchParams={setSearchParams}
+					allTopics={allTopics}
+				/>
+			</div>
 			<div>
 				<input
 					type="text"
@@ -131,6 +187,10 @@ export const Sheet = () => {
 										key={question.$id}
 										question={question}
 										idx={idx + 1}
+										setAllDoneQuestion={setAllDoneQuestion}
+										isDone={allDoneQuestion.includes(
+											question.titleSlug
+										)}
 									/>
 								))}
 							</InfiniteScroll>
@@ -148,6 +208,10 @@ export const Sheet = () => {
 										key={question.$id}
 										question={question}
 										idx={idx + 1}
+										setAllDoneQuestion={setAllDoneQuestion}
+										isDone={allDoneQuestion.includes(
+											question.titleSlug
+										)}
 									/>
 								))}
 							</InfiniteScroll>

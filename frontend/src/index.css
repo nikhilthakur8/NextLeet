@@ -30,3 +30,7 @@
 .animate-shake {
 	animation: shake 1s ease-in-out infinite alternate;
 }
+
+[data-scroll-locked] {
+	margin-right: 0 !important;
+}

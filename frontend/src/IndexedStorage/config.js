@@ -62,9 +62,9 @@ export const getAllDoneQuestions = async () => {
 	return new Promise((resolve, reject) => {
 		const request = store.getAll();
 		request.onsuccess = () => {
-			const result = request.result.map(
-				(item) => item.slug && item.isDone
-			);
+			const result = request.result
+				.map((item) => (item.isDone ? item.slug : null))
+				.filter(Boolean);
 			resolve(result);
 		};
 		request.onerror = () => reject("Error fetching questions");

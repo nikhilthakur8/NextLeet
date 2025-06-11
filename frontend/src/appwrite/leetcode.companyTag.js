@@ -8,19 +8,48 @@ const databases = new Databases(client);
 export const getQuestionByCompanyTag = async (
 	companyName = [],
 	skip = 0,
-	limit = 20
+	limit = 20,
+	filter
 ) => {
 	const query = [Query.limit(limit), Query.offset(skip)];
+
 	if (companyName && companyName.length > 0) {
 		query.push(Query.equal("companyName", companyName));
 	} else return { documents: [], total: 0 };
-
+	if (filter.difficulty) {
+		query.push(Query.equal("difficulty", Number(filter.difficulty)));
+	}
+	if (filter.timeFrame) {
+		query.push(Query.contains("timeframe", filter.timeFrame));
+	}
+	if (filter.topics) {
+		query.push(Query.contains("topics", filter.topics));
+	}
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
 		query
 	);
 	return data;
+};
+
+export const getAllQuestionTopics = async (companyName) => {
+	const data = await databases.listDocuments(
+		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
+		[
+			Query.limit(500),
+			Query.equal("companyName", companyName),
+			Query.select("topics"),
+		]
+	);
+	const cleansedData = [];
+	data.documents.forEach(({ topics }) => {
+		topics.forEach((topic) => {
+			if (!cleansedData.includes(topic)) cleansedData.push(topic);
+		});
+	});
+	return cleansedData;
 };
 
 export const getAllCompanyNames = async () => {
@@ -36,7 +65,8 @@ export const searchQuestion = async (
 	companyName,
 	searchTerm,
 	skip = 0,
-	limit = 20
+	limit = 20,
+	filter
 ) => {
 	const query = [
 		Query.equal("companyName", companyName),
@@ -44,7 +74,15 @@ export const searchQuestion = async (
 		Query.offset(skip),
 		Query.limit(limit),
 	];
-
+	if (filter.difficulty) {
+		query.push(Query.equal("difficulty", filter.difficulty));
+	}
+	if (filter.timeFrame) {
+		query.push(Query.contains("timeframe", filter.timeFrame));
+	}
+	if (filter.topics) {
+		query.push(Query.contains("topics", filter.topics));
+	}
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
@@ -66,6 +104,7 @@ export const getCompanyTagBySlug = async (slug) => {
 			Query.limit(10000),
 		]
 	);
+
 	if (data.documents.length > 0) {
 		return data.documents;
 	} else {
