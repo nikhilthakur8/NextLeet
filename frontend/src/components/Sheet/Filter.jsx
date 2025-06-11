@@ -29,8 +29,8 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("difficulty") || "all"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-[200px] md:text-base text-sm bg-gray-900 border text-gray-200 border-gray-700">
-					<div className="flex items-center gap-2">
+				<SelectTrigger className="w-full md:w-[200px] md:text-base text-sm bg-gray-900 border text-gray-200 border-gray-700">
+					<div className="flex items-center gap-2 md:text-lg text-sm">
 						<Gauge />
 						<SelectValue placeholder="Difficulty" />
 					</div>
@@ -46,26 +46,26 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 						</SelectLabel>
 						<SelectItem
 							value="all"
-							className="data-[highlighted]:bg-gray-800"
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							All
 						</SelectItem>
 						<SelectSeparator className={"bg-gray-500"} />
 						<SelectItem
 							value="1"
-							className="data-[highlighted]:bg-gray-800"
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							Easy
 						</SelectItem>
 						<SelectItem
 							value="2"
-							className="data-[highlighted]:bg-gray-800"
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							Medium
 						</SelectItem>
 						<SelectItem
 							value="3"
-							className="data-[highlighted]:bg-gray-800"
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							Hard
 						</SelectItem>
@@ -94,15 +94,15 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("timeframe") || "allProblems"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-[200px] bg-gray-900 border  text-gray-200 border-gray-700">
-					<div className="flex items-center gap-2 md:text-base text-sm">
+				<SelectTrigger className="w-full md:w-[200px] bg-gray-900 border  text-gray-200 border-gray-700">
+					<div className="flex items-center gap-2 md:text-lg text-sm">
 						<Clock />
 						<SelectValue placeholder="Filter by Last Asked" />
 					</div>
 				</SelectTrigger>
 				<SelectContent
 					className={
-						"bg-gray-950 text-gray-300 border-gray-800 rounded-md shadow-lg "
+						"bg-gray-950 text-gray-300 border-gray-800 rounded-md shadow-lg  "
 					}
 				>
 					<SelectGroup>
@@ -111,38 +111,46 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 						</SelectLabel>
 						<SelectItem
 							value="allProblems"
-							className="data-[highlighted]:bg-gray-800"
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							All Problems
 						</SelectItem>
 						<SelectSeparator className={"bg-gray-500"} />
 						<SelectItem
 							value="thirtyDays"
-							className="data-[highlighted]:bg-gray-800 "
+							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
 						>
 							30 Days
 						</SelectItem>
 						<SelectItem
 							value="threeMonths"
-							className={"data-[highlighted]:bg-gray-800 "}
+							className={
+								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							}
 						>
 							3 Months
 						</SelectItem>
 						<SelectItem
 							value="sixMonths"
-							className={"data-[highlighted]:bg-gray-800 "}
+							className={
+								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							}
 						>
 							6 Months
 						</SelectItem>
 						<SelectItem
 							value="moreThanSixMonths"
-							className={"data-[highlighted]:bg-gray-800 "}
+							className={
+								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							}
 						>
 							More Than 6 Months
 						</SelectItem>
 						<SelectItem
 							value="all"
-							className={"data-[highlighted]:bg-gray-800 "}
+							className={
+								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							}
 						>
 							All Time
 						</SelectItem>
@@ -189,7 +197,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	return (
 		<div>
 			<Popover>
-				<PopoverTrigger className=" flex flex-row md:text-base text-sm items gap-2 items-center  text-gray-300 bg-gray-900 py-1.5 px-4 min-w-[200px] border border-gray-700 rounded-md">
+				<PopoverTrigger className="w-full md:min-w-[200px] flex flex-row md:text-lg text-sm items gap-2 items-center  text-gray-300 bg-gray-900 py-1.5 px-4  border border-gray-700 rounded-md">
 					<span>
 						<Hash size={15} />
 					</span>
@@ -198,11 +206,11 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 							{selected.map((topic) => {
 								return (
 									<div
-										className="bg-black px-2 py-1 text-sm flex-row rounded-full flex justify-center items-center cursor-pointer"
+										className="bg-black px-2 py-1 md:text-base text-sm flex-row rounded-full flex justify-center items-center cursor-pointer"
 										onClick={(e) => toggleOption(topic, e)}
 									>
 										<span>{topic}</span>
-										<X size={14} />
+										<X size={15} />
 									</div>
 								);
 							})}
@@ -238,7 +246,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 									checked={selected.includes(option)}
 									onCheckedChange={() => toggleOption(option)}
 								/>
-								<span className="text-sm text-gray-400">
+								<span className="text-gray-400 md:text-lg text-sm">
 									{option}
 								</span>
 							</label>

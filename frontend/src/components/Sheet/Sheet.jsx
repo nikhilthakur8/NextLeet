@@ -36,13 +36,7 @@ export const Sheet = () => {
 		getAllQuestionTopics(companyName).then((data) => {
 			setAllTopics(data);
 		});
-		getAllDoneQuestions().then((data) => {
-			getTotalDoneQuestions(companyName, data).then((doc) => {
-				setAllDoneQuestion(doc);
-			});
-		});
-	}, [searchParams]);
-
+	}, []);
 	// search question state
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredQuestions, setFilteredQuestions] = useState([]);
@@ -126,7 +120,7 @@ export const Sheet = () => {
 				<p className="mb-2">
 					Progress Bar {allDoneQuestion.length}/{totalPages * 20}
 				</p>
-				<div className="w-full h-2 bg-gray-400 rounded-full">
+				{/* <div className="w-full h-2 bg-gray-400 rounded-full">
 					<div
 						className="h-full bg-green-700 rounded-full"
 						style={{
@@ -139,7 +133,7 @@ export const Sheet = () => {
 							}%`,
 						}}
 					/>
-				</div>
+				</div> */}
 			</div>
 			<div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-3 leading-5">
 				<TimeFrameFilter
