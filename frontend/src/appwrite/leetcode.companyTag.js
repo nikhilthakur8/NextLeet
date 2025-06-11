@@ -52,3 +52,23 @@ export const searchQuestion = async (
 	);
 	return data;
 };
+
+export const getCompanyTagBySlug = async (slug) => {
+	if (!slug) {
+		throw new Error("Slug is required");
+	}
+	const data = await databases.listDocuments(
+		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
+		[
+			Query.equal("titleSlug", slug),
+			Query.select(["companyName"]),
+			Query.limit(10000),
+		]
+	);
+	if (data.documents.length > 0) {
+		return data.documents;
+	} else {
+		throw new Error("Company tag not found");
+	}
+};

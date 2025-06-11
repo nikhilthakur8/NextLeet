@@ -41,6 +41,10 @@ export function NavBarNew() {
 			name: "Company Wise Sheet",
 			link: "/search/sheet",
 		},
+		{
+			name: "Q's Company Tags",
+			link: "/search/company-tags",
+		},
 	];
 
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

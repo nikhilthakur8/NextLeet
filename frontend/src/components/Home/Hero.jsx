@@ -29,7 +29,7 @@ export const Hero = () => {
 				</p>
 			</div>
 			<div
-				className="text-gray-200 bg-gray-900 border border-gray-800 px-5 my-5 py-2 rounded-lg relative cursor-pointer text-xs md:text-sm"
+				className="text-gray-200 bg-gray-900 border border-gray-800 px-5 my-5 py-2 rounded-lg relative cursor-pointer text-xs md:text-base"
 				onClick={() => navigate("/search/sheet")}
 			>
 				<span>
