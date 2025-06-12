@@ -58,9 +58,9 @@ export const QuestionTag = () => {
 							className="bg-gray-800 text-gray-300 px-2 py-1 rounded-lg"
 						>
 							<img
-								src={`https://logo.clearbit.com/${tag.companyName
+								src={`https://img.logo.dev/${tag.companyName
 									.split(" ")
-									.join("")}.com`}
+									.join("")}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
 								className="w-5 h-5 inline-block mr-2 rounded-full"
 								alt=""
 							/>
