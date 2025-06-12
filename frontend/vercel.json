@@ -1,4 +1,11 @@
 {
-    "version": 2,
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+	"version": 2,
+	"redirects": [
+		{
+			"source": "/ads.txt",
+			"destination": "https://srv.adstxtmanager.com/19390/nextleet.com",
+			"permanent": true
+		}
+	],
+	"rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
