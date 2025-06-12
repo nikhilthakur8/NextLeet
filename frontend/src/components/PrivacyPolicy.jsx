@@ -15,7 +15,7 @@ export const PrivacyPolicy = () => {
 				how we collect, use, and safeguard your information when you use
 				our website.
 			</p>
-
+			<span id="ezoic-privacy-policy-embed"></span>
 			<h2 className="text-2xl font-semibold mt-6 mb-2">
 				1. Information We Collect
 			</h2>
