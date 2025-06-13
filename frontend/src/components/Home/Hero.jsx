@@ -3,7 +3,7 @@ import subscribeUser, { getTomorrowQuestion } from "../../appwrite/config";
 import { BackgroundLines } from "../ui/background-lines.jsx";
 import { motion } from "motion/react";
 import { Button } from "../ui/moving-border.jsx";
-import { Badge } from "../ui/badge.jsx";
+import { NewBadge } from "../NewBadge.jsx";
 import { useNavigate } from "react-router-dom";
 export const Hero = () => {
 	const navigate = useNavigate();
@@ -35,14 +35,7 @@ export const Hero = () => {
 				<span>
 					The latest company-wise question sheet is now available.
 				</span>
-				<Badge
-					variant="outline"
-					className={
-						"bg-gradient-to-l from-yellow-300 via-yellow-500 to-yellow-300 animate-shake text-black absolute top-0 left-0 -mt-3 -rotate-12 -ml-3 text-xs md:text-sm"
-					}
-				>
-					New
-				</Badge>
+				<NewBadge />
 			</div>
 			<div className="">
 				<Button

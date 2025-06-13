@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export const Loading = ({ className = "size-6" }) => {
+export const Loading = ({ className, size = "size-6" }) => {
 	const quotes = [
 		"An engineer can never be replaced, never be destroyed",
 		"Compiling dreams into reality... please wait.",
@@ -22,9 +22,11 @@ export const Loading = ({ className = "size-6" }) => {
 		return () => clearInterval(intervalId);
 	}, []);
 	return (
-		<div className="text-gray-400 w-full text-sm md:text-base flex justify-center items-center flex-col gap-3 my-5">
+		<div
+			className={`text-gray-400 w-full text-sm md:text-lg flex justify-center items-center flex-col gap-3 my-5 ${className}`}
+		>
 			<svg
-				className={`mr-3 ${className} animate-spin text-white`}
+				className={`mr-3 ${size} animate-spin text-white`}
 				viewBox="0 0 24 24"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"

@@ -3,7 +3,7 @@ import { ArrowDown } from "lucide-react";
 
 export const Trick = () => {
 	return (
-		<div className="text-xs md:text-lg flex flex-col space-y-2 px-5 text-gray-300 py-10">
+		<div className="text-xs md:text-lg flex flex-col space-y-2 px-5 text-gray-300 py-5">
 			<h2 className="text-xl md:text-2xl text-neutral-300 font-semibold">
 				Here is a Short Trick for It:
 			</h2>
