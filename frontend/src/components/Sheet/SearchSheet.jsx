@@ -213,7 +213,9 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 						</div>
 					))
 				) : (
-					<div className="py-2">No results found</div>
+					<div className="py-2 text-center col-span-full">
+						No results found
+					</div>
 				)}
 			</div>
 		</div>
