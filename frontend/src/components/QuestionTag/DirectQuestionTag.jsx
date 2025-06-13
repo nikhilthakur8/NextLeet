@@ -23,9 +23,9 @@ export const DirectQuestionTag = () => {
 			});
 	}, []);
 	return (
-		<div className="min-h-screen pt-28 md:pt-32 px-5 text-gray-300">
+		<div className="min-h-screen pt-28 md:pt-32 px-5  text-gray-300">
 			<div className="flex space-y-5 flex-col items-center">
-				<h1 className="text-lg md:text-3xl font-semibold">
+				<h1 className="text-2xl md:text-3xl font-semibold">
 					{titleSlug
 						.replace(/-/g, " ")
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
@@ -61,7 +61,7 @@ export const DirectQuestionTag = () => {
 						</div>
 					))
 				) : (
-					<div className="text-gray-400">No companies found</div>
+					<div className="text-gray-400">No Company Tag found</div>
 				)}
 			</div>
 		</div>

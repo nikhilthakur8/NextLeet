@@ -30,11 +30,11 @@ export function NavBarNew() {
 		},
 		{
 			name: "Upcoming Q's",
-			link: "#latest-question",
+			link: "/#latest-question",
 		},
 		{
 			name: "Weekly Q's",
-			link: "#weekly-question",
+			link: "/#weekly-question",
 		},
 		{
 			name: "Company Wise Sheet",

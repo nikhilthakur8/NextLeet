@@ -94,7 +94,7 @@ export const SearchSheet = () => {
 								</div>
 								{isEditing && (
 									<X
-										className="text-red-700 absolute -top-2 -right-2"
+										className="text-red-700 absolute -top-2 -right-2 "
 										onClick={(e) => {
 											e.stopPropagation();
 											addInFavorite(company);
@@ -105,7 +105,7 @@ export const SearchSheet = () => {
 						))}
 					</ul>
 					<p
-						className="cursor-pointer"
+						className="cursor-pointer h-fit"
 						onClick={() => setIsEditing((prev) => !prev)}
 						title={isEditing ? "Done Editing" : "Edit Favorites"}
 					>
@@ -117,6 +117,7 @@ export const SearchSheet = () => {
 					</p>
 				</div>
 			)}
+
 			<div className="w-full">
 				<CompanySearchBox
 					favoriteCompanies={favoriteCompanies}
