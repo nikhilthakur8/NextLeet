@@ -85,17 +85,13 @@ export const Question = React.memo(
 					</a>
 				</div>
 				<div className="flex items-center gap-3">
-					<span className="group-hover:inline hidden whitespace-nowrap">
-						{question.companyName}
-					</span>
-
 					<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 md:flex">
 						{question.topics.map(
 							(topic, idx) =>
 								topic.length > 0 && (
 									<span
 										key={idx}
-										className={`border border-gray-700 px-3 py-1 rounded-full bg-gray-900 text-gray-200 text-sm mr-1`}
+										className={`border border-gray-800 px-3 py-1 rounded-full bg-gray-900 text-gray-300 text-sm mr-1`}
 									>
 										{topic}
 									</span>

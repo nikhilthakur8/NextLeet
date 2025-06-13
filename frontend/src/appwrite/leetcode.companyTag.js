@@ -12,7 +12,6 @@ export const getQuestionByCompanyTag = async (
 	filter
 ) => {
 	const query = [Query.limit(limit), Query.offset(skip)];
-
 	if (companyName && companyName.length > 0) {
 		query.push(Query.equal("companyName", companyName));
 	} else return { documents: [], total: 0 };
@@ -24,6 +23,11 @@ export const getQuestionByCompanyTag = async (
 	}
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
+	}
+	if (filter.frequency) {
+		query.push(Query.orderAsc("cumulativeFrequency"));
+	} else {
+		query.push(Query.orderDesc("cumulativeFrequency"));
 	}
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,

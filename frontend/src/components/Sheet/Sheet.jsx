@@ -10,7 +10,12 @@ import { Question } from "./Question";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loading } from "../Loading";
 import { useSearchParams } from "react-router-dom";
-import { DifficultyFilter, TimeFrameFilter, TopicFilter } from "./Filter";
+import {
+	DifficultyFilter,
+	FrequencyFilter,
+	TimeFrameFilter,
+	TopicFilter,
+} from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
 export const Sheet = () => {
 	const { companyName } = useParams();
@@ -27,6 +32,7 @@ export const Sheet = () => {
 			difficulty: searchParams.get("difficulty") || "",
 			timeFrame: searchParams.get("timeframe") || "",
 			topics: searchParams.get("topics")?.split(",") || "",
+			frequency: searchParams.get("frequency") || "",
 		}),
 		[searchParams]
 	);
@@ -152,12 +158,16 @@ export const Sheet = () => {
 					/>
 				</div>
 			</div> */}
-			<div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center gap-3 leading-5">
+			<div className="flex flex-col flex-wrap md:flex-row justify-center md:justify-start gap-3 leading-5">
 				<TimeFrameFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 				/>
 				<DifficultyFilter
+					searchParams={searchParams}
+					setSearchParams={setSearchParams}
+				/>
+				<FrequencyFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 				/>
@@ -192,9 +202,7 @@ export const Sheet = () => {
 									filteredQuestionTotalPages >=
 									filteredQuestionPages
 								}
-								loader={
-									<Loading className="size-8 md:size-10" />
-								}
+								loader={<Loading />}
 							>
 								{filteredQuestions.map((question, idx) => (
 									<Question
@@ -213,9 +221,7 @@ export const Sheet = () => {
 								dataLength={questions?.length || 0}
 								next={fetchQuestions}
 								hasMore={totalPages >= pages}
-								loader={
-									<Loading className="size-8 md:size-10" />
-								}
+								loader={<Loading />}
 							>
 								{questions.map((question, idx) => (
 									<Question
