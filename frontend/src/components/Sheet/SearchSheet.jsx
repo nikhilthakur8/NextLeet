@@ -110,7 +110,7 @@ export const SearchSheet = () => {
 						title={isEditing ? "Done Editing" : "Edit Favorites"}
 					>
 						{isEditing ? (
-							<span className="text-green-600 ">Done</span>
+							<span className="text-green-500 ">Done</span>
 						) : (
 							<span className="text-red-600">Edit</span>
 						)}

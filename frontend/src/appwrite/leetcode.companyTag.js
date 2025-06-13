@@ -80,13 +80,18 @@ export const searchQuestion = async (
 		Query.limit(limit),
 	];
 	if (filter.difficulty) {
-		query.push(Query.equal("difficulty", filter.difficulty));
+		query.push(Query.equal("difficulty", Number(filter.difficulty)));
 	}
 	if (filter.timeFrame) {
 		query.push(Query.contains("timeframe", filter.timeFrame));
 	}
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
+	}
+	if (filter.frequency) {
+		query.push(Query.orderAsc("cumulativeFrequency"));
+	} else {
+		query.push(Query.orderDesc("cumulativeFrequency"));
 	}
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
@@ -117,17 +122,31 @@ export const getCompanyTagBySlug = async (slug) => {
 	}
 };
 
-export const getTotalDoneQuestions = async (companyName, data) => {
-	console.log(data);
+export const getTotalDoneQuestions = async (companyName, data, filter) => {
+	const query = [
+		Query.equal("companyName", companyName),
+		Query.select(["titleSlug"]),
+		Query.limit(10000),
+		Query.equal("titleSlug", data),
+	];
+	if (filter.difficulty) {
+		query.push(Query.equal("difficulty", Number(filter.difficulty)));
+	}
+	if (filter.timeFrame) {
+		query.push(Query.contains("timeframe", filter.timeFrame));
+	}
+	if (filter.topics) {
+		query.push(Query.contains("topics", filter.topics));
+	}
+	if (filter.frequency) {
+		query.push(Query.orderAsc("cumulativeFrequency"));
+	} else {
+		query.push(Query.orderDesc("cumulativeFrequency"));
+	}
 	const totalDoc = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
-		[
-			Query.equal("companyName", companyName),
-			Query.select(["titleSlug"]),
-			Query.limit(10000),
-			Query.equal("titleSlug", data),
-		]
+		query
 	);
 	return totalDoc.documents.map((doc) => doc.titleSlug);
 };

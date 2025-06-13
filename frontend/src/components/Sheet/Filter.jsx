@@ -21,6 +21,7 @@ import {
 	ArrowUpWideNarrow,
 	ArrowDownNarrowWide,
 } from "lucide-react";
+import { NewBadge } from "../NewBadge.jsx";
 export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 	const handleRedirect = (value) => {
 		if (value === "all") {
@@ -39,9 +40,9 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("difficulty") || "all"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-full md:w-[250px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer md:text-lg text-sm">
+				<SelectTrigger className="w-full md:w-[250px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer md:text-lg text-sm data-[size=default]:h-auto">
 					<div className="flex items-center gap-2 ">
-						<Gauge />
+						<Gauge className="size-5" />
 						<SelectValue placeholder="Difficulty" />
 					</div>
 				</SelectTrigger>
@@ -104,9 +105,9 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 				defaultValue={searchParams.get("timeframe") || "allProblems"}
 				onValueChange={handleRedirect}
 			>
-				<SelectTrigger className="w-full cursor-pointer h-full md:w-[250px] bg-gray-900 border  text-gray-200 border-gray-700 md:text-lg text-sm ">
+				<SelectTrigger className="w-full cursor-pointer h-full md:w-[250px] bg-gray-900 border  text-gray-200 border-gray-700 md:text-lg text-sm data-[size=default]:h-auto">
 					<div className="flex items-center gap-2">
-						<Clock />
+						<Clock className="size-5" />
 						<SelectValue placeholder="Filter by Last Asked" />
 					</div>
 				</SelectTrigger>
@@ -207,25 +208,27 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	return (
 		<div>
 			<Popover>
-				<PopoverTrigger className=" h-auto w-full md:min-w-[250px] flex flex-row  items gap-2 items-center  text-gray-300 bg-gray-900 py-2 px-3  border border-gray-700 rounded-md cursor-pointer">
-					<Hash size={15} />
-					{/* {selected.length > 0 ? (
+				<PopoverTrigger className=" h-auto w-full md:min-w-[250px] flex flex-row gap-2 items-center  text-gray-300 bg-gray-900 py-2 px-3  border border-gray-700 rounded-md cursor-pointer">
+					<Hash className="size-5" />
+					{selected.length > 0 ? (
 						<div className="flex flex-wrap gap-2">
 							{selected.map((topic) => {
 								return (
 									<div
-										className="bg-black px-2 py-1 md:text-base text-sm flex-row rounded-full flex justify-center items-center cursor-pointer"
+										className="bg-gray-950 py-0.5 px-3 text-gray-400 md:text-base text-sm flex-row rounded-full flex justify-center items-center cursor-pointer"
 										onClick={(e) => toggleOption(topic, e)}
 									>
 										<span>{topic}</span>
-										<X size={15} />
+										<X className="size-5 ml-2" />
 									</div>
 								);
 							})}
 						</div>
-					) : ( */}
-					<span className="md:text-lg text-sm">Select Topics</span>
-					{/* )} */}
+					) : (
+						<span className="md:text-lg text-sm">
+							Select Topics
+						</span>
+					)}
 				</PopoverTrigger>
 				<PopoverContent
 					align="start"
@@ -282,15 +285,16 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 	};
 	return (
 		<div
-			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700"
+			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative"
 			onClick={() => handleFrequencyChange()}
 		>
 			{searchParams.get("frequency") === "desc" ? (
-				<ArrowDownNarrowWide className="inline size-4 mr-2" />
+				<ArrowDownNarrowWide className="inline size-5  mr-2" />
 			) : (
-				<ArrowUpWideNarrow className="inline size-4 mr-2" />
+				<ArrowUpWideNarrow className="inline size-5 mr-2" />
 			)}
 			Frequency
+			<NewBadge />
 		</div>
 	);
 };

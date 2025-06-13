@@ -17,10 +17,10 @@ import {
 	TopicFilter,
 } from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
+import { NewBadge } from "../NewBadge";
 export const Sheet = () => {
 	const { companyName } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
-
 	// intial All Question Loading
 	const [questions, setQuestions] = useState([]);
 	const [pages, setPages] = useState(0);
@@ -105,8 +105,22 @@ export const Sheet = () => {
 			setLoading(true);
 		}
 	}, [searchTerm]);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+	useEffect(() => {
+		getAllDoneQuestions().then((data) => {
+			getTotalDoneQuestions(companyName, data, filter).then(
+				(doneQuestions) => {
+					setAllDoneQuestion(doneQuestions);
+				}
+			);
+		});
+	}, [searchParams]);
 	return (
 		<div className="min-h-screen text-gray-400 pt-28 md:pt-32 px-5 md:px-12 flex flex-col gap-7">
+			{/* heading */}
 			<div>
 				<p>
 					Total Question :{" "}
@@ -122,30 +136,14 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
-			<div className="shadow-lg">
-				<h2 className="text-xl md:text-2xl font-semibold mb-3  gap-2">
-					🚧 Hang Tight!
-				</h2>
-				<p className="text-sm md:text-base leading-relaxed">
-					We're working on adding exciting features like:
-				</p>
-				<ul className="list-disc list-inside text-sm md:text-base mt-3 space-y-1">
-					<li>📊 Sort by frequency</li>
-					<li>✅ Filter by marked done or undone</li>
-					<li>🎨 UI improvements</li>
-				</ul>
-				<p className="mt-4 text-sm md:text-base">
-					Stay tuned and thank you for your patience! 🙌
-				</p>
-			</div>
-
-			{/* <div>
+			{/* Progress Bar */}
+			<div>
 				<p className="mb-2">
 					Progress Bar {allDoneQuestion.length}/{totalPages * 20}
 				</p>
-				<div className="w-full h-2 bg-gray-400 rounded-full">
+				<div className="w-full h-2.5 bg-gray-300 rounded-full">
 					<div
-						className="h-full bg-green-700 rounded-full"
+						className="h-full transform duration-300 bg-green-700 rounded-full"
 						style={{
 							width: `${
 								totalPages > 0
@@ -157,7 +155,8 @@ export const Sheet = () => {
 						}}
 					/>
 				</div>
-			</div> */}
+			</div>
+			{/* Filters and Search */}
 			<div className="flex flex-col flex-wrap md:flex-row justify-center md:justify-start gap-3 leading-5">
 				<TimeFrameFilter
 					searchParams={searchParams}
@@ -177,10 +176,11 @@ export const Sheet = () => {
 					allTopics={allTopics}
 				/>
 			</div>
+			{/* Search Input */}
 			<div>
 				<input
 					type="text"
-					className="w-full p-2 bg-gray-800  rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 text-gray-200"
+					className="w-full px-5 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg  rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 text-gray-200"
 					onChange={(e) => {
 						setTimeout(() => {
 							setSearchTerm(e.target.value);
@@ -189,6 +189,7 @@ export const Sheet = () => {
 					placeholder="Search questions..."
 				/>
 			</div>
+			{/*  Questions List */}
 			{loading ? (
 				<Loading />
 			) : (
@@ -204,17 +205,25 @@ export const Sheet = () => {
 								}
 								loader={<Loading />}
 							>
-								{filteredQuestions.map((question, idx) => (
-									<Question
-										key={question.$id}
-										question={question}
-										idx={idx + 1}
-										setAllDoneQuestion={setAllDoneQuestion}
-										isDone={allDoneQuestion.includes(
-											question.titleSlug
-										)}
-									/>
-								))}
+								{filteredQuestions.length > 0 ? (
+									filteredQuestions.map((question, idx) => (
+										<Question
+											key={question.$id}
+											question={question}
+											idx={idx + 1}
+											setAllDoneQuestion={
+												setAllDoneQuestion
+											}
+											isDone={allDoneQuestion.includes(
+												question.titleSlug
+											)}
+										/>
+									))
+								) : (
+									<p className="text-gray-500 text-center mt-5">
+										No questions found.
+									</p>
+								)}
 							</InfiniteScroll>
 						) : (
 							<InfiniteScroll
