@@ -78,7 +78,7 @@ export const SearchSheet = () => {
 									)
 								}
 							>
-								<div>
+								<div className="text-base md:text-lg">
 									<img
 										src={`https://img.logo.dev/${company
 											.split(" ")
