@@ -72,7 +72,7 @@ export const QuestionTag = () => {
 					))
 				)}
 			</div>
-			<div className="bg-gradient-to-r from-gray-950 shadow-lg via-gray-900 to-gray-950 my-10 rounded-md">
+			<div className="bg-gradient-to-r from-gray-950 shadow-lg via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
 				<Trick />
 			</div>
 		</div>
