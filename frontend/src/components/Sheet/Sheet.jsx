@@ -116,6 +116,23 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
+			<div className="shadow-lg">
+				<h2 className="text-xl md:text-2xl font-semibold mb-3  gap-2">
+					🚧 Hang Tight!
+				</h2>
+				<p className="text-sm md:text-base leading-relaxed">
+					We're working on adding exciting features like:
+				</p>
+				<ul className="list-disc list-inside text-sm md:text-base mt-3 space-y-1">
+					<li>📊 Sort by frequency</li>
+					<li>✅ Filter by marked done or undone</li>
+					<li>🎨 UI improvements</li>
+				</ul>
+				<p className="mt-4 text-sm md:text-base">
+					Stay tuned and thank you for your patience! 🙌
+				</p>
+			</div>
+
 			{/* <div>
 				<p className="mb-2">
 					Progress Bar {allDoneQuestion.length}/{totalPages * 20}

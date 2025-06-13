@@ -3,6 +3,7 @@ import { Button } from "../ui/moving-border";
 import { getCompanyTagBySlug } from "../../appwrite/leetcode.companyTag";
 import { toast } from "sonner";
 import { Loading } from "../Loading";
+import { Trick } from "./Trick";
 export const QuestionTag = () => {
 	const [companyTag, setCompanyTag] = React.useState([]);
 	const [loading, setLoading] = React.useState(false);
@@ -60,7 +61,9 @@ export const QuestionTag = () => {
 							<img
 								src={`https://img.logo.dev/${tag.companyName
 									.split(" ")
-									.join("")}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+									.join(
+										""
+									)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
 								className="w-5 h-5 inline-block mr-2 rounded-full"
 								alt=""
 							/>
@@ -68,6 +71,9 @@ export const QuestionTag = () => {
 						</div>
 					))
 				)}
+			</div>
+			<div className="bg-gradient-to-r from-gray-950 shadow-lg via-gray-900 to-gray-950 my-10 rounded-md">
+				<Trick />
 			</div>
 		</div>
 	);

@@ -16,6 +16,7 @@ import { Sheet } from "./components/Sheet/Sheet.jsx";
 import { SearchSheet } from "./components/Sheet/SearchSheet.jsx";
 import { QuestionTag } from "./components/QuestionTag/QuestionTag.jsx";
 import { PrivacyPolicy } from "./components/PrivacyPolicy.jsx";
+import { DirectQuestionTag } from "./components/QuestionTag/DirectQuestionTag.jsx";
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
@@ -24,6 +25,10 @@ const router = createBrowserRouter(
 			<Route path="/sheet/:companyName" element={<Sheet />} />
 			<Route path="/search/company-tags" element={<QuestionTag />} />
 			<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+			<Route
+				path="/problems/:titleSlug/*"
+				element={<DirectQuestionTag />}
+			/>
 		</Route>
 	)
 );
