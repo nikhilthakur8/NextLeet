@@ -115,6 +115,10 @@ export const Sheet = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		window.document.title = `${companyName
+			.replace(/-/g, " ")
+			.replace(/_/g, " ")
+			.replace(/\b\w/g, (c) => c.toUpperCase())} Questions Sheet`;
 	}, []);
 	useEffect(() => {
 		getAllDoneQuestions().then((data) => {

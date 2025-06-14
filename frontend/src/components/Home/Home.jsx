@@ -19,6 +19,8 @@ export const Home = () => {
 		}
 	};
 	useEffect(() => {
+		document.title = "NextLeet | Home";
+		window.scrollTo(0, 0);
 		const handleScroll = () => {
 			const scrollY = window.scrollY;
 			if (scrollY > 50) {

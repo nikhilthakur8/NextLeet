@@ -16,6 +16,9 @@ const getAllFavoriteCompanies = () => {
 };
 
 export const SearchSheet = () => {
+	useEffect(() => {
+		document.title = "Search Sheet - LeetCode";
+	}, []);
 	const [favoriteCompanies, setFavoriteCompanies] = useState(
 		getAllFavoriteCompanies()
 	);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/moving-border";
 import { getCompanyTagBySlug } from "../../appwrite/leetcode.companyTag";
 import { toast } from "sonner";
@@ -26,6 +26,10 @@ export const QuestionTag = () => {
 				setLoading(false);
 			});
 	};
+	useEffect(() => {
+		document.title = "Find Question Company Tags";
+		window.scrollTo(0, 0);
+	}, []);
 	return (
 		<div className="min-h-screen px-5 md:px-12 text-sm md:text-lg w-full  md:max-w-4xl mx-auto justify-center text-gray-300 ">
 			<div className="min-h-[40vh] flex w-full justify-end flex-col gap-4">
@@ -57,7 +61,7 @@ export const QuestionTag = () => {
 					companyTag?.map((tag) => (
 						<div
 							key={tag.companyName}
-							className="bg-gray-800 text-gray-300 px-2 py-1 rounded-lg"
+							className="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-1 rounded-lg"
 						>
 							<img
 								src={`https://img.logo.dev/${tag.companyName

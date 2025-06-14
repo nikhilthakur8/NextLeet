@@ -8,7 +8,9 @@ export const DirectQuestionTag = () => {
 	const [companyTag, setCompanyTag] = React.useState([]);
 	const [loading, setLoading] = React.useState(false);
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		const inputValue = titleSlug.split("/")[4]?.trim() || titleSlug.trim();
+		document.title = ` ${inputValue} Company Tags`;
 		setLoading(true);
 		setCompanyTag([]);
 		getCompanyTagBySlug(inputValue)
@@ -23,7 +25,7 @@ export const DirectQuestionTag = () => {
 			});
 	}, []);
 	return (
-		<div className="min-h-screen pt-28 md:pt-32 px-5  text-gray-300">
+		<div className="min-h-screen pt-28 md:pt-32 px-5  text-sm md:text-lg text-gray-300">
 			<div className="flex space-y-5 flex-col items-center">
 				<h1 className="text-2xl md:text-3xl font-semibold">
 					{titleSlug
@@ -46,7 +48,7 @@ export const DirectQuestionTag = () => {
 					companyTag.map((tag) => (
 						<div
 							key={tag.companyName}
-							className="bg-gray-800 text-gray-300 px-2 py-1 rounded-lg flex items-center"
+							className="bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded-lg flex items-center"
 						>
 							<img
 								src={`https://img.logo.dev/${tag.companyName
