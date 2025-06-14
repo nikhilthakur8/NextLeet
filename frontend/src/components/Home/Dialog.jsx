@@ -71,7 +71,7 @@ export const SubscribeDialog = () => {
 						id="emailDialog"
 						type="email"
 						placeholder="Enter your email"
-						className="w-full border-green-700 border rounded-md p-2 text-gray-200 focus:outline-none focus:ring-[3px] focus:ring-green-600 placeholder:text-gray-500 transition-all duration-300"
+						className="w-full border-emerald-700 border rounded-md p-2 text-gray-200 focus:outline-none focus:ring-[3px] focus:ring-emerald-600 placeholder:text-gray-500 transition-all duration-300"
 						required
 						autoComplete="off"
 						autoCorrect="off"

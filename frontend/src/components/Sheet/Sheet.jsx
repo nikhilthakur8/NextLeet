@@ -147,11 +147,11 @@ export const Sheet = () => {
 			<div>
 				<p className="mb-2">
 					Progress Bar
-					<span className="text-base md:text-xl text-gray-200 ml-2">
+					<span className="text-base md:text-xl text-gray-300 ml-2">
 						{allDoneQuestion.length}/{totalPages * 20}
 					</span>
 				</p>
-				<div className="w-full h-3 md:h-4 rounded-sm overflow-hidden bg-gray-300 ">
+				<div className="w-full h-3 md:h-4 rounded-sm overflow-hidden bg-gray-400 ">
 					<div
 						className="h-full transform duration-300 bg-emerald-700"
 						style={{
@@ -194,7 +194,7 @@ export const Sheet = () => {
 			<div className="flex items-center gap-2">
 				<input
 					type="text"
-					className="w-full px-5 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg  rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 text-gray-200"
+					className="w-full px-5 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg  rounded-md focus:outline-none focus:ring-3 focus:ring-emerald-600 text-gray-200"
 					onChange={(e) => {
 						setTimeout(() => {
 							setSearchTerm(e.target.value);

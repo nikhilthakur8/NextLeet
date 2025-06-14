@@ -240,7 +240,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 						placeholder="Search..."
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
-						className="mb-2 border border-gray-700 focus:border-none focus:outline-none focus:ring-2 focus:ring-green-500 rounded-md px-4 py-1"
+						className="mb-2 border border-gray-700 focus:border-none focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-md px-4 py-1"
 					/>
 					<div className="max-h-[200px] overflow-y-auto space-y-1 pr-1 hide-scrollbar">
 						{filteredOptions.map((option) => (
@@ -248,7 +248,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 								key={option}
 								className={`flex items-center gap-2 rounded-md px-2 py-1 hover:bg-muted cursor-pointer ${
 									selected.includes(option) &&
-									"border border-green-500"
+									"border border-emerald-500"
 								}`}
 							>
 								<Checkbox

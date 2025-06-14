@@ -40,7 +40,7 @@ export const QuestionTag = () => {
 					<input
 						type="text"
 						name="questionSlug"
-						className="focus:outline-none focus:ring-3 w-full focus:ring-green-700 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700"
+						className="focus:outline-none focus:ring-3 w-full focus:ring-emerald-600 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700"
 						placeholder="https://leetcode.com/problems/3sum/ or 3sum"
 						autoComplete="off"
 						autoFocus

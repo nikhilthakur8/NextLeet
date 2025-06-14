@@ -110,7 +110,7 @@ export const SearchSheet = () => {
 						title={isEditing ? "Done Editing" : "Edit Favorites"}
 					>
 						{isEditing ? (
-							<span className="text-green-500 ">Done</span>
+							<span className="text-emerald-500 ">Done</span>
 						) : (
 							<span className="text-red-600">Edit</span>
 						)}
@@ -154,7 +154,7 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 		<div className="">
 			<input
 				type="text"
-				className="w-full focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-900 border border-gray-800 px-4 py-2 rounded-md placeholder:text-gray-500 text-gray-300 text-base md:text-lg"
+				className="w-full focus:outline-none focus:ring-3 focus:ring-emerald-600 bg-gray-900 border border-gray-800 px-4 py-2 rounded-md placeholder:text-gray-500 text-gray-300 text-base md:text-lg"
 				autoFocus
 				placeholder="Search company..."
 				onChange={(e) => setSearch(e.target.value)}

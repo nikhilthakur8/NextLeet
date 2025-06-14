@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { MessageSquareMore } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ArrowUpFromLineIcon, MessageSquareMore } from "lucide-react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -36,13 +36,37 @@ export const Feedback = () => {
 				);
 			});
 	};
+	useEffect(() => {
+		function handleScroll() {
+			if (window.scrollY > window.innerHeight * 3) {
+				document
+					.getElementById("scrollToTopButton")
+					.classList.remove("hidden");
+			} else {
+				document
+					.getElementById("scrollToTopButton")
+					.classList.add("hidden");
+			}
+		}
+		document.addEventListener("scroll", handleScroll);
+		return () => {
+			document.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 	return (
-		<div className="overflow-hidden hide-scrollbar ">
+		<div className="hide-scrollbar bottom-5 md:bottom-10 space-y-4 right-5 md:right-10 fixed">
+			<div
+				className="rounded-full hidden p-1 animate-bounce [animation-duration:2s] md:p-2 mx-1 bg-gray-800 border border-gray-700 cursor-pointer"
+				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+				title="Scroll to Top"
+				role="button"
+				id="scrollToTopButton"
+			>
+				<ArrowUpFromLineIcon className="text-gray-200 " />
+			</div>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<div
-						className={`fixed bg-gray-800 p-2 md:p-4 rounded-full cursor-pointer  bottom-5 md:bottom-10 right-5 md:right-10 text-white border border-gray-700 `}
-					>
+					<div className="bg-gray-800 p-2 md:p-3 rounded-full cursor-pointer   text-white border border-gray-700">
 						<MessageSquareMore className=" text-white" />
 					</div>
 				</DropdownMenuTrigger>
@@ -61,7 +85,7 @@ export const Feedback = () => {
 							onChange={(e) => {
 								setFeedback(e.target.value);
 							}}
-							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-green-600"
+							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-emerald-600"
 							placeholder="Leave your feedback here..."
 						></textarea>
 					</div>

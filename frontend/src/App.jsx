@@ -31,7 +31,6 @@ export const App = () => {
 				<NavBarNew />
 				<Outlet />
 				<Feedback />
-				<Feedback />
 				<Footer />
 				<Analytics />
 				<SpeedInsights />
