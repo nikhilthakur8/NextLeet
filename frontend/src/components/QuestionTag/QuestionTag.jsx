@@ -27,7 +27,7 @@ export const QuestionTag = () => {
 			});
 	};
 	return (
-		<div className="min-h-screen px-5 md:px-12 text-sm md:text-lg justify-center text-gray-300 ">
+		<div className="min-h-screen px-5 md:px-12 text-sm md:text-lg w-full  md:max-w-3xl mx-auto justify-center text-gray-300 ">
 			<div className="min-h-[40vh] flex w-full justify-end flex-col gap-4">
 				<div className="mx-auto text-lg md:text-xl">
 					🔗 Enter the LeetCode question link or just the title slug
@@ -40,7 +40,7 @@ export const QuestionTag = () => {
 					<input
 						type="text"
 						name="questionSlug"
-						className="focus:outline-none focus:ring-3 focus:ring-green-700 px-4 py-2 rounded-lg bg-gray-900 w-full  md:max-w-[500px] border border-gray-700"
+						className="focus:outline-none focus:ring-3 w-full focus:ring-green-700 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700"
 						placeholder="https://leetcode.com/problems/two-sum/ or two-sum"
 						autoComplete="off"
 						autoFocus
@@ -73,7 +73,7 @@ export const QuestionTag = () => {
 					))
 				)}
 			</div>
-			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg w-full md:max-w-xl mx-auto via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
+			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg w-full mx-auto via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
 				<Trick />
 				<NewBadge
 					text={"Trick"}

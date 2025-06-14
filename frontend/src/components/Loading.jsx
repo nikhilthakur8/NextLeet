@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 
 export const Loading = ({ className, size = "size-6" }) => {
 	const quotes = [
-		"An engineer can never be replaced, never be destroyed",
-		"Compiling dreams into reality... please wait.",
-		"Just optimizing the coffee-to-code ratio...",
-		"Turning Stack Overflow answers into features…",
-		"Waiting for the intern to Google it...",
-		"Engineers at work: please hold.",
-		"Debugging the universe, one line at a time...",
-		"Building rockets... out of spaghetti code.",
-		"Still faster than an engineer naming variables.",
-		"Making sure it works on your machine too…",
-		"Almost there… just one more ‘quick fix’.",
+		"Sorting results using merge sort...",
+		"Traversing the recursion tree…",
+		"Running DFS on your patience...",
+		"Solving TLEs one testcase at a time...",
+		"Greedy won’t work? Time for DP magic...",
+		"Trying all permutations... literally.",
+		"Stuck on a hard question... send help.",
+		"Backtracking through the codebase...",
+		"Calculating optimal solution… or brute force?",
+		"Binary searching for hope...",
+		"Heapifying expectations...",
+		"Still debugging that one edge case...",
 	];
 	const [quotesNo, setQuotesNo] = useState(0);
 	useEffect(() => {
