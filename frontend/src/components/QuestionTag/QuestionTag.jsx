@@ -27,7 +27,7 @@ export const QuestionTag = () => {
 			});
 	};
 	return (
-		<div className="min-h-screen px-5 md:px-12 text-sm md:text-lg w-full  md:max-w-3xl mx-auto justify-center text-gray-300 ">
+		<div className="min-h-screen px-5 md:px-12 text-sm md:text-lg w-full  md:max-w-4xl mx-auto justify-center text-gray-300 ">
 			<div className="min-h-[40vh] flex w-full justify-end flex-col gap-4">
 				<div className="mx-auto text-lg md:text-xl">
 					🔗 Enter the LeetCode question link or just the title slug
@@ -50,7 +50,7 @@ export const QuestionTag = () => {
 					</button>
 				</form>
 			</div>
-			<div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-10 w-full md:max-w-5xl mx-auto">
+			<div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-10 mx-auto">
 				{loading ? (
 					<Loading />
 				) : (
@@ -73,7 +73,7 @@ export const QuestionTag = () => {
 					))
 				)}
 			</div>
-			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg w-full mx-auto via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
+			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg mx-auto via-gray-900/90 to-gray-950 mt-20 rounded-md border border-gray-900 md:max-w-xl  ">
 				<Trick />
 				<NewBadge
 					text={"Trick"}

@@ -184,6 +184,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	const [selected, setSelected] = useState(
 		searchParams.get("topics")?.split(",") || []
 	);
+	console.log("Selected Topics:", allTopics);
 	const [search, setSearch] = useState("");
 	const filteredOptions = allTopics.filter((topic) =>
 		topic.toLowerCase().includes(search.toLowerCase())
@@ -294,6 +295,32 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 				<ArrowUpWideNarrow className="inline size-5 mr-2" />
 			)}
 			Frequency
+			<NewBadge className={"text-xs md:text-xs"} />
+		</div>
+	);
+};
+
+export const TopicsVisibiltyFilter = ({ isTopicVisible, setTopicVisible }) => {
+	return (
+		<div
+			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative flex items-center"
+			onClick={() => setTopicVisible((prev) => !prev)}
+		>
+			<Tag className="inline size-5  mr-2" />
+			{/* Topics */}
+			<div
+				className={`w-7 md:w-9 relative h-3 md:h-4 inline-block rounded-full ${
+					!isTopicVisible ? "bg-gray-500" : "bg-emerald-800"
+				}`}
+			>
+				<div
+					className={`h-4 w-4 md:w-5 md:h-5 rounded-full absolute -top-1/6 ${
+						!isTopicVisible
+							? "left-0 bg-gray-300"
+							: "right-0 bg-emerald-200"
+					} transition-all duration-300`}
+				></div>
+			</div>
 			<NewBadge className={"text-xs md:text-xs"} />
 		</div>
 	);

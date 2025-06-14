@@ -37,10 +37,12 @@ export const Feedback = () => {
 			});
 	};
 	return (
-		<div className="overflow-hidden hide-scrollbar hidden sm:block">
+		<div className="overflow-hidden hide-scrollbar ">
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<div className="fixed bg-gray-800 p-4 rounded-full cursor-pointer  bottom-10 right-10 text-white">
+					<div
+						className={`fixed bg-gray-800 p-2 md:p-4 rounded-full cursor-pointer  bottom-5 md:bottom-10 right-5 md:right-10 text-white border border-gray-700 `}
+					>
 						<MessageSquareMore className=" text-white" />
 					</div>
 				</DropdownMenuTrigger>
@@ -59,7 +61,7 @@ export const Feedback = () => {
 							onChange={(e) => {
 								setFeedback(e.target.value);
 							}}
-							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-green-600"
 							placeholder="Leave your feedback here..."
 						></textarea>
 					</div>

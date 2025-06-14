@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { ColourfulText } from "../ui/colourful-text";
 import { Link } from "react-router-dom";
+import { Lightbulb } from "lucide-react";
 export function NavBarNew() {
 	const itemClick = (e) => {
 		if (!e.currentTarget.getAttribute("href").includes("#")) return;
@@ -61,12 +62,11 @@ export function NavBarNew() {
 						onItemClick={itemClick}
 						className={"text-base"}
 					/>
-					{/* <div className="flex items-center gap-4">
-                        <NavbarButton variant="gradient">Login</NavbarButton>
-                        <NavbarButton variant="primary">
-                            Book a call
-                        </NavbarButton>
-                    </div> */}
+					<div className="flex items-center gap-4">
+						{/* <div className="relative cursor-pointer  group px-2 py-1 hover:-translate-y-0.5 rounded-full" title="Any Feedback?">
+							<Lightbulb className="text-gray-400 group-hover:text-gray-600 size-7" />
+						</div> */}
+					</div>
 				</NavBody>
 
 				{/* Mobile Navigation */}

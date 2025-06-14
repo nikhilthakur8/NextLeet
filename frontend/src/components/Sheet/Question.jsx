@@ -33,7 +33,7 @@ const getTimeFrameLabel = (timeframe) => {
 	return "> 1 Year";
 };
 export const Question = React.memo(
-	({ idx, question, isDone = false, setAllDoneQuestion }) => {
+	({ idx, question, isDone = false, setAllDoneQuestion, isTopicVisible }) => {
 		const colorMap = [
 			"text-green-500",
 			"text-green-500",
@@ -84,20 +84,22 @@ export const Question = React.memo(
 						</TooltipProvider>
 					</a>
 				</div>
-				<div className="flex items-center gap-3">
-					<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 md:flex">
-						{question.topics.map(
-							(topic, idx) =>
-								topic.length > 0 && (
-									<span
-										key={idx}
-										className={`border border-gray-800 px-3 py-1 rounded-full bg-gray-900 text-gray-300 text-sm mr-1`}
-									>
-										{topic}
-									</span>
-								)
-						)}
-					</div>
+				<div className="flex items-center gap-5">
+					{isTopicVisible && (
+						<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 md:flex">
+							{question.topics.map(
+								(topic, idx) =>
+									topic.length > 0 && (
+										<span
+											key={idx}
+											className={`border border-gray-700 px-3 py-1 rounded-full bg-gray-900 text-gray-300 text-sm mr-1`}
+										>
+											{topic}
+										</span>
+									)
+							)}
+						</div>
+					)}
 					<p className={`${colorMap[question.difficulty]}`}>
 						{getDifficultyLabel(question.difficulty - 1)}
 					</p>

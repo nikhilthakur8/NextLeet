@@ -15,6 +15,7 @@ import {
 	FrequencyFilter,
 	TimeFrameFilter,
 	TopicFilter,
+	TopicsVisibiltyFilter,
 } from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
 import { NewBadge } from "../NewBadge";
@@ -27,6 +28,7 @@ export const Sheet = () => {
 	const [totalPages, setTotalPages] = useState(0);
 	const [allDoneQuestion, setAllDoneQuestion] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [isTopicVisible, setTopicVisible] = useState(false);
 	const filter = useMemo(
 		() => ({
 			difficulty: searchParams.get("difficulty") || "",
@@ -39,7 +41,12 @@ export const Sheet = () => {
 
 	const [allTopics, setAllTopics] = useState([]);
 	useEffect(() => {
-		getAllQuestionTopics(companyName).then((data) => {
+		const correctedCompanyName = companyName
+			.replace(/-/g, " ")
+			.replace(/_/g, " ")
+			.replace(/\b\w/g, (c) => c.toUpperCase());
+		document.title = `LeetCode - ${correctedCompanyName} Questions`;
+		getAllQuestionTopics(correctedCompanyName).then((data) => {
 			setAllTopics(data);
 		});
 	}, []);
@@ -118,19 +125,6 @@ export const Sheet = () => {
 			);
 		});
 	}, [searchParams]);
-	function getQuotes(companyName) {
-		const quotes = [
-			`Looks like someone's serious about getting into ${companyName} 😎`,
-			"Oh hey there, future engineer 👋 Ready to conquer DSA land?",
-			`These are ${companyName} secrets... act like you saw nothing. 😏`,
-			"Warning: Solving these may cause unstoppable confidence. Proceed wisely. 😎",
-			`These are ${companyName} handpicked ones. Don’t tell anyone I showed you 😌`,
-			"Psst… not everyone knows these questions. Keep it low-key 👀",
-			"Next stop: Offer letter 📨",
-		];
-
-		return quotes[Math.floor(Math.random() * quotes.length)];
-	}
 	return (
 		<div className="min-h-screen text-gray-400 pt-28 md:pt-32 px-5 md:px-12 flex flex-col gap-5">
 			{/* heading */}
@@ -149,23 +143,15 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
-			<div className="text-cyan-500 text-sm md:text-2xl font-semibold">
-				{getQuotes(
-					companyName
-						.replace(/-/g, " ")
-						.replace(/_/g, " ")
-						.replace(/\b\w/g, (c) => c.toUpperCase())
-				)}
-			</div>
 			{/* Progress Bar */}
 			<div>
 				<p className="mb-2">
 					Progress Bar
-					<span className="text-base md:text-xl text-gray-500 ml-2">
+					<span className="text-base md:text-xl text-gray-200 ml-2">
 						{allDoneQuestion.length}/{totalPages * 20}
 					</span>
 				</p>
-				<div className="w-full h-3 md:h-4 bg-gray-300 ">
+				<div className="w-full h-3 md:h-4 rounded-sm overflow-hidden bg-gray-300 ">
 					<div
 						className="h-full transform duration-300 bg-emerald-700"
 						style={{
@@ -199,9 +185,13 @@ export const Sheet = () => {
 					setSearchParams={setSearchParams}
 					allTopics={allTopics}
 				/>
+				<TopicsVisibiltyFilter
+					isTopicVisible={isTopicVisible}
+					setTopicVisible={setTopicVisible}
+				/>
 			</div>
 			{/* Search Input */}
-			<div>
+			<div className="flex items-center gap-2">
 				<input
 					type="text"
 					className="w-full px-5 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg  rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 text-gray-200"
@@ -234,6 +224,7 @@ export const Sheet = () => {
 										<Question
 											key={question.$id}
 											question={question}
+											isTopicVisible={isTopicVisible}
 											idx={idx + 1}
 											setAllDoneQuestion={
 												setAllDoneQuestion
@@ -260,6 +251,7 @@ export const Sheet = () => {
 									<Question
 										key={question.$id}
 										question={question}
+										isTopicVisible={isTopicVisible}
 										idx={idx + 1}
 										setAllDoneQuestion={setAllDoneQuestion}
 										isDone={allDoneQuestion.includes(
