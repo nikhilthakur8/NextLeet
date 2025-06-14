@@ -17,18 +17,22 @@ import { SearchSheet } from "./components/Sheet/SearchSheet.jsx";
 import { QuestionTag } from "./components/QuestionTag/QuestionTag.jsx";
 import { PrivacyPolicy } from "./components/PrivacyPolicy.jsx";
 import { DirectQuestionTag } from "./components/QuestionTag/DirectQuestionTag.jsx";
+import { POTD } from "./components/POTD/POTD.jsx";
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<App />}>
-			<Route index element={<Home />} />
-			<Route path="/search/sheet" element={<SearchSheet />} />
-			<Route path="/sheet/:companyName" element={<Sheet />} />
-			<Route path="/search/company-tags" element={<QuestionTag />} />
-			<Route path="/privacy-policy" element={<PrivacyPolicy />} />
-			<Route
-				path="/problems/:titleSlug/*"
-				element={<DirectQuestionTag />}
-			/>
+		<Route path="/">
+			<Route path="/" element={<App />}>
+				<Route index element={<Home />} />
+				<Route path="/search/sheet" element={<SearchSheet />} />
+				<Route path="/sheet/:companyName" element={<Sheet />} />
+				<Route path="/search/company-tags" element={<QuestionTag />} />
+				<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+				<Route
+					path="/problems/:titleSlug/*"
+					element={<DirectQuestionTag />}
+				/>
+			</Route>
+			<Route path="/potd" element={<POTD />} />
 		</Route>
 	)
 );

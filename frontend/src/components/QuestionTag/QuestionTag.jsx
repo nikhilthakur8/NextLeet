@@ -73,9 +73,14 @@ export const QuestionTag = () => {
 					))
 				)}
 			</div>
-			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
+			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg w-full md:max-w-xl mx-auto via-gray-900 to-gray-950 my-10 rounded-md border border-gray-900">
 				<Trick />
-				<NewBadge />
+				<NewBadge
+					text={"Trick"}
+					className={
+						"bg-gradient-to-l from-green-400 via-green-500 to-green-400"
+					}
+				/>
 			</div>
 		</div>
 	);

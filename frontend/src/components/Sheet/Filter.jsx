@@ -294,7 +294,7 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 				<ArrowUpWideNarrow className="inline size-5 mr-2" />
 			)}
 			Frequency
-			<NewBadge />
+			<NewBadge className={"text-xs md:text-xs"} />
 		</div>
 	);
 };

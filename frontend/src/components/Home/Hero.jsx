@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from "react";
-import subscribeUser, { getTomorrowQuestion } from "../../appwrite/config";
+import subscribeUser, { getTodayPOTD } from "../../appwrite/config";
 import { BackgroundLines } from "../ui/background-lines.jsx";
 import { motion } from "motion/react";
 import { Button } from "../ui/moving-border.jsx";
@@ -11,7 +11,7 @@ export const Hero = () => {
 		"https://leetcode.com/problems/"
 	);
 	useEffect(() => {
-		getTomorrowQuestion().then((question) => {
+		getTodayPOTD().then((question) => {
 			if (question) {
 				setTommorowsQuestion(question);
 			}

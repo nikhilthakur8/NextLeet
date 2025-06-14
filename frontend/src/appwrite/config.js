@@ -78,11 +78,9 @@ export async function getLatestQuestion(skip = 0, limit = 10) {
 	}
 }
 
-export async function getTomorrowQuestion() {
+export async function getTodayPOTD() {
 	const requiredDetails = ["titleSlug"];
 	const currentDate = new Date();
-	// const tomorrowDate = new Date(currentDate);
-	// tomorrowDate.setDate(currentDate.getDate() + 1);
 	try {
 		const data = await databases.listDocuments(
 			import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
@@ -171,7 +169,10 @@ export async function registerFeedback(feedback) {
 	const getData = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_MICELLANEOUS_COLLECTION_ID,
-		[Query.limit(1), Query.select(["positiveResponse", "negativeResponse","$id"])]
+		[
+			Query.limit(1),
+			Query.select(["positiveResponse", "negativeResponse", "$id"]),
+		]
 	);
 	const positiveResponse = getData.documents[0].positiveResponse + data;
 	const negativeResponse = getData.documents[0].negativeResponse + (1 - data);

@@ -7,6 +7,7 @@ import { ChevronDown, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
 import { Promotion } from "./Promotion";
+import { NewBadge } from "../NewBadge";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
 	const handleScrollClick = () => {
@@ -47,6 +48,20 @@ export const Home = () => {
 			)}
 			<Promotion />
 			<UpcomingQuestion />
+			<div className="text-gray-200 bg-gray-900 px-4 py-5 mx-auto w-full md:min-w-xl text-center relative rounded-md">
+				<p className="inline-block text-xl font-semibold">
+					Get Today's POTD :
+				</p>
+				<span className="bg-gray-700 text-gray-100 px-4 py-1 rounded-md border border-gray-600 ml-2">
+					nextleet.com/potd
+				</span>
+				<NewBadge
+					text={"Trick"}
+					className={
+						"bg-gradient-to-l from-green-400 via-green-500 to-green-400"
+					}
+				/>
+			</div>
 			<WeeklyQuestion />
 			<PastQuestion />
 		</div>
