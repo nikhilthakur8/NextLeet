@@ -61,7 +61,10 @@ export const DirectQuestionTag = () => {
 						</div>
 					))
 				) : (
-					<div className="text-gray-400">No Company Tag found</div>
+					<div className="text-gray-400 text-center text-sm md:text-lg">
+						<p>No companies found.</p>
+						<p>This may happen if the question is newly added.</p>
+					</div>
 				)}
 			</div>
 		</div>
