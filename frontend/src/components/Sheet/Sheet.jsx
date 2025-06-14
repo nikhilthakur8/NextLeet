@@ -184,14 +184,14 @@ export const Sheet = () => {
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 				/>
+				<TopicsVisibiltyFilter
+					isTopicVisible={isTopicVisible}
+					setTopicVisible={setTopicVisible}
+				/>
 				<TopicFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 					allTopics={allTopics}
-				/>
-				<TopicsVisibiltyFilter
-					isTopicVisible={isTopicVisible}
-					setTopicVisible={setTopicVisible}
 				/>
 			</div>
 			{/* Search Input */}

@@ -24,7 +24,7 @@ export const getQuestionByCompanyTag = async (
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
 	}
-	if (filter.frequency) {
+	if (filter.frequency == "asc") {
 		query.push(Query.orderAsc("cumulativeFrequency"));
 	} else {
 		query.push(Query.orderDesc("cumulativeFrequency"));
@@ -88,7 +88,7 @@ export const searchQuestion = async (
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
 	}
-	if (filter.frequency) {
+	if (filter.frequency == "asc") {
 		query.push(Query.orderAsc("cumulativeFrequency"));
 	} else {
 		query.push(Query.orderDesc("cumulativeFrequency"));
@@ -138,7 +138,7 @@ export const getTotalDoneQuestions = async (companyName, data, filter) => {
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
 	}
-	if (filter.frequency) {
+	if (filter.frequency == "asc") {
 		query.push(Query.orderAsc("cumulativeFrequency"));
 	} else {
 		query.push(Query.orderDesc("cumulativeFrequency"));

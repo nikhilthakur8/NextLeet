@@ -210,7 +210,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 		<div>
 			<Popover>
 				<PopoverTrigger className=" h-auto w-full md:min-w-[250px] flex flex-row gap-2 items-center  text-gray-300 bg-gray-900 py-2 px-3  border border-gray-700 rounded-md cursor-pointer">
-					<Hash className="size-5" />
+					<Hash className="size-5 shrink-0" />
 					{selected.length > 0 ? (
 						<div className="flex flex-wrap gap-2">
 							{selected.map((topic) => {
@@ -273,13 +273,13 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 	const handleFrequencyChange = () => {
 		const value = searchParams.get("frequency");
-		if (value === "desc") {
+		if (value === "asc") {
 			setSearchParams((prev) => prev.delete("frequency"));
 			return;
 		} else {
 			setSearchParams((prev) => {
 				const params = new URLSearchParams(prev);
-				params.set("frequency", "desc");
+				params.set("frequency", "asc");
 				return params;
 			});
 		}
@@ -289,7 +289,7 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative"
 			onClick={() => handleFrequencyChange()}
 		>
-			{searchParams.get("frequency") === "desc" ? (
+			{searchParams.get("frequency") === "asc" ? (
 				<ArrowDownNarrowWide className="inline size-5  mr-2" />
 			) : (
 				<ArrowUpWideNarrow className="inline size-5 mr-2" />
