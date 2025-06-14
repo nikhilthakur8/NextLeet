@@ -1,11 +1,15 @@
 {
 	"version": 2,
-	"redirects": [
+	"rewrites": [{ "source": "/(.*)", "destination": "/" }],
+	"headers": [
 		{
-			"source": "/ads.txt",
-			"destination": "https://srv.adstxtmanager.com/19390/nextleet.com",
-			"permanent": true
+			"source": "/assets/(.*)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=31536000, immutable"
+				}
+			]
 		}
-	],
-	"rewrites": [{ "source": "/(.*)", "destination": "/" }]
+	]
 }
