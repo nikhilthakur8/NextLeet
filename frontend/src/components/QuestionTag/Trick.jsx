@@ -5,9 +5,9 @@ export const Trick = () => {
 	return (
 		<div className="text-xs md:text-lg flex flex-col space-y-2 px-5 text-gray-300 py-5">
 			<h2 className="text-xl md:text-2xl text-neutral-300 font-semibold">
-				Here is a Short Trick for It:
+				Short Trick for smart people like you 😉
 			</h2>
-			<div className="relative">
+			<div className="relative my-2">
 				<p className="bg-gray-800 rounded-md px-4 py-1  w-fit shadow-md break-all">
 					https://
 					<span className="text-sky-500 text-base md:text-xl">

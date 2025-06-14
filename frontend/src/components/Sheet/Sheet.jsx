@@ -118,8 +118,21 @@ export const Sheet = () => {
 			);
 		});
 	}, [searchParams]);
+	function getQuotes(companyName) {
+		const quotes = [
+			`Looks like someone's serious about getting into ${companyName} 😎`,
+			"Oh hey there, future engineer 👋 Ready to conquer DSA land?",
+			`These are ${companyName} secrets... act like you saw nothing. 😏`,
+			"Warning: Solving these may cause unstoppable confidence. Proceed wisely. 😎",
+			`These are ${companyName} handpicked ones. Don’t tell anyone I showed you 😌`,
+			"Psst… not everyone knows these questions. Keep it low-key 👀",
+			"Next stop: Offer letter 📨",
+		];
+
+		return quotes[Math.floor(Math.random() * quotes.length)];
+	}
 	return (
-		<div className="min-h-screen text-gray-400 pt-28 md:pt-32 px-5 md:px-12 flex flex-col gap-7">
+		<div className="min-h-screen text-gray-400 pt-28 md:pt-32 px-5 md:px-12 flex flex-col gap-5">
 			{/* heading */}
 			<div>
 				<p>
@@ -136,14 +149,25 @@ export const Sheet = () => {
 						.replace(/\b\w/g, (c) => c.toUpperCase())}
 				</span>
 			</div>
+			<div className="text-cyan-500 text-sm md:text-2xl font-semibold">
+				{getQuotes(
+					companyName
+						.replace(/-/g, " ")
+						.replace(/_/g, " ")
+						.replace(/\b\w/g, (c) => c.toUpperCase())
+				)}
+			</div>
 			{/* Progress Bar */}
 			<div>
 				<p className="mb-2">
-					Progress Bar {allDoneQuestion.length}/{totalPages * 20}
+					Progress Bar
+					<span className="text-base md:text-xl text-gray-500 ml-2">
+						{allDoneQuestion.length}/{totalPages * 20}
+					</span>
 				</p>
-				<div className="w-full h-2.5 bg-gray-300 rounded-full">
+				<div className="w-full h-3 md:h-4 bg-gray-300 ">
 					<div
-						className="h-full transform duration-300 bg-green-700 rounded-full"
+						className="h-full transform duration-300 bg-emerald-700"
 						style={{
 							width: `${
 								totalPages > 0

@@ -31,7 +31,7 @@ export const QuestionTag = () => {
 			<div className="min-h-[40vh] flex w-full justify-end flex-col gap-4">
 				<div className="mx-auto text-lg md:text-xl">
 					🔗 Enter the LeetCode question link or just the title slug
-					(e.g., two-sum)
+					(e.g., 3sum 😏 )
 				</div>
 				<form
 					onSubmit={handleSubmit}
@@ -41,7 +41,7 @@ export const QuestionTag = () => {
 						type="text"
 						name="questionSlug"
 						className="focus:outline-none focus:ring-3 w-full focus:ring-green-700 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700"
-						placeholder="https://leetcode.com/problems/two-sum/ or two-sum"
+						placeholder="https://leetcode.com/problems/3sum/ or 3sum"
 						autoComplete="off"
 						autoFocus
 					/>
