@@ -38,7 +38,7 @@ export const Feedback = () => {
 	};
 	useEffect(() => {
 		function handleScroll() {
-			if (window.scrollY > window.innerHeight * 3) {
+			if (window.scrollY > window.innerHeight * 2) {
 				document
 					.getElementById("scrollToTopButton")
 					.classList.remove("hidden");
@@ -54,9 +54,9 @@ export const Feedback = () => {
 		};
 	}, []);
 	return (
-		<div className="hide-scrollbar bottom-5 md:bottom-10 space-y-4 right-5 md:right-10 fixed">
+		<div className="hide-scrollbar bottom-5 md:bottom-10 md:space-y-4 right-5 md:right-10 fixed">
 			<div
-				className="rounded-full hidden p-1  animate-bounce [animation-duration:2s] md:p-2 mx-1 bg-gray-800 border border-gray-700 cursor-pointer"
+				className="rounded-full hidden p-1  animate-bounce [animation-duration:2s] md:p-2 mx-2 bg-gray-800 border border-gray-700 cursor-pointer"
 				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 				title="Scroll to Top"
 				role="button"
@@ -66,7 +66,7 @@ export const Feedback = () => {
 			</div>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<div className="bg-gray-800 p-2 md:p-3 rounded-full cursor-pointer   text-white border border-gray-700">
+					<div className="bg-gray-800 hidden md:block p-4 rounded-full cursor-pointer   text-white border border-gray-700">
 						<MessageSquareMore className=" text-white" />
 					</div>
 				</DropdownMenuTrigger>
