@@ -31,6 +31,8 @@
 	animation: shake 1s ease-in-out infinite alternate;
 }
 
-[data-scroll-locked] {
+html body[data-scroll-locked]:not([data-scroll-no-lock]) {
+	min-width: 100%;
 	margin-right: 0 !important;
+	overflow: inherit !important;
 }
