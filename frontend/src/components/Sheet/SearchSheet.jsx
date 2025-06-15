@@ -8,9 +8,10 @@ import {
 } from "../ui/command"; // from shadcn
 import { getAllCompanyNames } from "../../appwrite/leetcode.companyTag";
 import { Link, useNavigate } from "react-router-dom";
-import { Edit, Star, X } from "lucide-react";
+import { Badge, Edit, Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { Loading } from "../Loading";
+import { NewBadge } from "../NewBadge";
 const getAllFavoriteCompanies = () => {
 	return JSON.parse(localStorage.getItem("favoriteCompanies")) || [];
 };
@@ -63,61 +64,68 @@ export const SearchSheet = () => {
 				(Last Updated on 1st June 2025)
 			</p>
 			{favoriteCompanies?.length > 0 && (
-				<div className="flex gap-2 bg-gray-900 p-5 rounded-md  md:items-center relative">
-					<p className="font-semibold">Favourites:</p>
-					<ul className="flex gap-2 flex-wrap w-full">
-						{favoriteCompanies.map((company) => (
-							<li
-								key={company}
-								className={`border rounded-xl cursor-pointer border-gray-700 text-gray-300 bg-gray-900 px-4 py-1.5 relative ${
-									isEditing ? "animate-shake" : ""
-								}`}
-								onClick={() =>
-									navigate(
-										`/sheet/${company
-											.split(" ")
-											.join("-")
-											.toLowerCase()}`
-									)
-								}
-							>
-								<div className="text-base md:text-lg">
-									<img
-										src={`https://img.logo.dev/${company
-											.split(" ")
-											.join("")
-											.split(".")
-											.join(
-												""
-											)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
-										className="w-6 h-6 inline-block mr-2 rounded-full"
-										alt=""
-									/>
-									{company}
-								</div>
-								{isEditing && (
-									<X
-										className="text-red-700 absolute -top-2 -right-2 "
-										onClick={(e) => {
-											e.stopPropagation();
-											addInFavorite(company);
-										}}
-									/>
-								)}
-							</li>
-						))}
-					</ul>
-					<p
-						className="cursor-pointer h-fit"
-						onClick={() => setIsEditing((prev) => !prev)}
-						title={isEditing ? "Done Editing" : "Edit Favorites"}
-					>
-						{isEditing ? (
-							<span className="text-emerald-500 ">Done</span>
-						) : (
-							<span className="text-red-600">Edit</span>
-						)}
-					</p>
+				<div className=" bg-gray-900 p-5 rounded-md relative">
+					<div className="flex justify-between mb-3">
+						<p className="font-semibold">Favourites :</p>
+						<p
+							className="cursor-pointer h-fit text-sm font-semibold"
+							onClick={() => setIsEditing((prev) => !prev)}
+							title={
+								isEditing ? "Done Editing" : "Edit Favorites"
+							}
+						>
+							{isEditing ? (
+								<span className="text-emerald-500 ">Done</span>
+							) : (
+								<span className="text-red-600">Edit</span>
+							)}
+						</p>
+					</div>
+					<div className="flex items-center gap-2 w-full">
+						<ul className="flex gap-2 flex-wrap w-full">
+							{favoriteCompanies.map((company) => (
+								<li
+									key={company}
+									className={`border rounded-xl cursor-pointer border-gray-700 text-gray-300 bg-gray-900 px-4 py-1.5 relative ${
+										isEditing ? "animate-shake" : ""
+									}`}
+									onClick={() =>
+										navigate(
+											`/sheet/${company
+												.split(" ")
+												.join("-")
+												.toLowerCase()}`
+										)
+									}
+								>
+									<div className="text-sm md:text-lg">
+										<img
+											src={`https://img.logo.dev/${company
+												.split(" ")
+												.join("")
+												.split(".")
+												.join(
+													""
+												)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+											className="w-6 h-6 inline-block mr-2 rounded-full"
+											alt=""
+										/>
+										{company}
+									</div>
+									{isEditing && (
+										<X
+											className="text-red-700 absolute -top-2 -right-2 "
+											onClick={(e) => {
+												e.stopPropagation();
+												addInFavorite(company);
+											}}
+										/>
+									)}
+								</li>
+							))}
+						</ul>
+					</div>
+					<NewBadge />
 				</div>
 			)}
 

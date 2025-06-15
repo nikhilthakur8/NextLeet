@@ -53,14 +53,11 @@ export const CompanyTag = ({ titleSlug }) => {
 		return null;
 	}
 	return (
-		<div
-			className="text-sm md:text-lg text-gray-300"
-			id="company-tag"
-		>
-			<div className="flex space-y-3 flex-col items-center">
+		<div className="text-sm md:text-lg text-gray-300" id="company-tag">
+			<div className="flex space-y-3 flex-col items-center text-center">
 				{companyTag.length > 0 && (
 					<>
-						<h1 className="text-2xl md:text-3xl font-semibold">
+						<h1 className="text-xl md:text-3xl font-semibold">
 							{titleSlug
 								.replace(/-/g, " ")
 								.replace(/\b\w/g, (c) => c.toUpperCase())}
