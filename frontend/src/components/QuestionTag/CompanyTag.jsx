@@ -31,7 +31,7 @@ export const CompanyTag = ({ titleSlug }) => {
 		if (!titleSlug || titleSlug.trim().length === 0) return;
 		window.scrollTo(0, 0);
 		document.title = ` ${titleSlug
-			.split(" ")
+			.split("-")
 			.join(" ")
 			.toUpperCase()} - Company Tags`;
 		setLoading(true);
