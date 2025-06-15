@@ -11,8 +11,10 @@ export const QuestionTag = () => {
 	const [titleSlug, setTitleSlug] = useState();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const questionSlug = e.target.questionSlug.value.trim();
-		setTitleSlug(questionSlug);
+		const inputValue =
+			e.target.questionSlug.value.split("/")[4]?.trim() ||
+			e.target.questionSlug.value.trim();
+		setTitleSlug(inputValue);
 	};
 	useEffect(() => {
 		document.title = "Find Question Company Tags";
@@ -42,7 +44,7 @@ export const QuestionTag = () => {
 					</button>
 				</form>
 			</div>
-			<div className="mt-10 mb-5">
+			<div className="mt-10">
 				<CompanyTag titleSlug={titleSlug} />
 			</div>
 			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg mx-auto via-gray-900/90 to-gray-950 mt-20 rounded-md border border-gray-900 md:max-w-xl  ">
