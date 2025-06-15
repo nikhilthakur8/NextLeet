@@ -30,11 +30,13 @@ export const CompanyTag = ({ titleSlug }) => {
 	useEffect(() => {
 		if (!titleSlug || titleSlug.trim().length === 0) return;
 		window.scrollTo(0, 0);
-		const inputValue = titleSlug.split("/")[4]?.trim() || titleSlug.trim();
-		document.title = ` ${inputValue} Company Tags`;
+		document.title = ` ${titleSlug
+			.split(" ")
+			.join(" ")
+			.toUpperCase()} - Company Tags`;
 		setLoading(true);
 		setCompanyTag([]);
-		getCompanyTagBySlug(inputValue)
+		getCompanyTagBySlug(titleSlug)
 			.then((data) => {
 				setCompanyTag(data);
 				document.getElementById("company-tag")?.scrollIntoView({
