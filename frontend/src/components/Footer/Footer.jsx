@@ -108,10 +108,10 @@ export const Footer = () => {
 							</Link>
 						</li>
 						<li>
-                <Link
-                  to="/search/company-tags"
-                  className="hover:underline"
-                >
+							<Link
+								to="/search/company-tags"
+								className="hover:underline"
+							>
 								Question Company Tag
 							</Link>
 						</li>

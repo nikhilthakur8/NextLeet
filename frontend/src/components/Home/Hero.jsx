@@ -4,7 +4,7 @@ import { BackgroundLines } from "../ui/background-lines.jsx";
 import { motion } from "motion/react";
 import { Button } from "../ui/moving-border.jsx";
 import { NewBadge } from "../NewBadge.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export const Hero = () => {
 	const navigate = useNavigate();
 	const [tommorrowsQuestion, setTommorowsQuestion] = useState(
@@ -28,29 +28,23 @@ export const Hero = () => {
 					today and stay ahead in your coding journey.
 				</p>
 			</div>
-			<div
+			<Link
 				className="text-gray-200 bg-gray-900 border border-gray-800 px-5 my-5 py-2 rounded-lg relative cursor-pointer text-xs md:text-base"
-				onClick={() => navigate("/search/sheet")}
+				to="/search/sheet"
 			>
 				<span>
 					The latest company-wise question sheet is now available.
 				</span>
 				<NewBadge />
-			</div>
-			<div className="">
+			</Link>
+			<Link to={"/potd"} target="_blank">
 				<Button
-					onClick={() => {
-						window.open(
-							`https://leetcode.com/problems/${tommorrowsQuestion}`,
-							"_blank"
-						);
-					}}
 					borderRadius="4rem"
 					className="bg-white cursor-pointer dark:bg-neutral-950/[0.8] text-black dark:text-neutral-400 border-neutral-200 dark:border-neutral-800  text-base md:text-lg "
 				>
 					Get POTD Now
 				</Button>
-			</div>
+			</Link>
 		</BackgroundLines>
 	);
 };

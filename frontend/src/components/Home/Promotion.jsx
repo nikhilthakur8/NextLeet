@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../ui/moving-border";
 
 export const Promotion = () => {
@@ -9,16 +10,15 @@ export const Promotion = () => {
 			<p className="text-xs sm:text-base md:text-lg mb-2">
 				All Coding Contests Link. One Place.
 			</p>
-			<Button
-				className={
-					"bg-neutral-950/[0.8] text-base md:text-xl text-gray-400 cursor-pointer"
-				}
-				onClick={() =>
-					window.open("https://contestboard.vercel.app", "_blank")
-				}
-			>
-				Check Now
-			</Button>
+			<Link to="https://contestboard.vercel.app" target="_blank">
+				<Button
+					className={
+						"bg-neutral-950/[0.8] text-base md:text-xl text-gray-400 cursor-pointer"
+					}
+				>
+					Check Now
+				</Button>
+			</Link>
 		</div>
 	);
 };

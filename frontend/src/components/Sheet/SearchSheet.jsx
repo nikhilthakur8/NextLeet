@@ -84,43 +84,40 @@ export const SearchSheet = () => {
 					<div className="flex items-center gap-2 w-full">
 						<ul className="flex gap-2 flex-wrap w-full">
 							{favoriteCompanies.map((company) => (
-								<li
-									key={company}
-									className={`border rounded-xl cursor-pointer border-gray-700 text-gray-300 bg-gray-900 px-4 py-1.5 relative ${
-										isEditing ? "animate-shake" : ""
-									}`}
-									onClick={() =>
-										navigate(
-											`/sheet/${company
-												.split(" ")
-												.join("-")
-												.toLowerCase()}`
-										)
-									}
-								>
-									<div className="text-sm md:text-lg">
-										<img
-											src={`https://img.logo.dev/${company
-												.split(" ")
-												.join("")
-												.split(".")
-												.join(
-													""
-												)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
-											className="w-6 h-6 inline-block mr-2 rounded-full"
-											alt=""
-										/>
-										{company}
-									</div>
-									{isEditing && (
-										<X
-											className="text-red-700 absolute -top-2 -right-2 "
-											onClick={(e) => {
-												e.stopPropagation();
-												addInFavorite(company);
-											}}
-										/>
-									)}
+								<li key={company}>
+									<Link
+										to={`/sheet/${company
+											.split(" ")
+											.join("-")
+											.toLowerCase()}`}
+										className={`border inline-block w-full rounded-xl cursor-pointer border-gray-700 text-gray-300 bg-gray-900 px-4 py-1.5 relative ${
+											isEditing ? "animate-shake" : ""
+										}`}
+									>
+										<div className="text-sm md:text-lg">
+											<img
+												src={`https://img.logo.dev/${company
+													.split(" ")
+													.join("")
+													.split(".")
+													.join(
+														""
+													)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+												className="w-6 h-6 inline-block mr-2 rounded-full"
+												alt=""
+											/>
+											{company}
+										</div>
+										{isEditing && (
+											<X
+												className="text-red-700 absolute -top-2 -right-2 "
+												onClick={(e) => {
+													e.preventDefault();
+													addInFavorite(company);
+												}}
+											/>
+										)}
+									</Link>
 								</li>
 							))}
 						</ul>
@@ -175,17 +172,13 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 					<Loading className={"col-span-full"} size={"size-8"} />
 				) : filteredCompanies.length > 0 ? (
 					filteredCompanies.map((company) => (
-						<div
+						<Link
 							key={company.$id}
-							className="bg-gradient-to-l from-gray-950 from-5% via-75%  via-gray-900 to-gray-950 px-10 py-5 rounded-md  flex flex-row item-center justify-start hover:shadow-md shadow-gray-900 border border-gray-800 hover:border-gray-500 cursor-pointer  transform duration-300  gap-5 relative"
-							onClick={() => {
-								navigate(
-									`/sheet/${company.name
-										.split(" ")
-										.join("-")
-										.toLowerCase()}`
-								);
-							}}
+							className="bg-gradient-to-l  from-gray-950 from-5% via-75%  via-gray-900 to-gray-950 px-10 py-5 rounded-md flex flex-row item-center justify-start hover:shadow-md shadow-gray-900 border border-gray-800 hover:border-gray-500 cursor-pointer  transform duration-300  gap-5 relative"
+							to={`/sheet/${company.name
+								.split(" ")
+								.join("-")
+								.toLowerCase()}`}
 						>
 							<img
 								src={`https://img.logo.dev/${company.name
@@ -209,7 +202,7 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 							<span
 								className="absolute top-4 right-4"
 								onClick={(e) => {
-									e.stopPropagation();
+									e.preventDefault();
 									addInFavorite(company.name);
 								}}
 							>
@@ -222,7 +215,7 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 									stroke="none"
 								/>
 							</span>
-						</div>
+						</Link>
 					))
 				) : (
 					<div className="py-2 text-center col-span-full">
@@ -233,112 +226,3 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 		</div>
 	);
 }
-
-// function CompanySearchBox({ favoriteCompanies, setFavoriteCompanies }) {
-// 	const [search, setSearch] = useState("");
-// 	const [companies, setCompanies] = useState([]);
-// 	const [loading, setLoading] = useState(false);
-// 	const filteredCompanies = companies.filter((company) =>
-// 		company.toLowerCase().includes(search.toLowerCase())
-// 	);
-// 	const addInFavorite = (company) => {
-// 		const favoriteCompanies =
-// 			JSON.parse(localStorage.getItem("favoriteCompanies")) || [];
-// 		if (!favoriteCompanies.includes(company)) {
-// 			favoriteCompanies.push(company);
-// 			localStorage.setItem(
-// 				"favoriteCompanies",
-// 				JSON.stringify(favoriteCompanies)
-// 			);
-// 			setFavoriteCompanies(favoriteCompanies);
-// 			toast.success(`Added ${company} to favorites`);
-// 		} else {
-// 			const updatedCompanies = favoriteCompanies.filter(
-// 				(item) => item !== company
-// 			);
-// 			localStorage.setItem(
-// 				"favoriteCompanies",
-// 				JSON.stringify(updatedCompanies)
-// 			);
-// 			setFavoriteCompanies(updatedCompanies);
-// 			toast.error(`Removed ${company} from favorites`);
-// 		}
-// 	};
-// 	useEffect(() => {
-// 		setLoading(true);
-// 		getAllCompanyNames()
-// 			.then((data) => {
-// 				setCompanies(data);
-// 			})
-// 			.catch((error) => {
-// 				toast.error(error.message || "Failed to fetch company names");
-// 			})
-// 			.finally(() => {
-// 				setLoading(false);
-// 			});
-// 	}, []);
-// 	const navigate = useNavigate();
-// 	return (
-// 		<div className="w-full sm:w-[400px] mx-auto md:w-[450px] bg-gray-900 rounded-lg shadow-lg">
-// 			<Command>
-// 				<CommandInput
-// 					placeholder="Search company..."
-// 					onValueChange={setSearch}
-// 					value={search}
-// 					className={"md:text-lg"}
-// 				/>
-// 				<CommandList className={"hide-scrollbar"}>
-// 					{filteredCompanies.length === 0 ? (
-// 						<CommandEmpty>
-// 							{loading ? (
-// 								<Loading />
-// 							) : (
-// 								<span>No Result Found for "{search}"</span>
-// 							)}
-// 						</CommandEmpty>
-// 					) : (
-// 						filteredCompanies.map((company) => (
-// 							<CommandItem
-// 								key={company}
-// 								value={company}
-// 								className={
-// 									"data-[selected=true]:bg-gray-800 data-[selected=true]:text-white md:text-base "
-// 								}
-// 								onSelect={() => {
-// 									navigate(
-// 										`/sheet/${company
-// 											.split(" ")
-// 											.join("-")
-// 											.toLowerCase()}`
-// 									);
-// 								}}
-// 							>
-// 								<span className="inline-block w-full">
-// 									{company}
-// 								</span>
-// 								<span
-// 									className="hover:bg-gray-600 p-2 rounded-full"
-// 									title="Add to Favorites"
-// 									onClick={(e) => {
-// 										e.stopPropagation();
-// 										addInFavorite(company);
-// 									}}
-// 								>
-// 									<Star
-// 										size={20}
-// 										strokeWidth={0}
-// 										fill={
-// 											favoriteCompanies.includes(company)
-// 												? "yellow"
-// 												: "gray"
-// 										}
-// 									/>
-// 								</span>
-// 							</CommandItem>
-// 						))
-// 					)}
-// 				</CommandList>
-// 			</Command>
-// 		</div>
-// 	);
-// }
