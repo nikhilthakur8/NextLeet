@@ -132,7 +132,7 @@ export const CompanyTag = ({ titleSlug }) => {
 								${
 									famousCompanies.includes(tag.companyName)
 										? "ring-2 ring-gray-400"
-										: "cursor-not-allowed "
+										: ""
 								}
 								`}
 						>
