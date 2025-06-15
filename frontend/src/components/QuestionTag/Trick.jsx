@@ -4,7 +4,7 @@ import { ArrowDown } from "lucide-react";
 export const Trick = () => {
 	return (
 		<div className="text-xs md:text-lg flex flex-col items-center space-y-2 px-5  text-gray-400 py-5">
-			<h2 className="text-lg md:text-2xl text-neutral-300 font-semibold">
+			<h2 className="text-base md:text-2xl text-neutral-300 font-semibold">
 				Short Trick for smart people like you 😉
 			</h2>
 			<div className="relative my-2">
