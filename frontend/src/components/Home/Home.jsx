@@ -64,11 +64,13 @@ export const Home = () => {
 					}}
 				/>
 				<NewBadge
-					text={"Trick"}
+					
 					className={
 						"bg-gradient-to-l from-green-400 via-green-500 to-green-400"
 					}
-				/>
+				>
+					Trick
+				</NewBadge>
 			</div>
 			<WeeklyQuestion />
 			<PastQuestion />

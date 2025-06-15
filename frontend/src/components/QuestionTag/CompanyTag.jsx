@@ -4,21 +4,48 @@ import { getCompanyTagBySlug } from "../../appwrite/leetcode.companyTag";
 import { toast } from "sonner";
 import { Loading } from "../Loading";
 import { Badge } from "../ui/badge";
-import { Verified } from "lucide-react";
+import { CheckCircle2, Crown, Verified } from "lucide-react";
+import { NewBadge } from "../NewBadge";
 const popularAcronyms = {
 	MAANG: ["Meta", "Apple", "Amazon", "Netflix", "Google"],
 	GAFAM: ["Google", "Apple", "Facebook", "Amazon", "Microsoft"],
-	MANGA: ["Microsoft", "Apple", "Nvidia", "Google", "Amazon"],
 	WITCH: ["Wipro", "Infosys", "tcs", "Cognizant", "HCL"],
 	BAT: ["Baidu", "Alibaba", "Tencent"],
 };
 const colorMap = {
 	MAANG: "bg-blue-700",
 	GAFAM: "bg-emerald-700",
-	MANGA: "bg-amber-700",
 	WITCH: "bg-rose-700",
 	BAT: "bg-purple-700",
 };
+const famousCompanies = [
+	"Google",
+	"Amazon",
+	"Microsoft",
+	"Meta",
+	"Apple",
+	"Netflix",
+	"Adobe",
+	"Salesforce",
+	"Uber",
+	"Airbnb",
+	"LinkedIn",
+	"Oracle",
+	"Qualcomm",
+	"Nvidia",
+	"Tesla",
+	"Bloomberg",
+	"ByteDance",
+	"Samsung",
+	"VMware",
+	"Goldman Sachs",
+	"IBM",
+	"Bloomberg",
+	"Yandex",
+	"Zoho",
+	"Flipkart",
+	"Walmart",
+];
 const checkCompaniesIncluded = (companyList, acronym) => {
 	return companyList.some(({ companyName }) =>
 		popularAcronyms[acronym].includes(companyName)
@@ -101,8 +128,17 @@ export const CompanyTag = ({ titleSlug }) => {
 					companyTag.map((tag) => (
 						<div
 							key={tag.companyName}
-							className="bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded-lg flex items-center"
+							className={`bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded-lg flex items-center relative
+								${
+									famousCompanies.includes(tag.companyName)
+										? "ring-2 ring-gray-400"
+										: "cursor-not-allowed "
+								}
+								`}
 						>
+							{famousCompanies.includes(tag.companyName) && (
+								<Crown className=" text-yellow-500 fill-yellow-500 absolute top-0 left-0 -mt-3 -rotate-12 -ml-3 size-5" />
+							)}
 							<img
 								src={`https://img.logo.dev/${tag.companyName
 									.split(" ")

@@ -35,7 +35,7 @@ export const Hero = () => {
 				<span>
 					The latest company-wise question sheet is now available.
 				</span>
-				<NewBadge />
+				<NewBadge>New</NewBadge>
 			</Link>
 			<Link to={"/potd"} target="_blank">
 				<Button

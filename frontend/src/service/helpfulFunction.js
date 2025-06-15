@@ -12,3 +12,12 @@ export function sortQuestionsByDifficulty(questions, order = "asc") {
 		return order === "asc" ? valA - valB : valB - valA;
 	});
 }
+
+export function randomColorGenerator() {
+	const letters = "0123456789ABCDEF";
+	let color = "#";
+	for (let i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}

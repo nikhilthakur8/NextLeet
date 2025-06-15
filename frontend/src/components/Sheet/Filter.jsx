@@ -295,7 +295,7 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 				<ArrowUpWideNarrow className="inline size-5 mr-2" />
 			)}
 			Frequency
-			<NewBadge className={"text-xs md:text-xs"} />
+			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
 		</div>
 	);
 };
@@ -321,7 +321,7 @@ export const TopicsVisibiltyFilter = ({ isTopicVisible, setTopicVisible }) => {
 					} transition-all duration-300`}
 				></div>
 			</div>
-			<NewBadge className={"text-xs md:text-xs"} />
+			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
 		</div>
 	);
 };

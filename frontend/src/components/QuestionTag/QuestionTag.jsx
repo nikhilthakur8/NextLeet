@@ -50,11 +50,12 @@ export const QuestionTag = () => {
 			<div className="bg-gradient-to-r relative from-gray-950 shadow-lg mx-auto via-gray-900/90 to-gray-950 mt-20 rounded-md border border-gray-900 md:max-w-xl  ">
 				<Trick />
 				<NewBadge
-					text={"Trick"}
 					className={
 						"bg-gradient-to-l from-green-400 via-green-500 to-green-400"
 					}
-				/>
+				>
+					Trick
+				</NewBadge>
 			</div>
 		</div>
 	);

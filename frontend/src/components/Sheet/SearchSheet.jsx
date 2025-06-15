@@ -122,7 +122,7 @@ export const SearchSheet = () => {
 							))}
 						</ul>
 					</div>
-					<NewBadge />
+					<NewBadge>New</NewBadge>
 				</div>
 			)}
 
