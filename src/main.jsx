@@ -19,6 +19,7 @@ import { PrivacyPolicy } from "./components/PrivacyPolicy.jsx";
 import { DirectQuestionTag } from "./components/QuestionTag/DirectQuestionTag.jsx";
 import { POTD } from "./components/POTD/POTD.jsx";
 import { UpcomingFeature } from "./Pages/UpcomingFeature.jsx";
+import { CodeAnalyzer } from "./Pages/CodeAnalyzer.jsx";
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/">
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
 					element={<DirectQuestionTag />}
 				/>
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
+				<Route path="/analyze" element={<CodeAnalyzer />} />
 			</Route>
 			<Route path="/potd" element={<POTD />} />
 		</Route>
