@@ -36,7 +36,11 @@ export const CodeAnalyzer = () => {
 			setResult(JSON.parse(result));
 		} catch (error) {
 			window.scrollTo(0, 0);
-			toast.error(`Error: ${error.response.data.error}`);
+			if (error.response && error.response.status === 400) {
+				toast.error(error.response.data.error || "Invalid code input.");
+			} else {
+				toast.error(`Error: ${error.message}`);
+			}
 		} finally {
 			setLoading(false);
 		}
