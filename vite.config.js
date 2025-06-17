@@ -14,12 +14,6 @@ export default defineConfig({
 			},
 		},
 		host: "0.0.0.0",
-		proxy: {
-			"/subscribe": {
-				target: "http://localhost:3000",
-				changeOrigin: true,
-			},
-		},
 	},
 	plugins: [react(), tailwindcss()],
 });
