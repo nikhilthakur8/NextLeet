@@ -15,7 +15,7 @@ export const CodeAnalyzer = () => {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				"/api/analyze",
+				"https://api.nextleet.com/analyze",
 				{
 					code,
 				},

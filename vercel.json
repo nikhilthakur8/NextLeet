@@ -1,15 +1,6 @@
 {
 	"version": 2,
-	"rewrites": [
-		{
-			"source": "/api/:path*",
-			"destination": "https://api.nextleet.com/:path*"
-		},
-		{
-			"source": "/(.*)",
-			"destination": "/"
-		}
-	],
+	"rewrites": [{ "source": "/(.*)", "destination": "/" }],
 	"headers": [
 		{
 			"source": "/assets/(.*)",
