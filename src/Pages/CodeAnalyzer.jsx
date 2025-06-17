@@ -30,7 +30,7 @@ export const CodeAnalyzer = () => {
 					},
 				}
 			);
-
+			setResult(null);
 			if (!response.data || !response.data.result) {
 				toast.error("No result returned from the API.");
 				return;
@@ -86,10 +86,14 @@ export const CodeAnalyzer = () => {
 											⏱️ Time Complexity:
 										</p>
 										<p className="text-2xl font-semibold text-lime-400">
-											{result.time}
+											{JSON.stringify(result.time, null, 2)}
 										</p>
 										<p className="text-base text-zinc-300">
-											{result.timeExplanation}
+											{JSON.stringify(
+												result.timeExplanation,
+												null,
+												2
+											)}
 										</p>
 									</div>
 
@@ -98,10 +102,10 @@ export const CodeAnalyzer = () => {
 											🧮 Space Complexity:
 										</p>
 										<p className="text-2xl font-semibold text-sky-400">
-											{result.space}
+											{JSON.stringify(result.space, null, 2)}
 										</p>
 										<p className="text-base text-zinc-300">
-											{result.spaceExplanation}
+											{JSON.stringify(result.spaceExplanation, null, 2)}
 										</p>
 									</div>
 								</>
