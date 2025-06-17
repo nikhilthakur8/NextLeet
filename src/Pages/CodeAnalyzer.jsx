@@ -12,10 +12,6 @@ export const CodeAnalyzer = () => {
 			setLoading(false);
 			return;
 		}
-		document.getElementById("analysis-result").scrollIntoView({
-			behavior: "smooth",
-			block: "center",
-		});
 		setLoading(true);
 		try {
 			const response = await axios.post(
@@ -31,7 +27,6 @@ export const CodeAnalyzer = () => {
 				}
 			);
 			setResult(null);
-
 			if (!response.data || !response.data.result) {
 				toast.error("No result returned from the API.");
 				return;
@@ -40,6 +35,10 @@ export const CodeAnalyzer = () => {
 			const result = response.data.result;
 			toast.success("Code analyzed successfully!");
 			setResult(JSON.parse(result));
+			document.getElementById("analysis-result").scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+			});
 		} catch (error) {
 			window.scrollTo(0, 0);
 			toast.error(`Error: ${error.message}`);
@@ -48,9 +47,17 @@ export const CodeAnalyzer = () => {
 		}
 	};
 	useEffect(() => {
+		if (result || loading) {
+			document.getElementById("analysis-result").scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+			});
+		}
+	}, [result, loading]);
+	useEffect(() => {
 		document.title = "Code Analyzer | NextLeet";
 		window.scrollTo(0, 0);
-	},[]);
+	}, []);
 	return (
 		<div className="p-4 pt-28 md:pt-32 px-5 md:px-20 min-h-screen  max-w-5xl mx-auto  text-gray-300">
 			<div className="flex flex-col">
