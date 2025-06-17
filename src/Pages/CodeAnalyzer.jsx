@@ -41,7 +41,7 @@ export const CodeAnalyzer = () => {
 			});
 		} catch (error) {
 			window.scrollTo(0, 0);
-			toast.error(`Error: ${error.message}`);
+			toast.error(`Error: ${error.response.data.error}`);
 		} finally {
 			setLoading(false);
 		}
