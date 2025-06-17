@@ -7,6 +7,7 @@ export const CodeAnalyzer = () => {
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const handleSubmit = async () => {
+		console.log(result);
 		if (!code.trim()) {
 			toast.error("Please paste your code before submitting.");
 			setLoading(false);
@@ -31,6 +32,7 @@ export const CodeAnalyzer = () => {
 				}
 			);
 			setResult(null);
+
 			if (!response.data || !response.data.result) {
 				toast.error("No result returned from the API.");
 				return;
@@ -70,48 +72,43 @@ export const CodeAnalyzer = () => {
 				</button>
 			</div>
 			<div id="analysis-result">
-				{result ||
-					(loading && (
-						<div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10 text-sm md:text-lg text-zinc-200 space-y-6">
-							{loading ? (
-								<Loading />
-							) : (
-								<>
-									<h1 className="text-2xl font-bold text-white">
-										🧠 Code Complexity Analysis
-									</h1>
+				{(result || loading) && (
+					<div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10 text-sm md:text-lg text-zinc-200 space-y-6">
+						{loading ? (
+							<Loading />
+						) : (
+							<>
+								<h1 className="text-2xl font-bold text-white">
+									🧠 Code Complexity Analysis
+								</h1>
 
-									<div className="space-y-2">
-										<p className="font-medium text-zinc-400">
-											⏱️ Time Complexity:
-										</p>
-										<p className="text-2xl font-semibold text-lime-400">
-											{JSON.stringify(result.time, null, 2)}
-										</p>
-										<p className="text-base text-zinc-300">
-											{JSON.stringify(
-												result.timeExplanation,
-												null,
-												2
-											)}
-										</p>
-									</div>
+								<div className="space-y-2">
+									<p className="font-medium text-zinc-400">
+										⏱️ Time Complexity:
+									</p>
+									<p className="text-2xl uppercase font-semibold text-lime-400">
+										{result.time}
+									</p>
+									<p className="text-base text-zinc-300">
+										{result.timeExplanation}
+									</p>
+								</div>
 
-									<div className="space-y-2">
-										<p className="font-medium text-zinc-400">
-											🧮 Space Complexity:
-										</p>
-										<p className="text-2xl font-semibold text-sky-400">
-											{JSON.stringify(result.space, null, 2)}
-										</p>
-										<p className="text-base text-zinc-300">
-											{JSON.stringify(result.spaceExplanation, null, 2)}
-										</p>
-									</div>
-								</>
-							)}
-						</div>
-					))}
+								<div className="space-y-2">
+									<p className="font-medium text-zinc-400">
+										🧮 Space Complexity:
+									</p>
+									<p className="text-2xl uppercase font-semibold text-sky-400">
+										{result.space}
+									</p>
+									<p className="text-base text-zinc-300">
+										{result.spaceExplanation}
+									</p>
+								</div>
+							</>
+						)}
+					</div>
+				)}
 			</div>
 		</div>
 	);
