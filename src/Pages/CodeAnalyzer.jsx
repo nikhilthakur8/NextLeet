@@ -15,14 +15,13 @@ export const CodeAnalyzer = () => {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				"https://api.nextleet.com/analyze",
+				"/api/analyze",
 				{
 					code,
 				},
 				{
 					headers: {
 						"Content-Type": "application/json",
-						Origin: "https://nextleet.com",
 					},
 				}
 			);
