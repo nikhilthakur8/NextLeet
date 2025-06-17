@@ -31,14 +31,9 @@ export const CodeAnalyzer = () => {
 				toast.error("No result returned from the API.");
 				return;
 			}
-
 			const result = response.data.result;
 			toast.success("Code analyzed successfully!");
 			setResult(JSON.parse(result));
-			document.getElementById("analysis-result").scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-			});
 		} catch (error) {
 			window.scrollTo(0, 0);
 			toast.error(`Error: ${error.response.data.error}`);
