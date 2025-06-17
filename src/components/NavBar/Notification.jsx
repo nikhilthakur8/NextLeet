@@ -1,0 +1,9 @@
+import React from "react";
+
+export const Notification = ({ message }) => {
+    return (
+        <div className="text-gray-300 fixed top-0  py-1 md:text-base text-sm font-semibold drop-shadow-md bg-linear-65 from-zinc-900 to-slate-900 text-center">
+            <p>{message}</p>
+            </div>
+        );
+    };
