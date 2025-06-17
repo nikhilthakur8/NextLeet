@@ -67,13 +67,13 @@ export const CodeAnalyzer = () => {
 					value={code}
 					spellCheck="false"
 					onChange={(e) => setCode(e.target.value)}
-					className="w-full overflow-y-auto resize-none min-h-[40vh] p-4 font-mono hide-scrollbar bg-gray-900 border border-gray-800 rounded-lg shadow  focus:outline-none focus:ring-3 focus:ring-emerald-600"
+					className="w-full overflow-y-auto text-sm md:text-lg resize-none min-h-[40vh] p-4 font-mono hide-scrollbar bg-gray-900 border border-gray-800 rounded-lg shadow  focus:outline-none focus:ring-3 focus:ring-emerald-600"
 					placeholder={`Paste your C++/Python/JS/Rust/Java/any code here...`}
 				/>
 				<button
 					onClick={handleSubmit}
 					disabled={loading}
-					className="px-5 py-2 bg-gray-900 ml-auto rounded-md transition cursor-pointer hover:scale-105 active:scale-95 border border-gray-800 "
+					className="px-5 py-2 bg-gray-900 text-sm md:text-lg ml-auto rounded-md transition cursor-pointer hover:scale-105 active:scale-95 border border-gray-800 "
 				>
 					Analyze Code
 				</button>

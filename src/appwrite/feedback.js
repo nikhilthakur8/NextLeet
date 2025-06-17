@@ -21,7 +21,7 @@ export const getFeatureList = async () => {
 	const response = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_FEEDBACK_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_UPCOMING_FEATURES_COLLECTION_ID,
-		[Query.limit(100)]
+		[Query.limit(100), Query.orderAsc("isCompleted")]
 	);
 	return response;
 };

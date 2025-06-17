@@ -34,12 +34,12 @@ export const QuestionTag = () => {
 					<input
 						type="text"
 						name="questionSlug"
-						className="focus:outline-none focus:ring-3 w-full focus:ring-emerald-600 px-4 py-2 rounded-lg bg-gray-900 border border-gray-800"
+						className="focus:outline-none focus:ring-3 w-full focus:ring-emerald-600 px-4 py-2 rounded-lg bg-gray-900  border border-gray-800"
 						placeholder="https://leetcode.com/problems/3sum/ or 3sum😏 "
 						autoComplete="off"
 						autoFocus
 					/>
-					<button className="bg-gray-900 hover:bg-gray-800 px-4 py-2 rounded-lg transition-colors duration-300 border border-gray-800 whitespace-nowrap cursor-pointer">
+					<button className="bg-gray-900 text-sm md:text-lg ml-auto hover:bg-gray-800 px-4 py-2 rounded-lg transition-colors duration-300 border border-gray-800 whitespace-nowrap cursor-pointer">
 						Find Now
 					</button>
 				</form>
