@@ -38,6 +38,8 @@ export const CodeAnalyzer = () => {
 			window.scrollTo(0, 0);
 			if (error.response && error.response.status === 400) {
 				toast.error(error.response.data.error || "Invalid code input.");
+			} else if (error.response && error.response.status === 429) {
+				toast.error("Rate limit exceeded. Please try again later.");
 			} else {
 				toast.error(`Error: ${error.message}`);
 			}
