@@ -7,6 +7,7 @@ import {
 	useScroll,
 	useMotionValueEvent,
 } from "motion/react";
+import { NewBadge } from "../NewBadge";
 
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -98,6 +99,11 @@ export const NavItems = ({ items, className, onItemClick }) => {
 						/>
 					)}
 					<span className="relative z-20">{item.name}</span>
+					{item.isNew && (
+						<NewBadge className={"md:text-xs top-2 -rotate-12"}>
+							New
+						</NewBadge>
+					)}
 				</Link>
 			))}
 		</motion.div>

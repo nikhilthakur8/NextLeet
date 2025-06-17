@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { Loading } from "../components/Loading";
@@ -15,7 +15,7 @@ export const CodeAnalyzer = () => {
 		}
 		document.getElementById("analysis-result").scrollIntoView({
 			behavior: "smooth",
-			block: "center",
+			block: "start",
 		});
 		setLoading(true);
 		try {
@@ -42,12 +42,16 @@ export const CodeAnalyzer = () => {
 			toast.success("Code analyzed successfully!");
 			setResult(JSON.parse(result));
 		} catch (error) {
-			window.scrollTo(0, 0);
+			// window.scrollTo(0, 0);
 			toast.error(`Error: ${error.message}`);
 		} finally {
 			setLoading(false);
 		}
 	};
+	useEffect(() => {
+		document.title = "Code Analyzer | NextLeet";
+		window.scrollTo(0, 0);
+	});
 	return (
 		<div className="p-4 pt-28 md:pt-32 px-5 md:px-20 min-h-screen  max-w-5xl mx-auto  text-gray-300">
 			<div className="flex flex-col">

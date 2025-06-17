@@ -34,8 +34,9 @@ export function NavBarNew() {
 			link: "/#latest-question",
 		},
 		{
-			name: "Weekly Q's",
-			link: "/#weekly-question",
+			name: "Code Analyzer",
+			link: "/analyze",
+			isNew: true,
 		},
 		{
 			name: "Company Wise Sheet",
