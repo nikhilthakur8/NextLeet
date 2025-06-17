@@ -12,6 +12,7 @@ export const Footer = () => {
 				toast.success("Subscribed successfully! 🎉", {
 					description: "Thank you for subscribing.",
 				});
+				document.getElementById("email").value = "";
 			})
 			.catch((error) => {
 				toast.error("Subscription failed! 😢", {

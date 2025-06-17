@@ -3,6 +3,7 @@ import { getTodayPOTD } from "../../appwrite/config";
 export const POTD = () => {
 	const [POTD, setPOTD] = useState(null);
 	useEffect(() => {
+		document.title = "Problem of the Day | NextLeet";
 		getTodayPOTD().then((titleSlug) => {
 			if (titleSlug) {
 				setPOTD(titleSlug);

@@ -1,5 +1,5 @@
 import { Bell, Clock } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getFeatureList, submitFeedback } from "../appwrite/feedback";
 import { useUserContext } from "../context/context";
 import { toast } from "sonner";
@@ -9,6 +9,7 @@ export const UpcomingFeature = () => {
 	const [featureList, setFeatureList] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const ref = useRef(null);
 	const { fingerprint } = useUserContext();
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -28,9 +29,14 @@ export const UpcomingFeature = () => {
 			});
 	}, []);
 	function handleSubmitFeedback() {
-		const feedback = document.getElementById("feedback").value;
+		const feedback = ref.current.value;
+		if (!feedback || feedback.trim() === "") {
+			toast.error("Please enter your feedback before submitting.");
+			return;
+		}
 		submitFeedback(feedback, fingerprint)
 			.then(() => {
+				ref.current.value = "";
 				toast.success("Request submitted successfully!");
 			})
 			.catch((error) => {
@@ -104,8 +110,9 @@ export const UpcomingFeature = () => {
 				<textarea
 					name="feedback"
 					id="feedback"
+					ref={ref}
 					spellCheck="false"
-					className="w-full h-64 mt-7 text-lg resize-none p-4 bg-zinc-900 border border-zinc-800 rounded-lg text-gray-300 focus:outline-none focus:ring-3 focus:ring-emerald-400"
+					className="w-full h-64 mt-7 text-lg resize-none p-4 bg-gray-900 border border-gray-800 rounded-lg text-gray-300 focus:outline-none focus:ring-3 focus:ring-emerald-400"
 					placeholder="Leave your Idea here..."
 				/>
 				<button

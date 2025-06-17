@@ -18,7 +18,8 @@ const getAllFavoriteCompanies = () => {
 
 export const SearchSheet = () => {
 	useEffect(() => {
-		document.title = "Search Sheet - LeetCode";
+		document.title = "Search Sheet | NextLeet";
+		window.scrollTo(0, 0);
 	}, []);
 	const [favoriteCompanies, setFavoriteCompanies] = useState(
 		getAllFavoriteCompanies()
@@ -50,9 +51,6 @@ export const SearchSheet = () => {
 		}
 	};
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
 	return (
 		<div className="text-gray-400 pt-24 md:pt-36 px-5 md:px-12 min-h-svh flex flex-col gap-5">
 			<div>
@@ -159,11 +157,10 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 	}, []);
 
 	return (
-		<div className="">
+		<div className="text-base md:text-lg">
 			<input
 				type="text"
-				className="w-full focus:outline-none focus:ring-3 focus:ring-emerald-600 bg-gray-900 border border-gray-800 px-4 py-2 rounded-md placeholder:text-gray-500 text-gray-300 text-base md:text-lg"
-				autoFocus
+				className="w-full focus:outline-none focus:ring-3 focus:ring-emerald-600 bg-gray-900 border border-gray-800 px-4 py-2 rounded-md placeholder:text-gray-500 text-gray-300"
 				placeholder="Search company..."
 				onChange={(e) => setSearch(e.target.value)}
 			/>

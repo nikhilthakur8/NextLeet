@@ -45,7 +45,6 @@ export const Sheet = () => {
 			.replace(/-/g, " ")
 			.replace(/_/g, " ")
 			.replace(/\b\w/g, (c) => c.toUpperCase());
-		document.title = `LeetCode - ${correctedCompanyName} Questions`;
 		getAllQuestionTopics(correctedCompanyName).then((data) => {
 			setAllTopics(data);
 		});
@@ -118,7 +117,9 @@ export const Sheet = () => {
 		window.document.title = `${companyName
 			.replace(/-/g, " ")
 			.replace(/_/g, " ")
-			.replace(/\b\w/g, (c) => c.toUpperCase())} Questions Sheet`;
+			.replace(/\b\w/g, (c) =>
+				c.toUpperCase()
+			)} Questions Sheet | NextLeet`;
 	}, []);
 	useEffect(() => {
 		getAllDoneQuestions().then((data) => {

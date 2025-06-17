@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { CompanyTag } from "./CompanyTag";
+import { useEffect } from "react";
 export const DirectQuestionTag = ({}) => {
 	const { titleSlug } = useParams();
 	return (

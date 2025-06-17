@@ -30,7 +30,7 @@ export const SubscribeDialog = ({ open, setOpen }) => {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen} >
-			<DialogContent className="sm:max-w-xl md:p-10 p-5 text-zinc-300 bg-gray-900	 border border-gray-700">
+			<DialogContent className="sm:max-w-xl md:p-10 p-5 text-zinc-300 bg-gray-900	 border border-gray-800">
 				<DialogHeader className="gap-1">
 					<DialogTitle className="text-lg md:text-2xl font-semibold">
 						Subscribe to our Newsletter
@@ -61,7 +61,7 @@ export const SubscribeDialog = ({ open, setOpen }) => {
 					<DialogClose asChild>
 						<button
 							type="submit"
-							className="cursor-pointer w-full bg-gray-950/90 font-semibold  hover:bg-gray-900 transition-all duration-300 rounded-md border border-gray-600 px-4 py-2"
+							className="cursor-pointer w-full bg-gray-950/90 font-semibold  hover:bg-gray-900 transition-all duration-300 rounded-md border border-gray-800 px-4 py-2"
 							onClick={handleSubmit}
 						>
 							Subscribe

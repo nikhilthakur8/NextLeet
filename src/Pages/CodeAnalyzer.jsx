@@ -58,36 +58,34 @@ export const CodeAnalyzer = () => {
 		window.scrollTo(0, 0);
 	}, []);
 	return (
-		<div className="p-4 pt-28 md:pt-32 px-5 md:px-20 min-h-screen  max-w-5xl mx-auto  text-gray-300">
-			<div className="flex flex-col">
-				<h1 className="text-xl md:text-4xl font-bold mb-4">
-					Code Analyzer ✨
+		<div className="p-4 pt-28 md:pt-36 px-5 md:px-20 min-h-screen text-base md:text-lg max-w-5xl mx-auto text-gray-300">
+			<div className="flex flex-col gap-y-5">
+				<h1 className="text-3xl bg-linear-65 from-purple-500 to-pink-500 text-transparent bg-clip-text text-center md:text-4xl font-bold pb-2">
+					Code Analyzer <span className="text-yellow-500">✨</span>
 				</h1>
-				<h2 className="text-base md:text-xl font-bold my-5">
-					Paste your code:
-				</h2>
 				<textarea
 					value={code}
 					spellCheck="false"
 					onChange={(e) => setCode(e.target.value)}
-					className="w-full overflow-y-auto text-sm md:text-lg min-h-[40vh] p-4 font-mono hide-scrollbar bg-neutral-900 text-white rounded-lg shadow resize-y focus:outline-none focus:ring-3 focus:ring-emerald-600"
-					placeholder={`Paste your C++/Python/JS code here...`}
+					className="w-full overflow-y-auto resize-none min-h-[40vh] p-4 font-mono hide-scrollbar bg-gray-900 border border-gray-800 rounded-lg shadow  focus:outline-none focus:ring-3 focus:ring-emerald-600"
+					placeholder={`Paste your C++/Python/JS/Rust/Java/any code here...`}
 				/>
 				<button
 					onClick={handleSubmit}
-					className="mt-4 px-10 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-gray-300 w-fit mx-auto rounded transition cursor-pointer hover:scale-105 active:scale-95 "
+					disabled={loading}
+					className="px-5 py-2 bg-gray-900 ml-auto rounded-md transition cursor-pointer hover:scale-105 active:scale-95 border border-gray-800 "
 				>
 					Analyze Code
 				</button>
 			</div>
 			<div id="analysis-result">
 				{(result || loading) && (
-					<div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10 text-sm md:text-lg text-zinc-200 space-y-6">
+					<div className="p-5 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10 text-sm md:text-lg text-zinc-200 space-y-6">
 						{loading ? (
 							<Loading />
 						) : (
 							<>
-								<h1 className="text-2xl font-bold text-white">
+								<h1 className="text-xl md:text-4xl font-bold text-white">
 									🧠 Code Complexity Analysis
 								</h1>
 
@@ -96,10 +94,10 @@ export const CodeAnalyzer = () => {
 										⏱️ Time Complexity:
 									</p>
 									<p className="text-2xl uppercase font-semibold text-lime-400">
-										{result.time}
+										{result?.time}
 									</p>
-									<p className="text-base text-zinc-300">
-										{result.timeExplanation}
+									<p className="text-zinc-300">
+										{result?.timeExplanation}
 									</p>
 								</div>
 
@@ -108,10 +106,10 @@ export const CodeAnalyzer = () => {
 										🧮 Space Complexity:
 									</p>
 									<p className="text-2xl uppercase font-semibold text-sky-400">
-										{result.space}
+										{result?.space}
 									</p>
-									<p className="text-base text-zinc-300">
-										{result.spaceExplanation}
+									<p className=" text-zinc-300">
+										{result?.spaceExplanation}
 									</p>
 								</div>
 							</>
