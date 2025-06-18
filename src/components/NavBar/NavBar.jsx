@@ -24,8 +24,9 @@ export function NavBarNew() {
 			)
 			?.scrollIntoView({ behavior: "smooth" });
 	};
-	const [onlineCount, setOnlineCount] = useState(447);
+	const [onlineCount, setOnlineCount] = useState(0);
 	useEffect(() => {
+		setOnlineCount(Math.floor(Math.random() * (500 - 400 + 1)) + 400);
 		const intervalId = setInterval(() => {
 			const operation = Math.random() < 0.5 ? "decrease" : "increase";
 			setOnlineCount((prev) =>
