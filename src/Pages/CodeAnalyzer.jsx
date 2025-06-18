@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { Loading } from "../components/Loading";
@@ -6,6 +6,7 @@ export const CodeAnalyzer = () => {
 	const [code, setCode] = useState("");
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const analysisRef = useRef(null);
 	const handleSubmit = async () => {
 		if (!code.trim()) {
 			toast.error("Please paste your code before submitting.");
@@ -15,7 +16,7 @@ export const CodeAnalyzer = () => {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				"/api/analyze",
+				"https://api.nextleet.com/analyze",
 				{
 					code,
 				},
@@ -37,7 +38,7 @@ export const CodeAnalyzer = () => {
 			window.scrollTo(0, 0);
 			if (error.response && error.response.status === 400) {
 				toast.error(error.response.data.error || "Invalid code input.");
-			} else if (error.response && error.response.status === 405) {
+			} else if (error.response && error.response.status === 409) {
 				toast.error("Rate limit exceeded. Please try again later.");
 			} else {
 				toast.error(`Error: ${error.message}`);
@@ -48,7 +49,7 @@ export const CodeAnalyzer = () => {
 	};
 	useEffect(() => {
 		if (result || loading) {
-			document.getElementById("analysis-result").scrollIntoView({
+			analysisRef.current?.scrollIntoView({
 				behavior: "smooth",
 				block: "center",
 			});
@@ -79,7 +80,7 @@ export const CodeAnalyzer = () => {
 					Analyze Code
 				</button>
 			</div>
-			<div id="analysis-result">
+			<div ref={analysisRef}>
 				{(result || loading) && (
 					<div className="p-5 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10 text-sm md:text-lg text-zinc-200 space-y-6">
 						{loading ? (
