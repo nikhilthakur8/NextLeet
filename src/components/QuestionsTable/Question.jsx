@@ -2,8 +2,15 @@ import React from "react";
 import { Row } from "./Row";
 import { Arrow } from "@radix-ui/react-tooltip";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Badge } from "../ui/badge";
 
-export const Question = ({ questions, title, footer, paginationData }) => {
+export const Question = ({
+	questions,
+	title,
+	footer,
+	paginationData,
+	isNoticeShown = false,
+}) => {
 	const handlePrevPage = () => {
 		if (paginationData.currentPage > 1) {
 			paginationData.setCurrentPage((prev) => prev - 1);
@@ -23,7 +30,22 @@ export const Question = ({ questions, title, footer, paginationData }) => {
 						{title}
 					</strong>
 				</p>
-				<div className="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg">
+				{isNoticeShown && (
+					<div className="flex gap-2  bg-gray-900 border border-gray-800 text-gray-200 text-xs md:text-lg px-4 py-5 -mb-2 mx-auto w-full md:min-w-xl items-center justify-center relative rounded-t-md sm:rounded-t-lg">
+						<Badge className={"bg-red-700 text-xs md:text-lg "}>
+							Attention :{" "}
+						</Badge>
+						<p className="text-gray-300 text-center ">
+							🙏 Please avoid spamming LeetCode discussions with
+							messages like “This is tomorrow’s problem.” etc.
+						</p>
+					</div>
+				)}
+				<div
+					className={`relative overflow-x-auto border border-gray-800 shadow-md rounded-md sm:rounded-lg ${
+						isNoticeShown && "rounded-t-none sm:rounded-t-none "
+					}`}
+				>
 					<table className="w-full text-xs sm:text-sm md:text-base  text-left rtl:text-right text-gray-700 dark:text-gray-400">
 						<thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
 							<tr>
