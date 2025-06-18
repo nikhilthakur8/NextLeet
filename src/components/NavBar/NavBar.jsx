@@ -10,10 +10,10 @@ import {
 	MobileNavToggle,
 	MobileNavMenu,
 } from "../ui/resizable-navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColourfulText } from "../ui/colourful-text";
 import { Link } from "react-router-dom";
-import { Lightbulb, Rocket, RocketIcon } from "lucide-react";
+import { Dot, Lightbulb, Rocket, RocketIcon } from "lucide-react";
 export function NavBarNew() {
 	const itemClick = (e) => {
 		if (!e.currentTarget.getAttribute("href").includes("#")) return;
@@ -24,6 +24,19 @@ export function NavBarNew() {
 			)
 			?.scrollIntoView({ behavior: "smooth" });
 	};
+	const [onlineCount, setOnlineCount] = useState(447);
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			const operation = Math.random() < 0.5 ? "decrease" : "increase";
+			setOnlineCount((prev) =>
+				operation === "increase"
+					? prev + Math.floor(Math.random() * (20 - 2 + 1)) + 2
+					: prev - Math.floor(Math.random() * (20 - 2 + 1)) + 2
+			);
+		}, 20000);
+		return () => clearInterval(intervalId);
+	}, []);
+
 	const navItems = [
 		{
 			name: "Home",
@@ -64,6 +77,15 @@ export function NavBarNew() {
 						className={"text-base"}
 					/>
 					<div className="flex items-center gap-4">
+						<div className="hidden items-center gap-2 bg-neutral-900 px-3 py-1 border border-neutral-800 rounded-md xl:flex">
+							<div className="relative size-2.5">
+								<div className="bg-green-500 w-full h-full opacity-75  rounded-full absolute top-0 left-0 animate-ping"></div>
+								<div className="bg-green-500 size-2.5  rounded-full"></div>
+							</div>
+							<span className="text-neutral-600 dark:text-neutral-300">
+								{onlineCount} online
+							</span>
+						</div>
 						<Link
 							to="/coming-soon"
 							className="cursor-pointer relative "
