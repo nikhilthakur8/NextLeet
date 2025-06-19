@@ -61,7 +61,11 @@ export const getAllCompanyNames = async () => {
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_COLLECTION_ID,
-		[Query.limit(1000), Query.orderDesc("totalProblems")]
+		[
+			Query.limit(1000),
+			Query.orderDesc("totalProblems"),
+			Query.select(["name", "totalProblems"]),
+		]
 	);
 	return data.documents;
 };
