@@ -78,7 +78,7 @@ export function NavBarNew() {
 						className={"text-base"}
 					/>
 					<div className="flex items-center gap-4">
-						<div className="hidden items-center gap-2 bg-neutral-900 px-3 py-1 border border-neutral-800 rounded-md xl:flex">
+						<div className="hidden items-center gap-2 bg-neutral-900/80 px-3 py-1 border border-neutral-800 rounded-md xl:flex">
 							<div className="relative size-2.5">
 								<div className="bg-green-500 w-full h-full opacity-75  rounded-full absolute top-0 left-0 animate-ping"></div>
 								<div className="bg-green-500 size-2.5  rounded-full"></div>

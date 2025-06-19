@@ -64,7 +64,7 @@ export const Home = () => {
 			<Hero />
 			{!hideScrollBtn && (
 				<div
-					className="bottom-0 left-0 w-full flex flex-col justify-between items-center bg-transparent text-neutral-300 absolute text-sm sm:text-lg md:text-xl cursor-pointer animate-bounce [animation-duration:2s]"
+					className="bottom-0 left-0 w-full flex flex-col justify-between items-center bg-transparent text-neutral-300 fixed m-0 p-0 text-sm sm:text-lg md:text-xl cursor-pointer animate-bounce [animation-duration:2s]"
 					onClick={handleScrollClick}
 				>
 					<p>Scroll to view upcoming questions</p>
