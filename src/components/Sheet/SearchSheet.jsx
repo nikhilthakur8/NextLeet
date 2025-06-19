@@ -12,6 +12,7 @@ import { Badge, Edit, Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { Loading } from "../Loading";
 import { NewBadge } from "../NewBadge";
+import { useUserContext } from "../../context/context";
 const getAllFavoriteCompanies = () => {
 	return JSON.parse(localStorage.getItem("favoriteCompanies")) || [];
 };
@@ -142,11 +143,17 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 	const filteredCompanies = companies.filter(({ name }) =>
 		name.toLowerCase().includes(search.toLowerCase())
 	);
+	const { allCompanyName, setAllCompanyName } = useUserContext();
 	useEffect(() => {
+		if (allCompanyName.length > 0) {
+			setCompanies(allCompanyName);
+			return;
+		}
 		setLoading(true);
 		getAllCompanyNames()
 			.then((data) => {
 				setCompanies(data);
+				setAllCompanyName(data);
 			})
 			.catch((error) => {
 				toast.error(error.message || "Failed to fetch company names");

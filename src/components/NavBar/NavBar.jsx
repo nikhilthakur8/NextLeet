@@ -26,7 +26,7 @@ export function NavBarNew() {
 	};
 	const [onlineCount, setOnlineCount] = useState(0);
 	useEffect(() => {
-		setOnlineCount(Math.floor(Math.random() * (500 - 400 + 1)) + 400);
+		setOnlineCount(Math.floor(Math.random() * (800 - 700 + 1)) + 700);
 		const intervalId = setInterval(() => {
 			const operation = Math.random() < 0.5 ? "decrease" : "increase";
 			setOnlineCount((prev) =>
@@ -34,7 +34,7 @@ export function NavBarNew() {
 					? prev + Math.floor(Math.random() * (20 - 2 + 1)) + 2
 					: prev - Math.floor(Math.random() * (20 - 2 + 1)) + 2
 			);
-		}, 20000);
+		}, 10000);
 		return () => clearInterval(intervalId);
 	}, []);
 

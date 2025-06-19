@@ -1,6 +1,6 @@
 import { Bell, Clock, ExternalLink, Link2 } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { getFeatureList, submitFeedback } from "../appwrite/feedback";
+import { getFeatureList, submitFeatureRequest } from "../appwrite/feedback";
 import { useUserContext } from "../context/context";
 import { toast } from "sonner";
 import { Loading } from "../components/Loading";
@@ -31,12 +31,12 @@ export const UpcomingFeature = () => {
 			});
 	}, []);
 	function handleSubmitFeedback() {
-		const feedback = ref.current.value;
-		if (!feedback || feedback.trim() === "") {
+		const message = ref.current.value;
+		if (!message || message.trim() === "") {
 			toast.error("Please enter your feedback before submitting.");
 			return;
 		}
-		submitFeedback(feedback, fingerprint)
+		submitFeatureRequest(message, fingerprint)
 			.then(() => {
 				ref.current.value = "";
 				toast.success("Request submitted successfully!");

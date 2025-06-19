@@ -17,6 +17,18 @@ export const submitFeedback = async (feedback, deviceId) => {
 	);
 	return response;
 };
+export const submitFeatureRequest = async (message, deviceId) => {
+	const response = await databases.createDocument(
+		import.meta.env.VITE_APPWRITE_FEEDBACK_DATABASE_ID,
+		import.meta.env.VITE_APPWRITE_FEATURES_REQUEST_COLLECTION_ID,
+		ID.unique(),
+		{
+			message: message,
+			deviceId: deviceId,
+		}
+	);
+	return response;
+};
 export const getFeatureList = async () => {
 	const response = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_FEEDBACK_DATABASE_ID,
