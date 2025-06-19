@@ -33,7 +33,6 @@ export const UpcomingQuestion = () => {
 					"Last Updated On : " +
 					new Date(lastUpdated).toLocaleString()
 				}
-				isNoticeShown={true}
 				paginationData={{
 					currentPage,
 					setCurrentPage,

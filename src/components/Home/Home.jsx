@@ -59,7 +59,7 @@ export const Home = () => {
 		}
 	}, []);
 	return (
-		<div className="px-5 sm:px-8  lg:px-10">
+		<div className="px-5 sm:px-8 lg:px-10 flex flex-col space-y-10">
 			<SubscribeDialog open={open} setOpen={setOpen} />
 			<Hero />
 			{!hideScrollBtn && (

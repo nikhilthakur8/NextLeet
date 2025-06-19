@@ -4,13 +4,7 @@ import { Arrow } from "@radix-ui/react-tooltip";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "../ui/badge";
 
-export const Question = ({
-	questions,
-	title,
-	footer,
-	paginationData,
-	isNoticeShown = false,
-}) => {
+export const Question = ({ questions, title, footer, paginationData }) => {
 	const handlePrevPage = () => {
 		if (paginationData.currentPage > 1) {
 			paginationData.setCurrentPage((prev) => prev - 1);
@@ -24,7 +18,7 @@ export const Question = ({
 	return (
 		questions &&
 		questions.length > 0 && (
-			<div className="py-10" id="latest-question">
+			<div id="latest-question">
 				<p className="text-neutral-300 text-center md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
 					<strong className=" bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-gray-50">
 						{title}
@@ -32,29 +26,6 @@ export const Question = ({
 				</p>
 				<div className="relative overflow-x-auto border border-gray-800 shadow-md rounded-md sm:rounded-lg">
 					<table className="w-full text-xs sm:text-sm md:text-base  text-left rtl:text-right text-gray-700 dark:text-gray-400">
-						<thead className="border-b border-gray-800">
-							<tr>
-								<td colSpan={4}>
-									{isNoticeShown && (
-										<div className=" flex items-center justify-center gap-2 bg-gray-900 text-gray-200 text-sm md:text-base xl:text-lg px-4 py-5 -mb-2  w-full">
-											<Badge
-												className={
-													"bg-red-700 text-sm md:text-lg "
-												}
-											>
-												Attention :{" "}
-											</Badge>
-											<p className="text-gray-300 text-center ">
-												🙏 Please avoid spamming
-												LeetCode discussions with
-												messages like “This is
-												tomorrow’s problem.” etc.
-											</p>
-										</div>
-									)}
-								</td>
-							</tr>
-						</thead>
 						<thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
 							<tr>
 								<th scope="col" className="px-6 py-2">
