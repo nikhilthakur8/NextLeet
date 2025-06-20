@@ -8,18 +8,20 @@ import {
 	Route,
 	RouterProvider,
 } from "react-router-dom";
+import { lazy } from "react";
 import { PastQuestion } from "./components/Questions/PastQuestion.jsx";
 import { UpcomingQuestion } from "./components/Questions/UpcomingQuestion.jsx";
 import { WeeklyQuestion } from "./components/Questions/WeeklyQuestion.jsx";
 import { App } from "./App.jsx";
-import { Sheet } from "./components/Sheet/Sheet.jsx";
+// lazy loading components
+const Sheet = lazy(() => import("./components/Sheet/Sheet.jsx"));
 import { SearchSheet } from "./components/Sheet/SearchSheet.jsx";
 import { QuestionTag } from "./components/QuestionTag/QuestionTag.jsx";
 import { PrivacyPolicy } from "./components/PrivacyPolicy.jsx";
 import { DirectQuestionTag } from "./components/QuestionTag/DirectQuestionTag.jsx";
 import { POTD } from "./components/POTD/POTD.jsx";
 import { UpcomingFeature } from "./Pages/UpcomingFeature.jsx";
-import { CodeAnalyzer } from "./Pages/CodeAnalyzer.jsx";
+const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/">

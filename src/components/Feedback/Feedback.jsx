@@ -54,9 +54,9 @@ export const Feedback = () => {
 		};
 	}, []);
 	return (
-		<div className="hide-scrollbar bottom-5 md:bottom-10 md:space-y-4 right-5 md:right-10 fixed">
+		<div className="hide-scrollbar flex items-center flex-col bottom-5 md:bottom-10 md:space-y-4 right-5 md:right-10 fixed">
 			<div
-				className="rounded-full hidden p-1  animate-bounce [animation-duration:2s] md:p-2 mx-2 bg-gray-900 border border-gray-800 cursor-pointer"
+				className="rounded-full ml-auto hidden p-1  animate-bounce [animation-duration:2s] md:p-2 bg-gray-900 border border-gray-800 cursor-pointer"
 				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 				title="Scroll to Top"
 				role="button"
@@ -66,8 +66,11 @@ export const Feedback = () => {
 			</div>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<div className="bg-gray-900 hidden md:block p-4 rounded-full cursor-pointer   text-white border border-gray-800">
-						<MessageSquareMore className=" text-white" />
+					<div className="bg-gray-900  flex p-4 md:px-4 md:py-2 text-sm rounded-full cursor-pointer justify-center items-center text-white border border-gray-700">
+						<MessageSquareMore className=" text-white" />{" "}
+						<p className="hidden sm:inline-block ml-2">
+							Any Feedback
+						</p>
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent

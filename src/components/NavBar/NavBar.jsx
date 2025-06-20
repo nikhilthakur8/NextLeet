@@ -89,9 +89,9 @@ export function NavBarNew() {
 						</div>
 						<Link
 							to="/coming-soon"
-							className="cursor-pointer relative "
+							className="cursor-pointer relative mr-4 "
 						>
-							<RocketIcon className="text-yellow-500 mr-4" />
+							<RocketIcon className="text-yellow-500 " />
 						</Link>
 					</div>
 				</NavBody>

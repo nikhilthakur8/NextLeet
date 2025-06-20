@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { Loading } from "../components/Loading";
-export const CodeAnalyzer = () => {
+import TimeComplexityChart from "../components/ComplexityChart";
+import { Dialog, DialogContent, DialogTrigger } from "../components/ui/dialog";
+import { Info, Star } from "lucide-react";
+
+export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -27,19 +31,13 @@ export const CodeAnalyzer = () => {
 				}
 			);
 			setResult(null);
-			if (!response.data || !response.data.result) {
-				toast.error("No result returned from the API.");
-				return;
-			}
-			const result = response.data.result;
+			const result = JSON.parse(response.data.result);
 			toast.success("Code analyzed successfully!");
-			setResult(JSON.parse(result));
+			setResult(result);
 		} catch (error) {
 			window.scrollTo(0, 0);
 			if (error.response && error.response.status === 400) {
 				toast.error(error.response.data.error || "Invalid code input.");
-			} else if (error.response && error.response.status === 405) {
-				toast.error("Rate limit exceeded. Please try again later.");
 			} else {
 				toast.error(`Error: ${error.message}`);
 			}
@@ -89,6 +87,16 @@ export const CodeAnalyzer = () => {
 					<div className="p-5 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10  text-zinc-200 space-y-6">
 						{loading ? (
 							<Loading />
+						) : result?.error ? (
+							<div className="flex flex-col items-center justify-center space-y-4">
+								<h1 className="font-semibold text-red-700 text-xl md:text-3xl">
+									⚠️ Error Occured
+								</h1>
+								<p className="text-zinc-300">
+									{result.error ||
+										"An unexpected error occurred while analyzing your code."}
+								</p>
+							</div>
 						) : (
 							<>
 								<h1 className="text-xl md:text-4xl font-bold text-white">
@@ -99,9 +107,14 @@ export const CodeAnalyzer = () => {
 									<p className="font-medium text-zinc-400">
 										⏱️ Time Complexity:
 									</p>
-									<p className="text-2xl uppercase font-semibold text-lime-400">
-										{result?.time}
-									</p>
+									<div className="flex items-center gap-x-2">
+										<p className="text-2xl uppercase font-semibold text-lime-400">
+											{result.detailedTimeComplexity}
+										</p>
+										<TimeComplexityChart
+											complexity={result.timeComplexity}
+										/>
+									</div>
 									<p className="text-zinc-300">
 										{result?.timeExplanation}
 									</p>
@@ -111,11 +124,46 @@ export const CodeAnalyzer = () => {
 									<p className="font-medium text-zinc-400">
 										🧮 Space Complexity:
 									</p>
-									<p className="text-2xl uppercase font-semibold text-sky-400">
-										{result?.space}
-									</p>
+									<div className="flex items-center gap-x-2">
+										<p className="text-2xl uppercase font-semibold text-sky-400">
+											{result.detailedSpaceComplexity}
+										</p>
+										<TimeComplexityChart
+											complexity={result.spaceComplexity}
+											detailedComplexity={
+												result.detailedSpaceComplexity
+											}
+										/>
+									</div>
 									<p className=" text-zinc-300">
 										{result?.spaceExplanation}
+									</p>
+								</div>
+								<div className="space-y-2">
+									<span className="font-medium text-zinc-400">
+										📊 Code Rating (out of 5):
+									</span>{" "}
+									{Array.from({ length: 5 }).map(
+										(star, index) => (
+											<span key={index}>
+												<Star
+													size={20}
+													className={`${
+														index <
+														result.codeRating
+															? "fill-yellow-400 text-yellow-400"
+															: "fill-gray-400 text-gray-400"
+													} inline`}
+												/>
+											</span>
+										)
+									)}
+								</div>
+								<div className="text-xs text-gray-400 flex justify-center items-center md:text-sm space-x-2">
+									<Info size={15} />
+									<p className="text-center">
+										Only up to O(n²) shown — higher ones
+										skew the graph.
 									</p>
 								</div>
 							</>
@@ -125,4 +173,4 @@ export const CodeAnalyzer = () => {
 			</div>
 		</div>
 	);
-};
+}

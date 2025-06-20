@@ -20,15 +20,6 @@ export const Footer = () => {
 				});
 			});
 	};
-	const onClick = (e) => {
-		e.preventDefault();
-		document
-			.getElementById(e.currentTarget.getAttribute("href").substring(1))
-			.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-			});
-	};
 	return (
 		<footer className="mt-24 border-t border-t-gray-600  max-w-screen bg-gray-900 text-gray-400">
 			<div className="grid grid-cols-1 md:grid-cols-8  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-20">
@@ -83,22 +74,7 @@ export const Footer = () => {
 					</h5>
 					<ul className="space-y-2 text-sm md:text-base text-gray-300">
 						<li>
-							<a
-								href="https://contestBoard.vercel.app"
-								target="_blank"
-								className="hover:underline"
-							>
-								ContestBoard
-							</a>
-						</li>
-						<li>
-							<a
-								onClick={onClick}
-								href="/#latest-question"
-								className="hover:underline"
-							>
-								Upcoming Question
-							</a>
+							<Link href="/coming-soon">Next Features</Link>
 						</li>
 						<li>
 							<Link
@@ -108,6 +84,11 @@ export const Footer = () => {
 								Company Wise Sheet
 							</Link>
 						</li>
+						{/* <li>
+							<Link className="hover:underline" to="/analyze">
+								Code Analyzer
+							</Link>
+						</li> */}
 						<li>
 							<Link
 								to="/search/company-tags"
@@ -116,13 +97,21 @@ export const Footer = () => {
 								Question Company Tag
 							</Link>
 						</li>
+						<li>
+							<Link
+								to="mailto:support@nextleet.com"
+								className="hover:underline"
+							>
+								Contact Us
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</div>
 
 			<div className="border border-gray-500 mx-10 md:px-10"></div>
 			<div className="text-center text-md md:text-xl py-5">
-				Made with 💗 by NextLeet
+				Made with 💗 by NextLeet Team
 			</div>
 		</footer>
 	);

@@ -19,7 +19,7 @@ import {
 } from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
 import { NewBadge } from "../NewBadge";
-export const Sheet = () => {
+export default function Sheet() {
 	const { companyName } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 	// intial All Question Loading
@@ -271,4 +271,4 @@ export const Sheet = () => {
 			)}
 		</div>
 	);
-};
+}
