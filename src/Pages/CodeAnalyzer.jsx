@@ -4,7 +4,8 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import TimeComplexityChart from "../components/ComplexityChart";
 import { Dialog, DialogContent, DialogTrigger } from "../components/ui/dialog";
-import { Info, Star } from "lucide-react";
+import { Info, Star, ThumbsDown, ThumbsUp } from "lucide-react";
+import { registerFeedback } from "../appwrite/config";
 
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
@@ -45,6 +46,15 @@ export default function CodeAnalyzer() {
 			setLoading(false);
 		}
 	};
+	const handleFeedBack = async (feedback) => {
+		registerFeedback(feedback)
+			.then(() => {
+				toast.success(`Thank you for your feedback!`);
+			})
+			.catch((error) => {
+				toast.error(`Error: ${error.message}`);
+			});
+	};
 	useEffect(() => {
 		if (result || loading) {
 			analysisRef.current?.scrollIntoView({
@@ -84,7 +94,7 @@ export default function CodeAnalyzer() {
 			</div>
 			<div ref={analysisRef}>
 				{(result || loading) && (
-					<div className="p-5 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10  text-zinc-200 space-y-6">
+					<div className="p-5 relative rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10  text-zinc-200 space-y-6">
 						{loading ? (
 							<Loading />
 						) : result?.error ? (
@@ -108,11 +118,18 @@ export default function CodeAnalyzer() {
 										⏱️ Time Complexity:
 									</p>
 									<div className="flex items-center gap-x-2">
-										<p className="text-2xl uppercase font-semibold text-lime-400">
-											{result.detailedTimeComplexity}
-										</p>
+										<p
+											className="text-2xl uppercase font-semibold text-lime-400"
+											dangerouslySetInnerHTML={{
+												__html: result.timeComplexity,
+											}}
+										/>
 										<TimeComplexityChart
 											complexity={result.timeComplexity}
+											complexityType={
+												result.timeComplexityType
+											}
+											name={"Time Complexity"}
 										/>
 									</div>
 									<p className="text-zinc-300">
@@ -125,14 +142,18 @@ export default function CodeAnalyzer() {
 										🧮 Space Complexity:
 									</p>
 									<div className="flex items-center gap-x-2">
-										<p className="text-2xl uppercase font-semibold text-sky-400">
-											{result.detailedSpaceComplexity}
-										</p>
+										<p
+											className="text-2xl uppercase font-semibold text-sky-400"
+											dangerouslySetInnerHTML={{
+												__html: result.spaceComplexity,
+											}}
+										/>
 										<TimeComplexityChart
 											complexity={result.spaceComplexity}
-											detailedComplexity={
-												result.detailedSpaceComplexity
+											complexityType={
+												result.spaceComplexityType
 											}
+											name={"Space Complexity"}
 										/>
 									</div>
 									<p className=" text-zinc-300">
@@ -165,6 +186,16 @@ export default function CodeAnalyzer() {
 										Only up to O(n²) shown — higher ones
 										skew the graph.
 									</p>
+								</div>
+								<div className="absolute top-5 right-5 cursor-pointer flex items-center gap-x-5">
+									<ThumbsUp
+										className="hover:scale-105 "
+										onClick={() => handleFeedBack("yes")}
+									/>
+									<ThumbsDown
+										className="hover:scale-105"
+										onClick={() => handleFeedBack("no")}
+									/>
 								</div>
 							</>
 						)}

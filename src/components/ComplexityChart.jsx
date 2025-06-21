@@ -30,25 +30,25 @@ ChartJS.register(
 );
 
 const TimeComplexityChart = ({
-	complexity = "O(n^2)",
+	complexityType,
+	complexity,
+	name,
 	colorOfLine = "oklch(59.1% 0.293 322.896)", // Default color for the line
 }) => {
 	const n = Array.from({ length: 10000 }, (_, i) => i + 1);
-	const selectedComplexity = complexity.split(" ").join("").toLowerCase();
-	const correctedComplexity = {
-		"o(1)": "O(1)",
-		"o(logn)": "O(LOG N)",
-		"o(n)": "O(N)",
-		"o(nlogn)": "O(N log N)",
-		"o(n^2)": "O(N²)",
-	};
 	const isDisabled =
-		correctedComplexity[selectedComplexity] === undefined ? true : false;
+		complexityType === "none" ||
+		(complexityType != "constant" &&
+			complexityType != "logarithmic" &&
+			complexityType != "linear" &&
+			complexityType != "linearithmic" &&
+			complexityType != "quadratic");
+	const selectedComplexity = complexity.split(" ").join("").toLowerCase();
 	const dataset = (label, dataFunc) => ({
 		label,
 		data: n.map(dataFunc),
 		borderColor:
-			selectedComplexity == label
+			complexityType.trim() == label
 				? colorOfLine
 				: "oklch(55.1% 0.027 264.364 / 0.5)",
 		borderWidth: selectedComplexity == label ? 5 : 3,
@@ -59,11 +59,11 @@ const TimeComplexityChart = ({
 	const data = {
 		labels: n,
 		datasets: [
-			dataset("o(1)", (n) => 2),
-			dataset("o(logn)", (n) => Math.log2(n - 2) * 1.7),
-			dataset("o(n)", (n) => n - 1),
-			dataset("o(nlogn)", (n) => n * Math.log2(n - 2)),
-			dataset("o(n^2)", (n) => (n - 1) * (n - 1)),
+			dataset("constant", (n) => 2),
+			dataset("logarithmic", (n) => Math.log2(n - 2) * 1.7),
+			dataset("linear", (n) => n - 1),
+			dataset("linearithmic", (n) => n * Math.log2(n - 2)),
+			dataset("quadratic", (n) => (n - 1) * (n - 1)),
 		],
 	};
 
@@ -114,7 +114,7 @@ const TimeComplexityChart = ({
 				displayColors: false,
 				callbacks: {
 					label: function (context) {
-						return correctedComplexity[context.dataset.label]; // ✨ your custom message here
+						return context.dataset.label; // ✨ your custom message here
 					},
 					title: function () {
 						return ""; // disables the title (optional)
@@ -188,14 +188,15 @@ const TimeComplexityChart = ({
 					tabIndex={-1}
 				>
 					<DialogTitle className="text-lg md:text-2xl font-semibold">
-						Time Complexity
+						{name}
 					</DialogTitle>
 					<div className="text-gray-300 flex items-center flex-col justify-center">
-						<h2 className="text-center uppercase mb-5  text-xl md:text-2xl italic font-semibold">
-							{correctedComplexity[
-								complexity.split(" ").join("").toLowerCase()
-							] || complexity}
-						</h2>
+						<div
+							className="text-center uppercase mb-5  text-xl md:text-2xl italic font-semibold"
+							dangerouslySetInnerHTML={{
+								__html: complexity,
+							}}
+						/>
 						<div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px]">
 							<Line
 								data={data}

@@ -89,9 +89,19 @@ export function NavBarNew() {
 						</div>
 						<Link
 							to="/coming-soon"
-							className="cursor-pointer relative mr-4 "
+							className="cursor-pointer relative"
 						>
 							<RocketIcon className="text-yellow-500 " />
+						</Link>
+						<Link
+							to="https://x.com/NextLeet"
+							target="_blank"
+							className="cursor-pointer shrink-0 relative mr-4"
+						>
+							<img
+								className="w-8 h-8 rounded-full"
+								src="https://img.logo.dev/x.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg"
+							/>
 						</Link>
 					</div>
 				</NavBody>

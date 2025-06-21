@@ -35,7 +35,13 @@ export const Hero = () => {
 				<span>
 					The latest company-wise question sheet is now available.
 				</span>
-				<NewBadge>New</NewBadge>
+				<NewBadge
+					className={
+						"top-0 bg-gradient-to-r from-lime-500 via-lime-600 to-lime-500"
+					}
+				>
+					Updated
+				</NewBadge>
 			</Link>
 			<Link to={"/potd"} target="_blank">
 				<Button
