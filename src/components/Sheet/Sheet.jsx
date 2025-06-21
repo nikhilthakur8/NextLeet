@@ -93,7 +93,7 @@ export default function Sheet() {
 			filter
 		)
 			.then(({ documents, total }) => {
-				setFilteredQuestions((prev) => [...prev, ...documents]);
+				setFilteredQuestions((prev) =>(isReset ? [] : prev).concat(documents));
 				setFilteredQuestionPages((prev) => prev + 1);
 				setFilteredQuestionTotalPages(total / 20);
 			})
