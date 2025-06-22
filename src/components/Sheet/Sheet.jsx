@@ -13,6 +13,7 @@ import { useSearchParams } from "react-router-dom";
 import {
 	DifficultyFilter,
 	FrequencyFilter,
+	HotTopicsFilter,
 	TimeFrameFilter,
 	TopicFilter,
 	TopicsVisibiltyFilter,
@@ -43,6 +44,8 @@ export default function Sheet() {
 			timeFrame: searchParams.get("timeframe") || "",
 			topics: searchParams.get("topics")?.split(",") || "",
 			frequency: searchParams.get("frequency") || "",
+			hotQuestions: searchParams.get("hotQuestions") || "",
+			mustDo: searchParams.get("mustDo") || "",
 		}),
 		[searchParams]
 	);
@@ -156,6 +159,10 @@ export default function Sheet() {
 					isTopicVisible={isTopicVisible}
 					setTopicVisible={setTopicVisible}
 				/>
+				<HotTopicsFilter
+					searchParams={searchParams}
+					setSearchParams={setSearchParams}
+				/>
 				<TopicFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
@@ -173,7 +180,7 @@ export default function Sheet() {
 
 			{/*  Questions List */}
 			<div className="bg-gradient-to-l border border-gray-800 from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 py-5 rounded-md">
-				<div className="flex items-center mb-5 md:mb-7">
+				<div className="flex items-center my-5">
 					<input
 						type="text"
 						className="w-full px-4 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg ring-3 ring-transparent rounded-md focus:outline-none  focus:ring-emerald-600 text-gray-200"
@@ -232,20 +239,26 @@ export default function Sheet() {
 									hasMore={totalPages >= pages}
 									loader={<Loading />}
 								>
-									{questions.map((question, idx) => (
-										<Question
-											key={question.$id}
-											question={question}
-											isTopicVisible={isTopicVisible}
-											idx={idx + 1}
-											setAllDoneQuestion={
-												setAllDoneQuestion
-											}
-											isDone={allDoneQuestion.includes(
-												question.titleSlug
-											)}
-										/>
-									))}
+									{questions.length > 0 ? (
+										questions.map((question, idx) => (
+											<Question
+												key={question.$id}
+												question={question}
+												isTopicVisible={isTopicVisible}
+												idx={idx + 1}
+												setAllDoneQuestion={
+													setAllDoneQuestion
+												}
+												isDone={allDoneQuestion.includes(
+													question.titleSlug
+												)}
+											/>
+										))
+									) : (
+										<p className="text-gray-500 text-center mt-5">
+											No questions found.
+										</p>
+									)}
 								</InfiniteScroll>
 							)}
 						</div>

@@ -19,6 +19,9 @@ function queryBuilder(query, filter) {
 	} else {
 		query.push(Query.orderDesc("cumulativeFrequency"));
 	}
+	if (filter.hotQuestions) {
+		query.push(Query.equal("timeframe", ["thirtyDays"]));
+	}
 }
 export const getQuestionByCompanyTag = async (
 	companyName = [],

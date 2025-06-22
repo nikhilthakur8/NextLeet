@@ -265,7 +265,7 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 	};
 	return (
 		<div
-			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative"
+			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700"
 			onClick={() => handleFrequencyChange()}
 		>
 			{searchParams.get("frequency") === "asc" ? (
@@ -274,7 +274,6 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 				<ArrowUpWideNarrow className="inline size-5 mr-2" />
 			)}
 			Frequency
-			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
 		</div>
 	);
 };
@@ -282,7 +281,7 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 export const TopicsVisibiltyFilter = ({ isTopicVisible, setTopicVisible }) => {
 	return (
 		<div
-			className="bg-gray-900 hidden lg:flex px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative  items-center space-x-2"
+			className="bg-gray-900 hidden lg:flex px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700  items-center space-x-2"
 			onClick={() => setTopicVisible((prev) => !prev)}
 		>
 			<Tag className="inline size-5 " />
@@ -300,6 +299,31 @@ export const TopicsVisibiltyFilter = ({ isTopicVisible, setTopicVisible }) => {
 					}`}
 				></div>
 			</div>
+		</div>
+	);
+};
+
+export const HotTopicsFilter = ({ searchParams, setSearchParams }) => {
+	return (
+		<div
+			className={` flex px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border relative  items-center space-x-2 ${
+				searchParams.get("hotQuestions")
+					? "bg-gray-500/50 border-gray-600"
+					: "bg-gray-900 border-gray-700"
+			}`}
+			onClick={() => {
+				setSearchParams((prev) => {
+					const params = new URLSearchParams(prev);
+					if (params.get("hotQuestions")) {
+						params.delete("hotQuestions");
+					} else {
+						params.set("hotQuestions", "true");
+					}
+					return params;
+				});
+			}}
+		>
+			<p>🔥 Hot Questions</p>
 			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
 		</div>
 	);
