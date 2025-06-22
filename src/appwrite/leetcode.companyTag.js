@@ -4,17 +4,7 @@ client
 	.setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
 	.setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
 const databases = new Databases(client);
-
-export const getQuestionByCompanyTag = async (
-	companyName = [],
-	skip = 0,
-	limit = 20,
-	filter
-) => {
-	const query = [Query.limit(limit), Query.offset(skip)];
-	if (companyName && companyName.length > 0) {
-		query.push(Query.equal("companyName", companyName));
-	} else return { documents: [], total: 0 };
+function queryBuilder(query, filter) {
 	if (filter.difficulty) {
 		query.push(Query.equal("difficulty", Number(filter.difficulty)));
 	}
@@ -29,6 +19,18 @@ export const getQuestionByCompanyTag = async (
 	} else {
 		query.push(Query.orderDesc("cumulativeFrequency"));
 	}
+}
+export const getQuestionByCompanyTag = async (
+	companyName = [],
+	skip = 0,
+	limit = 20,
+	filter
+) => {
+	const query = [Query.limit(limit), Query.offset(skip)];
+	if (companyName && companyName.length > 0) {
+		query.push(Query.equal("companyName", companyName));
+	} else return { documents: [], total: 0 };
+	queryBuilder(query, filter);
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
@@ -83,20 +85,7 @@ export const searchQuestion = async (
 		Query.offset(skip),
 		Query.limit(limit),
 	];
-	if (filter.difficulty) {
-		query.push(Query.equal("difficulty", Number(filter.difficulty)));
-	}
-	if (filter.timeFrame) {
-		query.push(Query.contains("timeframe", filter.timeFrame));
-	}
-	if (filter.topics) {
-		query.push(Query.contains("topics", filter.topics));
-	}
-	if (filter.frequency == "asc") {
-		query.push(Query.orderAsc("cumulativeFrequency"));
-	} else {
-		query.push(Query.orderDesc("cumulativeFrequency"));
-	}
+	queryBuilder(query, filter);
 	const data = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
@@ -133,20 +122,7 @@ export const getTotalDoneQuestions = async (companyName, data, filter) => {
 		Query.limit(10000),
 		Query.equal("titleSlug", data),
 	];
-	if (filter.difficulty) {
-		query.push(Query.equal("difficulty", Number(filter.difficulty)));
-	}
-	if (filter.timeFrame) {
-		query.push(Query.contains("timeframe", filter.timeFrame));
-	}
-	if (filter.topics) {
-		query.push(Query.contains("topics", filter.topics));
-	}
-	if (filter.frequency == "asc") {
-		query.push(Query.orderAsc("cumulativeFrequency"));
-	} else {
-		query.push(Query.orderDesc("cumulativeFrequency"));
-	}
+	queryBuilder(query, filter);
 	const totalDoc = await databases.listDocuments(
 		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,

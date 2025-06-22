@@ -47,6 +47,7 @@ export const Question = React.memo(
 					idx % 2 == 1 ? "bg-gray-800" : ""
 				} cursor-pointer gap-3 group flex justify-between items-center px-2 md:px-6 py-3 rounded-md transform duration-300`}
 			>
+				{/* // question title and link */}
 				<div className="flex gap-3 w-full items-center">
 					<p>{idx}.</p>
 					<a
@@ -58,7 +59,7 @@ export const Question = React.memo(
 						<TooltipProvider delayDuration={50}>
 							<Tooltip>
 								<TooltipTrigger asChild>
-									<div className="font-semibold  w-full flex gap-2 items-center text-sky-500 hover:underline">
+									<div className="font-semibold justify-between md:justify-start w-full flex gap-2 items-center text-sky-500 hover:underline">
 										<span>{question.title}</span>
 										<ExternalLink className="size-4 md:size-5 shrink-0" />
 									</div>
@@ -86,13 +87,13 @@ export const Question = React.memo(
 				</div>
 				<div className="flex items-center gap-5">
 					{isTopicVisible && (
-						<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 md:flex">
+						<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 lg:flex">
 							{question.topics.map(
 								(topic, idx) =>
 									topic.length > 0 && (
 										<span
 											key={idx}
-											className={`border border-gray-700 px-3 py-1 rounded-full bg-gray-900 text-gray-300 text-sm mr-1`}
+											className={`border border-gray-800 px-3 py-1 rounded-full bg-gray-900 text-neutral-300/80 text-sm mr-1`}
 										>
 											{topic}
 										</span>

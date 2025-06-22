@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { NewBadge } from "../NewBadge.jsx";
 export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
-	const handleRedirect = (value) => {
+	const handleChange = (value) => {
 		if (value === "all") {
 			setSearchParams((prev) => prev.delete("difficulty"));
 			return;
@@ -34,11 +34,17 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				return params;
 			});
 	};
+	const items = [
+		{ value: "all", label: "All" },
+		{ value: "1", label: "Easy" },
+		{ value: "2", label: "Medium" },
+		{ value: "3", label: "Hard" },
+	];
 	return (
 		<div>
 			<Select
-				defaultValue={searchParams.get("difficulty") || "all"}
-				onValueChange={handleRedirect}
+				value={searchParams.get("difficulty") || "all"}
+				onValueChange={handleChange}
 			>
 				<SelectTrigger className="w-full md:w-[250px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer md:text-lg text-sm data-[size=default]:h-auto">
 					<div className="flex items-center gap-2 ">
@@ -47,39 +53,25 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 					</div>
 				</SelectTrigger>
 				<SelectContent
+					side="top"
+					align="start"
 					className={
 						"bg-gray-950 text-gray-300 border-gray-800 rounded-md shadow-lg"
 					}
 				>
 					<SelectGroup>
-						<SelectLabel className="text-gray-400">
+						<SelectLabel className="text-gray-400 text-xs md:text-sm">
 							Filter by Difficulty
 						</SelectLabel>
-						<SelectItem
-							value="all"
-							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-						>
-							All
-						</SelectItem>
-						<SelectSeparator className={"bg-gray-500"} />
-						<SelectItem
-							value="1"
-							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-						>
-							Easy
-						</SelectItem>
-						<SelectItem
-							value="2"
-							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-						>
-							Medium
-						</SelectItem>
-						<SelectItem
-							value="3"
-							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-						>
-							Hard
-						</SelectItem>
+						{items.map((item) => (
+							<SelectItem
+								key={item.value}
+								value={item.value}
+								className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							>
+								{item.label}
+							</SelectItem>
+						))}
 					</SelectGroup>
 				</SelectContent>
 			</Select>
@@ -87,8 +79,7 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 	);
 };
 export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
-	const navigate = useNavigate();
-	const handleRedirect = (value) => {
+	const handleChange = (value) => {
 		if (value === "allProblems") {
 			setSearchParams((prev) => prev.delete("timeframe"));
 			return;
@@ -99,11 +90,18 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 				return params;
 			});
 	};
+	const items = [
+		{ value: "thirtyDays", label: "30 Days" },
+		{ value: "threeMonths", label: "3 Months" },
+		{ value: "sixMonths", label: "6 Months" },
+		{ value: "moreThanSixMonths", label: "More Than 6 Months" },
+		{ value: "all", label: "All Time" },
+	];
 	return (
 		<div>
 			<Select
-				defaultValue={searchParams.get("timeframe") || "allProblems"}
-				onValueChange={handleRedirect}
+				value={searchParams.get("timeframe") || "allProblems"}
+				onValueChange={handleChange}
 			>
 				<SelectTrigger className="w-full cursor-pointer h-full md:w-[250px] bg-gray-900 border  text-gray-200 border-gray-700 md:text-lg text-sm data-[size=default]:h-auto">
 					<div className="flex items-center gap-2">
@@ -117,7 +115,7 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 					}
 				>
 					<SelectGroup>
-						<SelectLabel className="text-gray-400">
+						<SelectLabel className="text-gray-400 text-xs md:text-sm">
 							Last Asked
 						</SelectLabel>
 						<SelectItem
@@ -127,44 +125,15 @@ export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 							All Problems
 						</SelectItem>
 						<SelectSeparator className={"bg-gray-500"} />
-						<SelectItem
-							value="thirtyDays"
-							className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-						>
-							30 Days
-						</SelectItem>
-						<SelectItem
-							value="threeMonths"
-							className={
-								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-							}
-						>
-							3 Months
-						</SelectItem>
-						<SelectItem
-							value="sixMonths"
-							className={
-								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-							}
-						>
-							6 Months
-						</SelectItem>
-						<SelectItem
-							value="moreThanSixMonths"
-							className={
-								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-							}
-						>
-							More Than 6 Months
-						</SelectItem>
-						<SelectItem
-							value="all"
-							className={
-								"data-[highlighted]:bg-gray-800 md:text-lg text-sm"
-							}
-						>
-							All Time
-						</SelectItem>
+						{items.map((item) => (
+							<SelectItem
+								key={item.value}
+								value={item.value}
+								className="data-[highlighted]:bg-gray-800 md:text-lg text-sm"
+							>
+								{item.label}
+							</SelectItem>
+						))}
 					</SelectGroup>
 				</SelectContent>
 			</Select>
@@ -181,10 +150,7 @@ import {
 } from "../ui/popover";
 
 export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
-	const [selected, setSelected] = useState(
-		searchParams.get("topics")?.split(",") || []
-	);
-	console.log("Selected Topics:", allTopics);
+	const [selected, setSelected] = useState([]);
 	const [search, setSearch] = useState("");
 	const filteredOptions = allTopics.filter((topic) =>
 		topic.toLowerCase().includes(search.toLowerCase())
@@ -197,6 +163,18 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 				: [...prev, option]
 		);
 	}
+
+	// Initialize selected topics from searchParams when component mounts
+	useEffect(() => {
+		if (searchParams.get("topics")) {
+			const topics = searchParams.get("topics").split(",");
+			setSelected(topics);
+		} else {
+			setSelected([]);
+		}
+	}, [searchParams]);
+
+	// Update searchParams whenever selected changes
 	useEffect(() => {
 		setSearchParams((prev) => {
 			const newParams = new URLSearchParams(prev);
@@ -232,6 +210,7 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 					)}
 				</PopoverTrigger>
 				<PopoverContent
+					side="top"
 					align="start"
 					tabIndex={0}
 					className="w-full p-2 bg-gray-950 text-gray-300 border border-gray-700  "
@@ -303,22 +282,22 @@ export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 export const TopicsVisibiltyFilter = ({ isTopicVisible, setTopicVisible }) => {
 	return (
 		<div
-			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative flex items-center"
+			className="bg-gray-900 hidden lg:flex px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700 relative  items-center space-x-2"
 			onClick={() => setTopicVisible((prev) => !prev)}
 		>
-			<Tag className="inline size-5  mr-2" />
-			{/* Topics */}
+			<Tag className="inline size-5 " />
+			<p>Topics</p>
 			<div
-				className={`w-7 md:w-9 relative h-3 md:h-4 inline-block rounded-full ${
-					!isTopicVisible ? "bg-gray-500" : "bg-emerald-800"
+				className={`w-6  md:w-8 relative h-3 md:h-4 inline-block transform duration-500 rounded-full ${
+					!isTopicVisible ? "bg-gray-600" : "bg-gray-300"
 				}`}
 			>
 				<div
-					className={`h-4 w-4 md:w-5 md:h-5 rounded-full absolute -top-1/6 ${
+					className={`h-3 w-3 md:w-4 md:h-4 rounded-full absolute shadow-lg scale-120 ${
 						!isTopicVisible
 							? "left-0 bg-gray-300"
-							: "right-0 bg-emerald-200"
-					} transition-all duration-300`}
+							: "right-0 bg-gray-600"
+					}`}
 				></div>
 			</div>
 			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
