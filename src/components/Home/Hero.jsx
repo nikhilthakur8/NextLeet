@@ -30,17 +30,18 @@ export const Hero = () => {
 			</div>
 			<Link
 				className="text-gray-200 bg-gray-900 border border-gray-800 px-5 my-5 py-2 rounded-lg relative cursor-pointer text-xs md:text-base"
-				to="/search/sheet"
+				to="https://code.nextleet.com"
+				target="_blank"
 			>
 				<span>
-					The latest company-wise question sheet is now available.
+					Leetcode Premium Question Access
 				</span>
 				<NewBadge
 					className={
-						"top-0 bg-gradient-to-r from-lime-500 via-lime-600 to-lime-500"
+						"top-0 "
 					}
 				>
-					Updated
+					New
 				</NewBadge>
 			</Link>
 			<Link to={"/potd"} target="_blank">
