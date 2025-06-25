@@ -34,7 +34,7 @@ export const Hero = () => {
 				target="_blank"
 			>
 				<span>
-					Leetcode Premium Question Access
+					Premium Question Access
 				</span>
 				<NewBadge
 					className={
