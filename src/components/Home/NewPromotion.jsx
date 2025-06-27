@@ -47,12 +47,12 @@ export const NewPromotion = () => {
 				))}
 			</div>
 			<div className="w-full sm:w-lg md:w-lg mx-auto text-left">
-				<Tweet
-					id={"1938671505317237148"}
-					
-				/>
+				<Tweet id={"1938671505317237148"} />
 			</div>
-			<Link className="text-gray-400 text-xs md:text-base justify-self-end hover:cursor-pointer">
+			<Link
+				to={"/search/company-tags"}
+				className="text-gray-400 text-xs md:text-base justify-self-end hover:cursor-pointer"
+			>
 				<Info className="inline-block mr-1 size-3 md:size-5" /> It is
 				available under the Question Company Tag Section
 			</Link>
