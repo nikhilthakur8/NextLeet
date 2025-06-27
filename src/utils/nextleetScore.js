@@ -126,5 +126,6 @@ export const getTotalScore = (topics, acRate, leetcodeDifficultyTag) => {
 	// Fixed weights according to your comments: 0.50 acRate, 0.30 topics, 0.20 leetcode tag
 	const totalScore =
 		topicsScore * 0.2 + acRateScore * 0.3 + leetcodeTagScore * 0.5;
-	return Math.ceil(totalScore);
+	const decimal = totalScore - Math.floor(totalScore);
+	return decimal > 0.3 ? Math.ceil(totalScore) : Math.floor(totalScore);
 };
