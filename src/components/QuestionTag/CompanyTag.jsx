@@ -7,6 +7,7 @@ import { Badge } from "../ui/badge";
 import { CheckCircle2, Crown, Verified } from "lucide-react";
 import { NewBadge } from "../NewBadge";
 import { color } from "motion";
+import { getTotalScore } from "../../utils/nextleetScore";
 const popularAcronyms = {
 	MAANG: ["Meta", "Apple", "Amazon", "Netflix", "Google"],
 	GAFAM: ["Google", "Apple", "Facebook", "Amazon", "Microsoft"],
@@ -100,13 +101,21 @@ export const CompanyTag = ({ titleSlug }) => {
 						<p
 							className={`${
 								nextleetScore[
-									Math.round(companyTag[0].nextleetScore)
+									getTotalScore(
+										companyTag[0].topics,
+										companyTag[0].acRate,
+										companyTag[0].difficulty
+									)
 								].color
 							} px-4 py-1 uppercase border border-gray-700 rounded-full bg-gray-500/30 text-black font-semibold`}
 						>
 							{
 								nextleetScore[
-									Math.round(companyTag[0].nextleetScore)
+									getTotalScore(
+										companyTag[0].topics,
+										companyTag[0].acRate,
+										companyTag[0].difficulty
+									)
 								].name
 							}
 						</p>
