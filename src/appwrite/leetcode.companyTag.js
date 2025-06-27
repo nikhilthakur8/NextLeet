@@ -106,7 +106,7 @@ export const getCompanyTagBySlug = async (slug) => {
 		import.meta.env.VITE_APPWRITE_QUESTION_COMPANY_TAG_COLLECTION_ID,
 		[
 			Query.equal("titleSlug", slug),
-			Query.select(["companyName"]),
+			Query.select(["companyName","nextleetScore"]),
 			Query.limit(10000),
 		]
 	);

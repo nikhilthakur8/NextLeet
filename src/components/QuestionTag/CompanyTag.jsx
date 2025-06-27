@@ -6,6 +6,7 @@ import { Loading } from "../Loading";
 import { Badge } from "../ui/badge";
 import { CheckCircle2, Crown, Verified } from "lucide-react";
 import { NewBadge } from "../NewBadge";
+import { color } from "motion";
 const popularAcronyms = {
 	MAANG: ["Meta", "Apple", "Amazon", "Netflix", "Google"],
 	GAFAM: ["Google", "Apple", "Facebook", "Amazon", "Microsoft"],
@@ -81,19 +82,39 @@ export const CompanyTag = ({ titleSlug }) => {
 	if (!titleSlug || titleSlug.trim().length === 0) {
 		return null;
 	}
+	const nextleetScore = {
+		1: { name: "Novice", color: "text-blue-500" },
+		2: { name: "Beginner", color: "text-green-500" },
+		3: { name: "Intermediate", color: "text-yellow-500" },
+		4: { name: "Advanced", color: "text-orange-500" },
+		5: { name: "Expert", color: "text-red-500" },
+	};
 	return (
 		<div className="text-sm md:text-lg text-gray-300" id="company-tag">
 			<div className="flex space-y-3 flex-col items-center text-center">
 				{companyTag.length > 0 && (
 					<>
-						<h1 className="text-xl md:text-3xl font-semibold uppercase">
+						<h1 className="text-xl md:text-3xl font-semibold whitespace-nowrap uppercase">
 							{titleSlug.split("-").join(" ")}
 						</h1>
+						<p
+							className={`${
+								nextleetScore[
+									Math.round(companyTag[0].nextleetScore)
+								].color
+							} px-4 py-1 uppercase border border-gray-700 rounded-full bg-gray-500/30 text-black font-semibold`}
+						>
+							{
+								nextleetScore[
+									Math.round(companyTag[0].nextleetScore)
+								].name
+							}
+						</p>
 						<p className="text-center">
 							<span className="text-gray-400">
 								Number of Companies That Asked :{" "}
 							</span>
-							<span className="text-xl  font-bold">
+							<span className="text-xl font-bold">
 								{companyTag.length}
 							</span>
 						</p>
@@ -129,11 +150,7 @@ export const CompanyTag = ({ titleSlug }) => {
 						<div
 							key={tag.companyName}
 							className={`bg-gray-800 text-gray-300 border border-gray-700 px-2 py-1 rounded-lg flex items-center relative
-								${
-									famousCompanies.includes(tag.companyName)
-										? "ring-2 ring-gray-400"
-										: ""
-								}
+								${famousCompanies.includes(tag.companyName) ? "ring-2 ring-gray-400" : ""}
 								`}
 						>
 							{famousCompanies.includes(tag.companyName) && (

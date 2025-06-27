@@ -45,7 +45,6 @@ export default function Sheet() {
 			topics: searchParams.get("topics")?.split(",") || "",
 			frequency: searchParams.get("frequency") || "",
 			hotQuestions: searchParams.get("hotQuestions") || "",
-			mustDo: searchParams.get("mustDo") || "",
 		}),
 		[searchParams]
 	);
@@ -163,6 +162,7 @@ export default function Sheet() {
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 				/>
+				
 				<TopicFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}

@@ -1,4 +1,4 @@
-import { Check, CheckCircle, ExternalLink } from "lucide-react";
+import { Check, CheckCircle, ExternalLink, Lock } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { addDoneQuestion, getDoneQuestion } from "../../IndexedStorage/config";
 import { toast } from "sonner";
@@ -48,20 +48,25 @@ export const Question = React.memo(
 				} cursor-pointer gap-3 group flex justify-between items-center px-2 md:px-6 py-3 rounded-md transform duration-300`}
 			>
 				{/* // question title and link */}
-				<div className="flex gap-3 w-full items-center">
-					<p>{idx}.</p>
+				<div className="flex gap-3 flex-col flex-1 h-full">
 					<a
-						className=" font-semibold w-full  text-sky-500 hover:underline"
-						href={`https://leetcode.com/problems/${question.titleSlug}`}
+						className=" font-semibold w-full  text-sky-500"
+						href={
+							question.isPaid
+								? `https://code.nextleet.com/problem/${question.titleSlug}/`
+								: `https://leetcode.com/problems/${question.titleSlug}`
+						}
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<TooltipProvider delayDuration={50}>
 							<Tooltip>
 								<TooltipTrigger asChild>
-									<div className="font-semibold justify-between md:justify-start w-full flex gap-2 items-center text-sky-500 hover:underline">
+									<div className="font-semibold w-full flex gap-2 items-center text-sky-500 relative">
+										<p className="shrink-0">
+											{question.frontendId || 0} .
+										</p>
 										<span>{question.title}</span>
-										<ExternalLink className="size-4 md:size-5 shrink-0" />
 									</div>
 								</TooltipTrigger>
 
@@ -84,16 +89,14 @@ export const Question = React.memo(
 							</Tooltip>
 						</TooltipProvider>
 					</a>
-				</div>
-				<div className="flex items-center gap-5">
 					{isTopicVisible && (
-						<div className="hidden flex-wrap gap-2 w-[300px] shrink-0 lg:flex">
+						<div className="hidden flex-wrap gap-2 shrink-0 lg:flex">
 							{question.topics.map(
 								(topic, idx) =>
 									topic.length > 0 && (
 										<span
 											key={idx}
-											className={`border border-gray-800 px-3 py-1 rounded-full bg-gray-900 text-neutral-300/80 text-sm mr-1`}
+											className={`border border-neutral-800 px-3 py-1 rounded-full bg-gray-900 text-neutral-300 font-medium text-sm mr-1`}
 										>
 											{topic}
 										</span>
@@ -101,7 +104,16 @@ export const Question = React.memo(
 							)}
 						</div>
 					)}
-					<p className={`${colorMap[question.difficulty]}`}>
+				</div>
+				<div className="flex items-center gap-4">
+					<p className="text-gray-300 font-semibold hidden sm:block">
+						{question.acRate?.toFixed(1) || 0}%
+					</p>
+					<p
+						className={`${
+							colorMap[question.difficulty]
+						} w-auto md:w-10`}
+					>
 						{getDifficultyLabel(question.difficulty - 1)}
 					</p>
 					<p

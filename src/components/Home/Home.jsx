@@ -6,9 +6,9 @@ import { WeeklyQuestion } from "../Questions/WeeklyQuestion";
 import { ChevronDown, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
-import { Promotion } from "./Promotion";
 import { NewBadge } from "../NewBadge";
 import { toast } from "sonner";
+import { NewPromotion } from "./NewPromotion";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
 	const handleScrollClick = () => {
@@ -71,7 +71,8 @@ export const Home = () => {
 					<ChevronDown />
 				</div>
 			)}
-			<Promotion />
+			{/* <Promotion /> */}
+			<NewPromotion />
 			<UpcomingQuestion />
 			<div className="text-gray-200 bg-gray-900 text-sm md:text-lg px-4 py-5 mx-auto w-full md:min-w-xl text-center relative rounded-md">
 				<p className="inline-block font-semibold">Get Today's POTD :</p>

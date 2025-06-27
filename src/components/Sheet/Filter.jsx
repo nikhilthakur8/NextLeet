@@ -24,15 +24,15 @@ import {
 import { NewBadge } from "../NewBadge.jsx";
 export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 	const handleChange = (value) => {
-		if (value === "all") {
-			setSearchParams((prev) => prev.delete("difficulty"));
-			return;
-		} else
-			setSearchParams((prev) => {
-				const params = new URLSearchParams(prev);
+		setSearchParams((prev) => {
+			const params = new URLSearchParams(prev);
+			if (value === "all") {
+				params.delete("difficulty");
+			} else {
 				params.set("difficulty", value);
-				return params;
-			});
+			}
+			return params;
+		});
 	};
 	const items = [
 		{ value: "all", label: "All" },
@@ -80,15 +80,15 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 };
 export const TimeFrameFilter = ({ searchParams, setSearchParams }) => {
 	const handleChange = (value) => {
-		if (value === "allProblems") {
-			setSearchParams((prev) => prev.delete("timeframe"));
-			return;
-		} else
-			setSearchParams((prev) => {
-				const params = new URLSearchParams(prev);
+		setSearchParams((prev) => {
+			const params = new URLSearchParams(prev);
+			if (value === "allProblems") {
+				params.delete("timeframe");
+			} else {
 				params.set("timeframe", value);
-				return params;
-			});
+			}
+			return params;
+		});
 	};
 	const items = [
 		{ value: "thirtyDays", label: "30 Days" },
@@ -252,16 +252,15 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
 	const handleFrequencyChange = () => {
 		const value = searchParams.get("frequency");
-		if (value === "asc") {
-			setSearchParams((prev) => prev.delete("frequency"));
-			return;
-		} else {
-			setSearchParams((prev) => {
-				const params = new URLSearchParams(prev);
+		setSearchParams((prev) => {
+			const params = new URLSearchParams(prev);
+			if (value === "desc") {
 				params.set("frequency", "asc");
-				return params;
-			});
-		}
+			} else {
+				params.set("frequency", "desc");
+			}
+			return params;
+		});
 	};
 	return (
 		<div
