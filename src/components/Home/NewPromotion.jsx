@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/moving-border";
 import { Info } from "lucide-react";
-import { TwitterTweetEmbed } from "react-twitter-embed";
+import { Tweet } from "react-tweet";
 
 export const NewPromotion = () => {
 	const nextleetLevel = [
@@ -46,17 +46,10 @@ export const NewPromotion = () => {
 					</span>
 				))}
 			</div>
-			<div className="w-full sm:w-lg md:w-lg mx-auto">
-				<TwitterTweetEmbed
-					tweetId={"1938671505317237148"}
-					className="!w-full"
-					options={{
-						conversation: "none",
-						theme: "dark",
-						height: "auto",
-						width: "100%",
-						lang: "en",
-					}}
+			<div className="w-full sm:w-lg md:w-lg mx-auto text-left">
+				<Tweet
+					id={"1938671505317237148"}
+					
 				/>
 			</div>
 			<Link className="text-gray-400 text-xs md:text-base justify-self-end hover:cursor-pointer">
