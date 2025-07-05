@@ -10,10 +10,12 @@ import {
 	MobileNavToggle,
 	MobileNavMenu,
 } from "../ui/resizable-navbar";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { ColourfulText } from "../ui/colourful-text";
 import { Link } from "react-router-dom";
 import { Dot, Lightbulb, Rocket, RocketIcon } from "lucide-react";
+import { useUserContext } from "../../context/context";
+import { CustomButton } from "../CustomButton";
 export function NavBarNew() {
 	const itemClick = (e) => {
 		if (!e.currentTarget.getAttribute("href").includes("#")) return;
@@ -24,20 +26,7 @@ export function NavBarNew() {
 			)
 			?.scrollIntoView({ behavior: "smooth" });
 	};
-	const [onlineCount, setOnlineCount] = useState(0);
-	useEffect(() => {
-		setOnlineCount(Math.floor(Math.random() * (800 - 700 + 1)) + 700);
-		const intervalId = setInterval(() => {
-			const operation = Math.random() < 0.5 ? "decrease" : "increase";
-			setOnlineCount((prev) =>
-				operation === "increase"
-					? prev + Math.floor(Math.random() * (20 - 2 + 1)) + 2
-					: prev - Math.floor(Math.random() * (20 - 2 + 1)) + 2
-			);
-		}, 10000);
-		return () => clearInterval(intervalId);
-	}, []);
-
+	const { userData } = useUserContext();
 	const navItems = [
 		{
 			name: "Home",
@@ -61,9 +50,19 @@ export function NavBarNew() {
 			link: "/search/company-tags",
 		},
 	];
-
+	const extraMobileItems = [
+		{
+			name: "Get Started",
+			link: "/login",
+		},
+	];
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+	const { planDetails } = useUserContext();
+	const colorComb = {
+		trial: "ring-blue-500",
+		pro: "ring-yellow-500",
+		expired: "ring-red-500",
+	};
 	return (
 		<div className="fixed top-0 w-full z-50 whitespace-nowrap">
 			<Navbar>
@@ -78,16 +77,33 @@ export function NavBarNew() {
 						className={"text-base"}
 					/>
 					<div className="flex items-center gap-4">
-						<div className="hidden items-center gap-2 bg-neutral-900/80 px-3 py-1 border border-neutral-800 rounded-md xl:flex">
-							<div className="relative size-2.5">
-								<div className="bg-green-500 w-full h-full opacity-75  rounded-full absolute top-0 left-0 animate-ping"></div>
-								<div className="bg-green-500 size-2.5  rounded-full"></div>
-							</div>
-							<span className="text-neutral-600 dark:text-neutral-300">
-								{onlineCount} online
-							</span>
-						</div>
-						<Link
+						{userData ? (
+							<Link
+								to="/profile"
+								className={`cursor-pointer ring-2 ring-offset-1 ring-offset-gray-900 ${
+									colorComb[planDetails?.type]
+								} rounded-full overflow-hidden relative`}
+							>
+								<img
+									className="w-8 h-8 rounded-full"
+									src={
+										userData?.profileImage ||
+										`https://api.dicebear.com/9.x/pixel-art/svg?seed=${userData?.name}`
+									}
+								/>
+							</Link>
+						) : (
+							<>
+								<CustomButton
+									className="!py-1"
+									to="/login"
+									Tag={Link}
+								>
+									Get Started
+								</CustomButton>
+							</>
+						)}
+						{/* <Link
 							to="/coming-soon"
 							className="cursor-pointer relative"
 						>
@@ -102,7 +118,7 @@ export function NavBarNew() {
 								className="w-8 h-8 rounded-full"
 								src="https://img.logo.dev/x.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg"
 							/>
-						</Link>
+						</Link> */}
 					</div>
 				</NavBody>
 
@@ -127,7 +143,7 @@ export function NavBarNew() {
 							isOpen={isMobileMenuOpen}
 							onClose={() => setIsMobileMenuOpen(false)}
 						>
-							{navItems.map((item, idx) => (
+							{[...extraMobileItems,...navItems].map((item, idx) => (
 								<Link
 									key={`mobile-link-${idx}`}
 									to={item.link}

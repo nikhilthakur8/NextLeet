@@ -6,9 +6,11 @@ import TimeComplexityChart from "../components/ComplexityChart";
 import { Dialog, DialogContent, DialogTrigger } from "../components/ui/dialog";
 import { Info, Star, ThumbsDown, ThumbsUp } from "lucide-react";
 import { registerFeedback } from "../appwrite/config";
+import { useUserContext } from "../context/context";
 
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
+	const { userData } = useUserContext();
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
@@ -21,13 +23,14 @@ export default function CodeAnalyzer() {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				"https://api.nextleet.com/analyze",
+				`${import.meta.env.VITE_BACKEND_URL}/api/ai/analyze/complexity`,
 				{
 					code,
 				},
 				{
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${userData.jwt}`,
 					},
 				}
 			);
