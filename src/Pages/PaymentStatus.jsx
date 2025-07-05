@@ -28,6 +28,9 @@ export const PaymentStatus = () => {
 			if (data.success && data.data.order_status === "PAID") {
 				setStatus("success");
 				setMessage("Your payment was successful! 🎉");
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
 			} else if (data.success && data.data.order_status === "ACTIVE") {
 				setStatus("waiting");
 				setMessage("Payment is still being processed.");

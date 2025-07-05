@@ -54,7 +54,7 @@ export default function Upgrade() {
 				}
 			);
 			const cashfree = await load({
-				mode: "sandbox", //or production
+				mode: "production", //or production
 			});
 			const promise = cashfree.checkout({
 				paymentSessionId: data.data.paymentSessionId,
