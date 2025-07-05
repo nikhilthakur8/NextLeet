@@ -17,7 +17,7 @@ export const ProtectedLayout = () => {
 		);
 	}
 	if (
-		["pro", "trial", "admin", "int"].some((label) =>
+		!["pro", "trial", "admin", "int"].some((label) =>
 			userData.labels.includes(label)
 		)
 	) {
