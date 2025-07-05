@@ -34,9 +34,15 @@ import { useUserContext } from "../context/context";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 export default function Upgrade() {
+	const [cashfree, setCashfree] = useState(null);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		document.title = "Upgrade to Pro | NextLeet";
+		const loadCashfree = async () => {
+			const cf = await load({ mode: "production" });
+			setCashfree(cf);
+		};
+		loadCashfree();
 	}, []);
 	const [loading, setLoading] = useState(false);
 	const [agreed, setAgreed] = useState(false);
@@ -45,6 +51,9 @@ export default function Upgrade() {
 	const handleUpgrade = async () => {
 		setLoading(true);
 		try {
+			// const cashfree = await load({
+			// 	mode: "production",
+			// });
 			const { data } = await axios.get(
 				`${
 					import.meta.env.VITE_BACKEND_URL
@@ -55,14 +64,10 @@ export default function Upgrade() {
 					},
 				}
 			);
-			const cashfree = await load({
-				mode: "production", //or production
-			});
 			const promise = cashfree.checkout({
 				paymentSessionId: data.data.paymentSessionId,
 				redirectTarget: "_modal",
 			});
-
 			promise
 				.then((res) => {
 					if (res.error) {
@@ -128,7 +133,7 @@ export default function Upgrade() {
 					<Dialog>
 						<DialogTrigger asChild>
 							<CustomButton className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black">
-								{loading ? "Loading..." : "Upgrade to Pro"}
+								Upgrade to Pro
 							</CustomButton>
 						</DialogTrigger>
 
@@ -232,7 +237,9 @@ export default function Upgrade() {
 									onClick={handleUpgrade}
 									className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
 								>
-									Continue
+									{loading
+										? "Processing..."
+										: "Proceed to Payment"}
 								</CustomButton>
 							</DialogFooter>
 						</DialogContent>
