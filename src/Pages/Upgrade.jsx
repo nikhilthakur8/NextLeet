@@ -38,10 +38,12 @@ export default function Upgrade() {
 		window.scrollTo(0, 0);
 		document.title = "Upgrade to Pro | NextLeet";
 	}, []);
+	const [loading, setLoading] = useState(false);
 	const [agreed, setAgreed] = useState(false);
 	const { userData } = useUserContext();
 	const navigate = useNavigate();
 	const handleUpgrade = async () => {
+		setLoading(true);
 		try {
 			const { data } = await axios.get(
 				`${
@@ -79,6 +81,7 @@ export default function Upgrade() {
 			console.error("Error creating order:", error);
 			toast.error("Failed to create order. Please try again later.");
 		}
+		setLoading(false);
 	};
 	return (
 		<div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 sm:px-6 lg:px-8">
@@ -125,7 +128,7 @@ export default function Upgrade() {
 					<Dialog>
 						<DialogTrigger asChild>
 							<CustomButton className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black">
-								Upgrade to Pro
+								{loading ? "Loading..." : "Upgrade to Pro"}
 							</CustomButton>
 						</DialogTrigger>
 
