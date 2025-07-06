@@ -76,6 +76,12 @@ export const PaymentStatus = () => {
 				</h2>
 				<p className="mt-2 text-zinc-400">{message}</p>
 
+				{status === "success" && (
+					<p className="mt-1 text-green-400 text-sm">
+						Your Pro plan will be activated within 2 minutes.
+					</p>
+				)}
+
 				{orderId && (
 					<p className="mt-1 text-xs text-zinc-500">
 						Order ID: {orderId}
