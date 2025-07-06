@@ -18,9 +18,9 @@ export const AuthCallback = () => {
 				await createSession(userId, secret);
 				const userData = await getCurrentUser();
 
-				const registration = new Date(userData.registration).getTime();
-				const accessedAt = new Date(userData.accessedAt).getTime();
-				if (registration === accessedAt) {
+				const regDate = new Date(userData.registration).toISOString().split('T')[0];
+				const accDate = new Date(userData.accessedAt).toISOString().split('T')[0];
+				if (regDate === accDate) {
 					// backend api call will activate the 7-day Pro trial
 					const response = await axios.get(
 						`${import.meta.env.VITE_BACKEND_URL}/api/plans/start/trial`,
