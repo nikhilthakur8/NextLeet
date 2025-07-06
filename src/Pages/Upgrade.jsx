@@ -130,7 +130,10 @@ export default function Upgrade() {
 
 					<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
 						<DialogTrigger asChild>
-							<CustomButton className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black">
+							<CustomButton
+								className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
+								onClick={() => setDialogOpen(true)}
+							>
 								Upgrade to Pro
 							</CustomButton>
 						</DialogTrigger>
