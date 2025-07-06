@@ -34,17 +34,7 @@ import { useUserContext } from "../context/context";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 export default function Upgrade() {
-	const [cashfree, setCashfree] = useState(null);
-	useEffect(() => {
-		window.scrollTo(0, 0);
-		document.title = "Upgrade to Pro | NextLeet";
-		const loadCashfree = async () => {
-			const cf = await load({ mode: "production" });
-			setCashfree(cf);
-		};
-		loadCashfree();
-	}, []);
-	const [loading, setLoading] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(false);
 	const [agreed, setAgreed] = useState(false);
 	const { userData } = useUserContext();
 	const navigate = useNavigate();
@@ -58,11 +48,8 @@ export default function Upgrade() {
 			navigate("/login");
 			return;
 		}
-		setLoading(true);
+		setDialogOpen(false);
 		try {
-			// const cashfree = await load({
-			// 	mode: "production",
-			// });
 			const { data } = await axios.get(
 				`${
 					import.meta.env.VITE_BACKEND_URL
@@ -73,6 +60,9 @@ export default function Upgrade() {
 					},
 				}
 			);
+			const cashfree = await load({
+				mode: "production",
+			});
 			const promise = cashfree.checkout({
 				paymentSessionId: data.data.paymentSessionId,
 				redirectTarget: "_modal",
@@ -95,14 +85,13 @@ export default function Upgrade() {
 			console.error("Error creating order:", error);
 			toast.error("Failed to create order. Please try again later.");
 		}
-		setLoading(false);
 	};
 	return (
 		<div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 sm:px-6 lg:px-8">
 			<div className="w-full max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl shadow-2xl border border-zinc-800 bg-zinc-900/90 relative overflow-hidden">
 				<div className="absolute -top-10 -right-10 w-32 h-32 sm:w-40 sm:h-40 bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 rounded-full blur-2xl z-0" />
 
-				<div className="relative z-10">
+				<div className="relative z-0">
 					<div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
 						<Lock className="text-yellow-400" size={28} />
 						<h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -139,7 +128,7 @@ export default function Upgrade() {
 						))}
 					</ul>
 
-					<Dialog>
+					<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
 						<DialogTrigger asChild>
 							<CustomButton className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black">
 								Upgrade to Pro
@@ -246,9 +235,7 @@ export default function Upgrade() {
 									onClick={handleUpgrade}
 									className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
 								>
-									{loading
-										? "Processing..."
-										: "Proceed to Payment"}
+									Proceed to Payment
 								</CustomButton>
 							</DialogFooter>
 						</DialogContent>
