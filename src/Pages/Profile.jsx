@@ -43,7 +43,7 @@ export const Profile = () => {
 	};
 
 	const { type } = planDetails || {};
-	return (
+	return planDetails ? (
 		<div className="min-h-svh text-gray-100 flex items-center justify-center p-6">
 			<div className="w-full max-w-md bg-gray-900 rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-y-5 border border-gray-800 relative">
 				<div
@@ -116,6 +116,10 @@ export const Profile = () => {
 					</CustomButton>
 				</div>
 			</div>
+		</div>
+	) : (
+		<div className="flex items-center justify-center min-h-screen bg-black text-white">
+			<div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
 		</div>
 	);
 };
