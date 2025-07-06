@@ -49,6 +49,15 @@ export default function Upgrade() {
 	const { userData } = useUserContext();
 	const navigate = useNavigate();
 	const handleUpgrade = async () => {
+		if (!agreed) {
+			toast.error("You must agree to the terms to proceed.");
+			return;
+		}
+		if (!userData) {
+			toast.error("You must be logged in to upgrade.");
+			navigate("/login");
+			return;
+		}
 		setLoading(true);
 		try {
 			// const cashfree = await load({

@@ -44,7 +44,7 @@ export const Profile = () => {
 
 	const { type } = planDetails || {};
 	return (
-		<div className="min-h-screen text-gray-100 flex items-center justify-center p-6">
+		<div className="min-h-svh text-gray-100 flex items-center justify-center p-6">
 			<div className="w-full max-w-md bg-gray-900 rounded-3xl shadow-2xl p-8 flex flex-col items-center gap-y-5 border border-gray-800 relative">
 				<div
 					className={`ring-4 ring-offset-4 ring-offset-gray-900 ${

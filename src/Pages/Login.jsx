@@ -24,7 +24,7 @@ export const Login = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center px-4">
+		<div className="min-h-svh bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center px-4">
 			<div className="w-full max-w-md bg-gray-950 border border-gray-800 rounded-2xl shadow-2xl p-8">
 				<h2 className="text-2xl md:text-3xl font-semibold text-white mb-6 text-center">
 					Welcome to NextLeet

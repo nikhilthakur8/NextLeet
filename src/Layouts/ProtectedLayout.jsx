@@ -2,8 +2,12 @@ import { useUserContext } from "../context/context";
 import { Link, Outlet } from "react-router-dom";
 import { CustomButton } from "../components/CustomButton";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect } from "react";
 
 export const ProtectedLayout = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	const { userData } = useUserContext();
 	if (!userData) {
 		return (

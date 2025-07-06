@@ -50,10 +50,37 @@ export function NavBarNew() {
 			link: "/search/company-tags",
 		},
 	];
-	const extraMobileItems = [
+	const mobileLoginItems = [
 		{
 			name: "Get Started",
 			link: "/login",
+		},
+	];
+	const mobileItems = [
+		{
+			name: "Home",
+			link: "/",
+		},
+		{
+			name: "Profile",
+			link: "/profile",
+		},
+		{
+			name: "Upcoming Q's",
+			link: "/#latest-question",
+		},
+		{
+			name: "Code Analyzer",
+			link: "/analyze",
+			isNew: true,
+		},
+		{
+			name: "Company Wise Sheet",
+			link: "/search/sheet",
+		},
+		{
+			name: "Q's Company Tags",
+			link: "/search/company-tags",
 		},
 	];
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -143,19 +170,23 @@ export function NavBarNew() {
 							isOpen={isMobileMenuOpen}
 							onClose={() => setIsMobileMenuOpen(false)}
 						>
-							{[...extraMobileItems,...navItems].map((item, idx) => (
-								<Link
-									key={`mobile-link-${idx}`}
-									to={item.link}
-									onClick={(e) => {
-										setIsMobileMenuOpen(false);
-										itemClick(e);
-									}}
-									className="relative py-1.5 w-full text-neutral-600 dark:text-neutral-300"
-								>
-									<span className="block">{item.name}</span>
-								</Link>
-							))}
+							{(userData ? mobileItems : mobileLoginItems).map(
+								(item, idx) => (
+									<Link
+										key={`mobile-link-${idx}`}
+										to={item.link}
+										onClick={(e) => {
+											setIsMobileMenuOpen(false);
+											itemClick(e);
+										}}
+										className="relative py-1.5 w-full text-neutral-600 dark:text-neutral-300"
+									>
+										<span className="block">
+											{item.name}
+										</span>
+									</Link>
+								)
+							)}
 						</MobileNavMenu>
 					)}
 				</MobileNav>
