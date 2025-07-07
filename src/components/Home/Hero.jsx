@@ -19,13 +19,13 @@ export const Hero = () => {
 	}, []);
 	return (
 		<BackgroundLines className="min-h-svh flex items-center justify-center flex-col">
-			<div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t mb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
-				Get Tomorrow's Leetcode Question, Today!
+			<div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t pb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
+				NextLeet. Faster. Smarter. Sharper.
 			</div>
 			<div>
 				<p className="text-neutral-300 text-center md:text-lg xl:text-xl text-sm">
-					Never break your streak! Get tomorrow's Leetcode question
-					today and stay ahead in your coding journey.
+					Take your coding prep to the next level with insights,
+					analysis, and expert-curated sheets.
 				</p>
 			</div>
 			<Link
@@ -33,16 +33,8 @@ export const Hero = () => {
 				to="https://code.nextleet.com"
 				target="_blank"
 			>
-				<span>
-					Premium Question Access
-				</span>
-				<NewBadge
-					className={
-						"top-0 "
-					}
-				>
-					New
-				</NewBadge>
+				<span>Premium Question Access</span>
+				<NewBadge className={"top-0 "}>New</NewBadge>
 			</Link>
 			<Link to={"/potd"} target="_blank">
 				<Button

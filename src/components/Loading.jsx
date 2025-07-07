@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 
 export const Loading = ({ className, size = "size-6" }) => {
 	const quotes = [
+		"Sliding through the window of possibilities...",
+		"Debugging that tricky edge case...",
+		"Reversing linked lists… almost done!",
+		"Balancing the binary search tree… carefully.",
+		"Waiting for the base case to kick in...",
+		"Two pointers, still missing the target...",
 		"Sorting results using merge sort...",
 		"Traversing the recursion tree…",
 		"Running DFS on your patience...",

@@ -3,6 +3,7 @@ import { UserContext } from "./context";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
 import { deleteSessions } from "../appwrite/auth";
+import { toast } from "sonner";
 const fpPromise = FingerprintJS.load();
 export const UserContextProvider = ({ children }) => {
 	const [allCompanyName, setAllCompanyName] = useState([]);
@@ -36,8 +37,9 @@ export const UserContextProvider = ({ children }) => {
 						setPlanDetails(planDetails);
 					}
 				})
-				.catch((error) => {
-					console.error("Error fetching plan details:", error);
+				.catch(async (error) => {
+					await logout();
+					toast.error("Session Expired: Login again");
 				});
 		}
 	}, [userData]);

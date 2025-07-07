@@ -71,7 +71,6 @@ export const Home = () => {
 					<ChevronDown />
 				</div>
 			)}
-			{/* <Promotion /> */}
 			<NewPromotion />
 			<UpcomingQuestion />
 			<div className="text-gray-200 bg-gray-900 text-sm md:text-lg px-4 py-5 mx-auto w-full md:min-w-xl text-center relative rounded-md">

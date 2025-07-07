@@ -57,13 +57,12 @@ export const AuthCallback = () => {
 		};
 		loginWithGoogle();
 	}, []);
-
 	return (
 		<div className="text-xl text-center py-10  text-gray-300">
 			<p> Redirecting to Home Page .....</p>
 			{/* <p className="text-gray-500 text-base mt-2">
 				if not redirected automatically{" "}
-				<Link to="/" className=" underline">
+				<Link to="/login" className=" underline">
 					click here
 				</Link>{" "}
 			</p> */}

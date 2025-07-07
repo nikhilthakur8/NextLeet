@@ -33,8 +33,10 @@ import { load } from "@cashfreepayments/cashfree-js";
 import { useUserContext } from "../context/context";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { LoadingIcon } from "../components/LoadingIcon";
 export default function Upgrade() {
 	const [dialogOpen, setDialogOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [agreed, setAgreed] = useState(false);
 	const { userData } = useUserContext();
 	const navigate = useNavigate();
@@ -49,6 +51,7 @@ export default function Upgrade() {
 			return;
 		}
 		setDialogOpen(false);
+		setLoading(true);
 		try {
 			const { data } = await axios.get(
 				`${
@@ -84,6 +87,8 @@ export default function Upgrade() {
 		} catch (error) {
 			console.error("Error creating order:", error);
 			toast.error("Failed to create order. Please try again later.");
+		} finally {
+			setLoading(false);
 		}
 	};
 	return (
@@ -131,10 +136,15 @@ export default function Upgrade() {
 					<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
 						<DialogTrigger asChild>
 							<CustomButton
-								className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
+								className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 !text-black"
 								onClick={() => setDialogOpen(true)}
+								disabled={loading}
 							>
-								Upgrade to Pro
+								{loading ? (
+									<LoadingIcon className="text-black" />
+								) : (
+									"Upgrade to Pro"
+								)}
 							</CustomButton>
 						</DialogTrigger>
 
@@ -234,7 +244,6 @@ export default function Upgrade() {
 
 							<DialogFooter className="px-6 sm:px-8 pb-6 sm:pb-8 pt-4">
 								<CustomButton
-									disabled={!agreed}
 									onClick={handleUpgrade}
 									className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
 								>
@@ -260,7 +269,7 @@ function FAQSection() {
 		},
 		{
 			question: "What is included in the Pro Plan?",
-			answer: "The Pro Plan gives you unlimited access to all questions, premium code explanations, an advanced analytics dashboard, priority support, early access to new features, and an ad-free experience.",
+			answer: "NextLeet Pro gives you unlimited access to all LeetCode questions, detailed question insights, company-wise preparation sheets, smart code analyzer, priority support, early access to new features, and an ad-free experience.",
 			value: "faq2",
 		},
 		{

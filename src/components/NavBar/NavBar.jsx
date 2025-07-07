@@ -39,15 +39,15 @@ export function NavBarNew() {
 		{
 			name: "Code Analyzer",
 			link: "/analyze",
-			isNew: true,
 		},
 		{
 			name: "Company Wise Sheet",
 			link: "/search/sheet",
 		},
 		{
-			name: "Q's Company Tags",
-			link: "/search/company-tags",
+			name: "Q's Insights",
+			link: "/insights",
+			isNew: true,
 		},
 	];
 	const mobileLoginItems = [

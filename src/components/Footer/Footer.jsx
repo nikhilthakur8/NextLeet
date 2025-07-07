@@ -21,16 +21,17 @@ export const Footer = () => {
 			});
 	};
 	return (
-		<footer className="mt-24 border-t border-t-gray-600  max-w-screen bg-gray-900 text-gray-400">
-			<div className="grid grid-cols-1 md:grid-cols-8  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-20">
+		<footer className="mt-24 pb-10 max-w-screen text-gray-400">
+			<div className="border border-gray-800 mx-10 md:px-10"></div>
+			<div className="grid grid-cols-1 md:grid-cols-10  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-16">
 				<div className="md:col-span-3">
 					<h3 className="font-bold text-3xl sm:text-4xl md:text-5xl mb-3">
 						<ColourfulText text="NextLeet" />
 					</h3>
 					<p className="text-sm md:text-base text-gray-300">
-						NextLeet is a platform that gives you early access to
-						upcoming LeetCode Daily Questions — helping you maintain
-						your streak effortlessly.
+						NextLeet helps you prepare smarter with coding insights,
+						code analysis, and company-wise interview preparation
+						tools.
 					</p>
 				</div>
 
@@ -38,7 +39,7 @@ export const Footer = () => {
 				<div className="md:col-span-3">
 					<div className="mb-3 ">
 						<h2 className="font-bold text-xl  tracking-wide md:text-2xl lg:text-3xl  text-gray-300">
-							Subscribe for Next Updates
+							Subscribe for Updates
 						</h2>
 						<p className="text-sm md:text-base">
 							Never Break Your Streak!
@@ -72,7 +73,7 @@ export const Footer = () => {
 					<h5 className="font-bold text-md md:text-lg mb-2 text-gray-300">
 						Navigate
 					</h5>
-					<ul className="space-y-2 text-sm md:text-base text-gray-300">
+					<ul className="space-y-4 text-sm md:text-base text-gray-300">
 						<li>
 							<Link href="/coming-soon">Next Features</Link>
 						</li>
@@ -94,9 +95,21 @@ export const Footer = () => {
 								to="/search/company-tags"
 								className="hover:underline"
 							>
-								Question Company Tag
+								Analyzer
 							</Link>
 						</li>
+						<li>
+							<Link to="/insights" className="hover:underline">
+								Question Insights
+							</Link>
+						</li>
+					</ul>
+				</div>
+				<div className="md:col-span-2">
+					<h5 className="font-bold text-md md:text-lg mb-2 text-gray-300">
+						Quicks Links
+					</h5>
+					<ul className="space-y-4 text-sm md:text-base text-gray-300">
 						<li>
 							<Link
 								to="mailto:support@nextleet.com"
@@ -105,14 +118,53 @@ export const Footer = () => {
 								Contact Us
 							</Link>
 						</li>
+						<li>
+							<Link href="https://x.com/nextleet" target="_blank">
+								X
+							</Link>
+						</li>
+						{/* <li>
+							<Link className="hover:underline" to="/analyze">
+								Code Analyzer
+							</Link>
+						</li> */}
+						<li>
+							<Link
+								to="https://code.nextleet.com"
+								className="hover:underline"
+								target="_blank"
+							>
+								Premium Questions
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="https://github.com/sponsors/nikhilthakur8"
+								target="_blank"
+								className="hover:underline"
+							>
+								Support US
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</div>
 
-			<div className="border border-gray-500 mx-10 md:px-10"></div>
-			<div className="text-center text-md md:text-xl py-5">
-				Made with 💗 by NextLeet Team
+			<div className="overflow-hidden w-full">
+				<h2
+					className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[12rem] font-bold text-center tracking-tighter leading-none w-full mx-auto !text-transparent !bg-clip-text"
+					style={{
+						background:
+							"linear-gradient(rgba(156, 163, 175, 0.9), rgba(75, 85, 99, 0.4))",
+					}}
+				>
+					NEXTLEET
+				</h2>
 			</div>
+
+			{/* <div className="text-center text-md md:text-xl py-5">
+				Made with 💗 by NextLeet Team
+			</div> */}
 		</footer>
 	);
 };

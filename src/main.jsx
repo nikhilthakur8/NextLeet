@@ -32,7 +32,7 @@ import { Profile } from "./Pages/Profile.jsx";
 import { PaymentStatus } from "./Pages/PaymentStatus.jsx";
 import { TermsOfService } from "./Pages/TermsOfService.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
-// import QuestionInsights from "./Pages/QuestionInsights/Insights.jsx";
+import QuestionInsights from "./Pages/QuestionInsights/Insights.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -49,17 +49,13 @@ const router = createBrowserRouter(
 				<Route element={<ProtectedLayout />}>
 					<Route path="/search/sheet" element={<SearchSheet />} />
 					<Route path="/sheet/:companyName" element={<Sheet />} />
-					<Route
-						path="/search/company-tags"
-						element={<QuestionTag />}
-					/>
+					<Route path="/insights" element={<QuestionTag />} />
 					<Route
 						path="/problems/:titleSlug/*"
 						element={<DirectQuestionTag />}
 					/>
 					<Route path="/analyze" element={<CodeAnalyzer />} />
 				</Route>
-					{/* <Route path="/insights/:titleSlug" element={<QuestionInsights />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				<Route path="/upgrade" element={<Upgrade />} />
 				<Route path="/payment-status" element={<PaymentStatus />} />

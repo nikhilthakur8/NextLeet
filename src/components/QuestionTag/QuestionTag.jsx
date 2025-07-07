@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../ui/moving-border";
-import { getCompanyTagBySlug } from "../../appwrite/leetcode.companyTag";
-import { toast } from "sonner";
-import { Loading } from "../Loading";
 import { Trick } from "./Trick";
 import { NewBadge } from "../NewBadge";
-import { DirectQuestionTag } from "./DirectQuestionTag";
-import { CompanyTag } from "./CompanyTag";
+import QuestionInsights from "../../Pages/QuestionInsights/Insights";
 export const QuestionTag = () => {
-	const [titleSlug, setTitleSlug] = useState();
+	const [titleSlug, setTitleSlug] = useState(null);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const inputValue =
@@ -21,7 +16,7 @@ export const QuestionTag = () => {
 		window.scrollTo(0, 0);
 	}, []);
 	return (
-		<div className="min-h-screen px-5 md:px-12 text-base md:text-lg w-full  md:max-w-4xl mx-auto justify-center text-gray-300 ">
+		<div className="min-h-screen px-5 md:px-12 text-base md:text-lg w-full  md:max-w-7xl mx-auto justify-center text-gray-300 ">
 			<div className="min-h-[30vh] flex w-full justify-end flex-col gap-4">
 				{/* <div className="mx-auto text-lg md:text-xl">
 					🔗 Enter the LeetCode question link or just the title slug
@@ -45,7 +40,7 @@ export const QuestionTag = () => {
 				</form>
 			</div>
 			<div className="mt-10">
-				<CompanyTag titleSlug={titleSlug} />
+				<QuestionInsights titleSlug={titleSlug} />
 			</div>
 			<div className="bg-gray-900 relative shadow-lg mx-auto mt-20 rounded-md border border-gray-900   ">
 				<Trick />

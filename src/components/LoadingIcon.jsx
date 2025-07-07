@@ -1,9 +1,9 @@
 import React from "react";
 
-export const LoadingIcon = ({ size = 5 }) => {
+export const LoadingIcon = ({ size = 5 , className="text-white" }) => {
 	return (
 		<svg
-			className={`mr-3 w-${size} h-${size} animate-spin text-white`}
+			className={`mr-3 w-${size} h-${size} animate-spin ${className}`}
 			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

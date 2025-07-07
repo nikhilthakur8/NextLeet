@@ -89,7 +89,8 @@ function calculateAcceptanceRateScore(acRate) {
 	} else return 5;
 }
 
-export const getTotalScore = (topics, acRate, leetcodeDifficultyTag) => {
+export const getTotalScore = (topics = [], acRate, leetcodeDifficultyTag) => {
+	console.log(topics, acRate, leetcodeDifficultyTag);
 	let topicsScore = 0;
 	let acRateScore = calculateAcceptanceRateScore(acRate);
 	let leetcodeTagScore = 0;

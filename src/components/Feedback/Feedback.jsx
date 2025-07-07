@@ -15,19 +15,23 @@ import {
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { submitFeedback } from "../../appwrite/feedback";
-import { useUserContext } from "../../context/context";
 import { toast } from "sonner";
 export const Feedback = () => {
-	const { fingerprint } = useUserContext();
-	const [feedback, setFeedback] = useState("");
+	const [feedback, setFeedback] = useState({
+		email: "",
+		message: "",
+	});
 	const feedbackHandler = (e) => {
-		if (!feedback.trim()) {
+		if (!feedback.message.trim()) {
 			toast.error("Feedback cannot be empty!");
 			return;
 		}
-		submitFeedback(feedback, fingerprint)
+		submitFeedback(feedback.message, feedback.email)
 			.then(() => {
-				setFeedback("");
+				setFeedback({
+					email: "",
+					message: "",
+				});
 				toast.success("Feedback submitted successfully!");
 			})
 			.catch((error) => {
@@ -82,12 +86,30 @@ export const Feedback = () => {
 					<DropdownMenuLabel>Feedback</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<div>
+						<input
+							type="email"
+							id="email"
+							placeholder="Email (optional)"
+							className="w-full p-1 px-2 mb-4 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-emerald-600"
+							onChange={(e) =>
+								setFeedback({
+									...feedback,
+									email: e.target.value,
+								})
+							}
+							autoComplete="off"
+							autoCorrect="off"
+							spellCheck="false"
+						/>
 						<textarea
 							name="feedback"
 							id="feedback"
-							onChange={(e) => {
-								setFeedback(e.target.value);
-							}}
+							onChange={(e) =>
+								setFeedback({
+									...feedback,
+									message: e.target.value,
+								})
+							}
 							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-emerald-600"
 							placeholder="Leave your feedback here..."
 						></textarea>

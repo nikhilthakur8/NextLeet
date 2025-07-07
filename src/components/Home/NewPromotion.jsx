@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/moving-border";
 import { Info } from "lucide-react";
 import { Tweet } from "react-tweet";
-
+import promo from "../../assets/promo.png";
 export const NewPromotion = () => {
 	const nextleetLevel = [
 		{
@@ -46,16 +46,12 @@ export const NewPromotion = () => {
 					</span>
 				))}
 			</div>
-			<div className="w-full sm:w-lg md:w-lg mx-auto text-left">
-				<Tweet id={"1938671505317237148"} />
+			<div className="w-full md:w-3/4 mx-auto text-left">
+				<img src={promo} alt="" />
 			</div>
-			<Link
-				to={"/search/company-tags"}
-				className="text-gray-400 text-xs md:text-base justify-self-end hover:cursor-pointer"
-			>
-				<Info className="inline-block mr-1 size-3 md:size-5" /> It is
-				available under the Question Company Tag Section
-			</Link>
+			<Button className="cursor-pointer dark:bg-neutral-950/[0.8] text-neutral-400 border-neutral-800  text-base md:text-lg "  as={Link} to="/insights">
+				Try Now
+			</Button>
 		</div>
 	);
 };
