@@ -133,3 +133,12 @@ export const getTotalDoneQuestions = async (companyName, data, filter) => {
 	);
 	return totalDoc.documents.map((doc) => doc.titleSlug);
 };
+
+// export const getQuestionDetailsBySlug = async (slug) => {
+// 	const data = await databases.listDocuments(
+// 		"682e3e8a00262227c2fd",
+// 		"686afae40019e6d4394b",
+// 		[Query.equal("titleSlug", slug), Query.limit(1)]
+// 	);
+// 	return data.documents[0] || null;
+// };
