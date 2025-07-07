@@ -59,7 +59,7 @@ const router = createBrowserRouter(
 					/>
 					<Route path="/analyze" element={<CodeAnalyzer />} />
 				</Route>
-					<Route path="/insights/:titleSlug" element={<QuestionInsights />} />
+					{/* <Route path="/insights/:titleSlug" element={<QuestionInsights />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				<Route path="/upgrade" element={<Upgrade />} />
 				<Route path="/payment-status" element={<PaymentStatus />} />

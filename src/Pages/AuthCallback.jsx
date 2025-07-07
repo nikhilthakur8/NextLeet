@@ -17,17 +17,22 @@ export const AuthCallback = () => {
 			try {
 				await createSession(userId, secret);
 				const userData = await getCurrentUser();
-
-				const regDate = new Date(userData.registration).toISOString().split('T')[0];
-				const accDate = new Date(userData.accessedAt).toISOString().split('T')[0];
+				const regDate = new Date(userData.registration)
+					.toISOString()
+					.split("T")[0];
+				const accDate = new Date(userData.accessedAt)
+					.toISOString()
+					.split("T")[0];
 				if (regDate === accDate) {
 					// backend api call will activate the 7-day Pro trial
 					const response = await axios.post(
-						`${import.meta.env.VITE_BACKEND_URL}/api/plans/start/trial`,
+						`${
+							import.meta.env.VITE_BACKEND_URL
+						}/api/plans/start/trial`,
+						{},
 						{
 							headers: {
 								"Content-Type": "application/json",
-								"Access-Control-Allow-Origin": "*",
 								Authorization: `Bearer ${userData.jwt}`,
 							},
 						}
