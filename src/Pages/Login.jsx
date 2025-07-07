@@ -3,7 +3,7 @@ import { googleUserLogin } from "../utils/googleLogin";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { deleteSessions } from "../appwrite/auth";
-
+import { LoadingIcon } from "../components/LoadingIcon";
 export const Login = () => {
 	const [loading, setLoading] = useState(false);
 
@@ -35,12 +35,18 @@ export const Login = () => {
 					disabled={loading}
 					className="w-full cursor-pointer flex items-center justify-center gap-3 px-4 py-3 border border-gray-800 bg-black/20 hover:bg-gray-900 transition-colors duration-200 rounded-xl text-gray-200 font-medium "
 				>
-					<img
-						src="https://developers.google.com/identity/images/g-logo.png"
-						alt="Google"
-						className="w-6 h-6 rounded-full"
-					/>
-					{loading ? "Connecting..." : "Continue with Google"}
+					{loading ? (
+						<LoadingIcon className="!mr-0" />
+					) : (
+						<>
+							<img
+								src="https://developers.google.com/identity/images/g-logo.png"
+								alt="Google"
+								className="w-6 h-6 rounded-full"
+							/>
+							Continue with Google
+						</>
+					)}
 				</button>
 
 				<p className="text-sm text-gray-500 text-center mt-6">

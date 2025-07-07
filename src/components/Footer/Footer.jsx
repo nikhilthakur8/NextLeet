@@ -23,8 +23,8 @@ export const Footer = () => {
 	return (
 		<footer className="mt-24 pb-10 max-w-screen text-gray-400">
 			<div className="border border-gray-800 mx-10 md:px-10"></div>
-			<div className="grid grid-cols-1 md:grid-cols-10  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-16">
-				<div className="md:col-span-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-10  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-16">
+				<div className="xl:col-span-3">
 					<h3 className="font-bold text-3xl sm:text-4xl md:text-5xl mb-3">
 						<ColourfulText text="NextLeet" />
 					</h3>
@@ -36,7 +36,7 @@ export const Footer = () => {
 				</div>
 
 				{/* Subscribe Section */}
-				<div className="md:col-span-3">
+				<div className="xl:col-span-3">
 					<div className="mb-3 ">
 						<h2 className="font-bold text-xl  tracking-wide md:text-2xl lg:text-3xl  text-gray-300">
 							Subscribe for Updates
@@ -69,7 +69,7 @@ export const Footer = () => {
 					</form>
 				</div>
 
-				<div className="md:col-span-2">
+				<div className="xl:col-span-2">
 					<h5 className="font-bold text-md md:text-lg mb-2 text-gray-300">
 						Navigate
 					</h5>
@@ -105,7 +105,7 @@ export const Footer = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="md:col-span-2">
+				<div className="xl:col-span-2">
 					<h5 className="font-bold text-md md:text-lg mb-2 text-gray-300">
 						Quicks Links
 					</h5>
@@ -119,7 +119,7 @@ export const Footer = () => {
 							</Link>
 						</li>
 						<li>
-							<Link href="https://x.com/nextleet" target="_blank">
+							<Link to="https://x.com/nextleet" target="_blank">
 								X
 							</Link>
 						</li>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { CheckCircle, XCircle, Loader2, Clock } from "lucide-react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { CustomButton } from "../components/CustomButton";
 import axios from "axios";
@@ -9,7 +9,8 @@ export const PaymentStatus = () => {
 		window.scrollTo(0, 0);
 		document.title = "Payment Status | NextLeet";
 	}, []);
-	const [status, setStatus] = useState("loading"); // 'loading', 'success', 'failed'
+
+	const [status, setStatus] = useState("loading"); // 'loading', 'success', 'waiting', 'failed'
 	const [orderId, setOrderId] = useState("");
 	const [message, setMessage] = useState("");
 	const [searchParams] = useSearchParams();
@@ -30,7 +31,9 @@ export const PaymentStatus = () => {
 				setMessage("Your payment was successful! 🎉");
 			} else if (data.success && data.data.order_status === "ACTIVE") {
 				setStatus("waiting");
-				setMessage("Payment is still being processed.");
+				setMessage(
+					"Your payment is being processed. This can take a moment. Please wait or refresh the status."
+				);
 			} else {
 				setStatus("failed");
 				setMessage("Payment failed or incomplete.");
@@ -59,6 +62,8 @@ export const PaymentStatus = () => {
 			<Loader2 className="animate-spin text-yellow-500" size={48} />
 		) : status === "success" ? (
 			<CheckCircle className="text-green-500" size={48} />
+		) : status === "waiting" ? (
+			<Clock className="text-yellow-500 animate-pulse" size={48} />
 		) : (
 			<XCircle className="text-red-500" size={48} />
 		);
@@ -72,14 +77,39 @@ export const PaymentStatus = () => {
 						? "Verifying Payment..."
 						: status === "success"
 						? "Payment Successful"
+						: status === "waiting"
+						? "Payment Processing"
 						: "Payment Failed"}
 				</h2>
 				<p className="mt-2 text-zinc-400">{message}</p>
 
 				{status === "success" && (
-					<p className="mt-1 text-green-400 text-sm">
-						Your Pro plan will be activated within 2 minutes.
-					</p>
+					<>
+						<p className="mt-1 text-green-400 text-sm">
+							Your Pro plan will be activated within 2 minutes.
+						</p>
+						<CustomButton
+							onClick={() => (window.location.href = "/")}
+							className="mt-4 w-full text-lg"
+						>
+							Continue
+						</CustomButton>
+					</>
+				)}
+
+				{status === "waiting" && (
+					<>
+						<p className="mt-1 text-yellow-400 text-sm">
+							We have received your payment request. It may take a
+							few minutes to confirm.
+						</p>
+						<CustomButton
+							onClick={() => verifyPayment(orderId)}
+							className="mt-4 w-full text-lg"
+						>
+							Refresh Status
+						</CustomButton>
+					</>
 				)}
 
 				{orderId && (
@@ -90,19 +120,12 @@ export const PaymentStatus = () => {
 
 				{status === "failed" && (
 					<CustomButton
-						onClick={() => verifyPayment(orderId)}
+						onClick={() => navigate("/upgrade")}
 						className="mt-4 w-full text-lg"
 					>
 						Retry
 					</CustomButton>
 				)}
-
-				<CustomButton
-					onClick={() => navigate(-1)}
-					className="mt-4 w-full text-lg"
-				>
-					Go Back
-				</CustomButton>
 			</div>
 		</div>
 	);
