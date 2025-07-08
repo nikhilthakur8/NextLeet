@@ -38,7 +38,7 @@ export const AuthCallback = () => {
 						}
 					);
 					if (response.data.success) {
-						toast.success("🎉 7-day Pro trial activated!");
+						toast.success("🎉 3-day Pro trial activated!");
 					} else {
 						toast.success("Welcome Back!");
 					}
