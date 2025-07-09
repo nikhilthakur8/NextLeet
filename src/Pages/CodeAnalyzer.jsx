@@ -10,7 +10,6 @@ import { useUserContext } from "../context/context";
 
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
-	const { userData } = useUserContext();
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);

@@ -83,13 +83,8 @@ export function NavBarNew() {
 			link: "/search/company-tags",
 		},
 	];
-	console.log(userData);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const colorComb = {
-		trial: "ring-blue-500",
-		pro: "ring-yellow-500",
-		expired: "ring-red-500",
-	};
+	const isSubscriptionActive = userData?.subscription?.isActive || false;
 	return (
 		<div className="fixed top-0 w-full z-50 whitespace-nowrap">
 			<Navbar>
@@ -108,7 +103,11 @@ export function NavBarNew() {
 							<Link
 								to="/profile"
 								className={`cursor-pointer ring-2 ring-offset-1 ring-offset-gray-900 ${
-									colorComb[userData?.subscription?.name]
+									userData?.subscription
+										? isSubscriptionActive
+											? "ring-yellow-600"
+											: "ring-red-600"
+										: "ring-gray-600"
 								} rounded-full overflow-hidden relative`}
 							>
 								<img

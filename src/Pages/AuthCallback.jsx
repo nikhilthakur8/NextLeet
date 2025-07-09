@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-import { useUserContext } from "../context/context";
 import { LoadingIcon } from "../components/LoadingIcon";
 
 export const AuthCallback = () => {

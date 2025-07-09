@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, ArrowUpRight } from "lucide-react";
+import { LogOut, ArrowUpRight, Heart } from "lucide-react";
 import { CustomButton } from "../components/CustomButton";
 import { useUserContext } from "../context/context";
 import { NewBadge } from "../components/NewBadge";
-import { toast } from "sonner";
 
 const statusColors = {
 	pro: {
@@ -17,11 +16,17 @@ const statusColors = {
 		bge: "bg-gradient-to-l from-red-500 via-red-600 to-red-500",
 		card: "bg-red-300 text-gray-900 border-red-500",
 	},
+	noplan: {
+		img: "ring-gray-500",
+		bge: "bg-gradient-to-l from-gray-500 via-gray-600 to-gray-500",
+		card: "bg-gray-300 text-gray-900 border-gray-500",
+	},
 };
 
 const labelMap = {
 	pro: "Pro",
 	expired: "Expired",
+	noplan: "No Plan",
 };
 
 export const Profile = () => {
@@ -48,7 +53,11 @@ export const Profile = () => {
 	}
 
 	const isSubscriptionActive = subscription?.isActive || false;
-	const subscriptionStatus = isSubscriptionActive ? "pro" : "expired";
+	const subscriptionStatus = isSubscriptionActive
+		? "pro"
+		: subscription
+		? "expired"
+		: "noplan";
 	const statusStyle = statusColors[subscriptionStatus] || statusColors.pro;
 
 	return (
@@ -81,24 +90,23 @@ export const Profile = () => {
 					</p>
 				</div>
 
-				{subscription?.endDate ? (
+				{subscription ? (
 					<div
 						className={`px-3 py-1 rounded-full border ${statusStyle.card} text-xs sm:text-sm font-medium`}
 					>
-						{subscription.isActive === false
+						{subscription?.isActive === false
 							? "Expired on"
 							: "Active until"}{" "}
 						{new Date(subscription.endDate).toDateString()}
 					</div>
 				) : (
 					<div
-						className={`px-3 py-1 rounded-full border ${statusColors.pro.card} text-xs sm:text-sm font-medium`}
+						className={`px-3 py-1 rounded-full border bg-gray-500/40 text-gray-300 text-xs sm:text-sm font-medium`}
 					>
-						Currently Free For You
+						Please upgrade to Pro
 					</div>
 				)}
-
-				<div className="w-full mt-4 space-y-3">
+				<div className="w-full space-y-3">
 					{(subscription?.source === "trial" ||
 						!isSubscriptionActive) && (
 						<CustomButton
@@ -110,7 +118,20 @@ export const Profile = () => {
 							Upgrade to Pro
 						</CustomButton>
 					)}
-
+					{subscription?.source === "international" && (
+						<div>
+							<p className="text-xs text-center mb-2 text-gray-400">Currently Free for International Users</p>
+							<CustomButton
+								to="https://github.com/sponsors/nikhilthakur8"
+								target="_blank"
+								Tag={Link}
+								className="w-full text-sm sm:text-base bg-pink-500/30 border border-pink-500/50 hover:bg-pink-500/60 font-semibold shadow hover:shadow-lg transition-all"
+							>
+								<Heart size={16} className="mr-2" />
+								Fuel Up
+							</CustomButton>
+						</div>
+					)}
 					<CustomButton
 						onClick={handleLogout}
 						variant="outline"
