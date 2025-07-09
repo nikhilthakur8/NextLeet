@@ -61,7 +61,7 @@ export const Profile = () => {
 	const statusStyle = statusColors[subscriptionStatus] || statusColors.pro;
 
 	return (
-		<div className="min-h-screen flex items-center justify-center px-4 py-10 text-gray-100">
+		<div className="min-h-svh flex items-center justify-center px-4 py-10 text-gray-100">
 			<div className="w-full max-w-xs sm:max-w-md bg-gray-900 rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col items-center gap-y-5 border border-gray-800 relative">
 				<div
 					className={`ring-4 ring-offset-4 ring-offset-gray-900 ${statusStyle.img} rounded-full overflow-hidden transition-transform hover:scale-105`}

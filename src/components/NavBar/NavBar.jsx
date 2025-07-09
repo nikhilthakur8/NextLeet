@@ -13,7 +13,7 @@ import {
 import { use, useEffect, useState } from "react";
 import { ColourfulText } from "../ui/colourful-text";
 import { Link } from "react-router-dom";
-import { Dot, Lightbulb, Rocket, RocketIcon } from "lucide-react";
+import { Dot, Heart, Lightbulb, Rocket, RocketIcon } from "lucide-react";
 import { useUserContext } from "../../context/context";
 import { CustomButton } from "../CustomButton";
 export function NavBarNew() {
@@ -98,7 +98,7 @@ export function NavBarNew() {
 						onItemClick={itemClick}
 						className={"text-base"}
 					/>
-					<div className="flex items-center gap-4">
+					<div className="flex items-center gap-2">
 						{userData ? (
 							<Link
 								to="/profile"
@@ -124,7 +124,7 @@ export function NavBarNew() {
 						) : (
 							<>
 								<CustomButton
-									className="!py-1"
+									className="!py-1 !rounded-full"
 									to="/login"
 									Tag={Link}
 								>
