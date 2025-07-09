@@ -41,20 +41,18 @@ const router = createBrowserRouter(
 			{/* Routes with main Layout */}
 			<Route element={<MainLayout />}>
 				<Route index element={<Home />} />
-
+				<Route path="/search/sheet" element={<SearchSheet />} />
+				<Route
+					path="/problems/:titleSlug/*"
+					element={<DirectQuestionTag />}
+				/>
 				<Route element={<UserLayout />}>
 					<Route path="/profile" element={<Profile />} />
 				</Route>
-
 				<Route element={<ProtectedLayout />}>
-					<Route path="/search/sheet" element={<SearchSheet />} />
+					<Route path="/analyze" element={<CodeAnalyzer />} />
 					<Route path="/sheet/:companyName" element={<Sheet />} />
 					<Route path="/insights" element={<QuestionTag />} />
-					<Route
-						path="/problems/:titleSlug/*"
-						element={<DirectQuestionTag />}
-					/>
-					<Route path="/analyze" element={<CodeAnalyzer />} />
 				</Route>
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				<Route path="/upgrade" element={<Upgrade />} />
