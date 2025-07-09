@@ -1,71 +1,80 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
-import { account, createSession, getCurrentUser } from "../appwrite/auth";
+import axios from "axios";
 import { toast } from "sonner";
 import { useUserContext } from "../context/context";
-import axios from "axios";
+import { LoadingIcon } from "../components/LoadingIcon";
+
 export const AuthCallback = () => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { login } = useUserContext();
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const secret = searchParams.get("secret");
-		const userId = searchParams.get("userId");
-		if (!userId || !secret) navigate("/login");
-		const loginWithGoogle = async () => {
+		const code = searchParams.get("code");
+
+		if (!code) {
+			toast.error("Invalid authentication code");
+			navigate("/login");
+			return;
+		}
+
+		const handleAuth = async () => {
 			try {
-				await createSession(userId, secret);
-				const userData = await getCurrentUser();
-				const regDate = new Date(userData.registration)
-					.toISOString()
-					.split("T")[0];
-				const accDate = new Date(userData.accessedAt)
-					.toISOString()
-					.split("T")[0];
-				if (regDate === accDate) {
-					// backend api call will activate the 7-day Pro trial
-					const response = await axios.post(
-						`${
-							import.meta.env.VITE_BACKEND_URL
-						}/api/plans/start/trial`,
-						{},
-						{
-							headers: {
-								"Content-Type": "application/json",
-								Authorization: `Bearer ${userData.jwt}`,
-							},
-						}
-					);
-					if (response.data.success) {
+				const response = await axios.post(
+					`${
+						import.meta.env.VITE_BACKEND_URL
+					}/api/auth/google/callback`,
+					{ code },
+					{ withCredentials: true }
+				);
+
+				if (response.data.success) {
+					// when user visit the home page then we will get the user data
+					const isNewUser = response.data.data.isNewUser;
+					if (isNewUser) {
 						toast.success("🎉 3-day Pro trial activated!");
 					} else {
 						toast.success("Welcome Back!");
 					}
+					if (response.data) navigate("/");
 				} else {
-					toast.success("Welcome Back!");
+					toast.error("Login failed: " + response.data.message);
+					navigate("/login");
 				}
-				login(userData);
-				navigate("/");
 			} catch (error) {
 				console.error("Login failed:", error);
 				toast.error(
-					"Login Failed: " + (error.message || "An error occurred")
+					"Login Failed: " +
+						(error?.message || "Something went wrong")
 				);
 				navigate("/login");
+			} finally {
+				setLoading(false);
 			}
 		};
-		loginWithGoogle();
+
+		handleAuth();
 	}, []);
+
 	return (
-		<div className="text-xl text-center py-10  text-gray-300">
-			<p> Redirecting to Home Page .....</p>
-			{/* <p className="text-gray-500 text-base mt-2">
-				if not redirected automatically{" "}
-				<Link to="/login" className=" underline">
-					click here
-				</Link>{" "}
-			</p> */}
+		<div className="flex flex-col items-center justify-center min-h-svh bg-black text-gray-100 px-4">
+			{loading && (
+				<LoadingIcon className="w-10 h-10 text-yellow-400 mb-6 animate-spin" />
+			)}
+
+			<h2 className="text-2xl font-semibold tracking-tight mb-2">
+				{loading ? "Setting up your account..." : "Almost there..."}
+			</h2>
+			<p className="text-gray-400 text-sm mb-4 max-w-sm text-center">
+				{loading ? "Hang tight !" : "All set! Redirecting you now."}
+			</p>
+
+			{loading && (
+				<p className="text-xs text-gray-500 mt-2 italic">
+					Securely connecting your account...
+				</p>
+			)}
 		</div>
 	);
 };

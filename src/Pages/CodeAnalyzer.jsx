@@ -28,10 +28,7 @@ export default function CodeAnalyzer() {
 					code,
 				},
 				{
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${userData.jwt}`,
-					},
+					withCredentials: true,
 				}
 			);
 			setResult(null);
@@ -40,10 +37,16 @@ export default function CodeAnalyzer() {
 			setResult(result);
 		} catch (error) {
 			window.scrollTo(0, 0);
-			if (error.response && error.response.status === 400) {
-				toast.error(error.response.data.error || "Invalid code input.");
+			if (error.response) {
+				const message =
+					error.response.data?.message ||
+					error.response.data?.error ||
+					"Something went wrong.";
+				toast.error(message);
 			} else {
-				toast.error(`Error: ${error.message}`);
+				toast.error(
+					`Error: ${error.message || "Unknown error occurred"}`
+				);
 			}
 		} finally {
 			setLoading(false);

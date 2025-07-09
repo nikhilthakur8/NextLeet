@@ -58,9 +58,7 @@ export default function Upgrade() {
 					import.meta.env.VITE_BACKEND_URL
 				}/api/payments/cashfree/create-order`,
 				{
-					headers: {
-						Authorization: `Bearer ${userData.jwt}`,
-					},
+					withCredentials: true,
 				}
 			);
 			const cashfree = await load({
@@ -148,9 +146,9 @@ export default function Upgrade() {
 							</CustomButton>
 						</DialogTrigger>
 
-						<DialogContent className="w-full sm:w-11/12 md:w-3/4 border text-gray-300 border-zinc-700 rounded-2xl shadow-2xl p-0 bg-zinc-900/95 backdrop-blur-lg">
-							<DialogHeader className="px-6 sm:px-8 pt-6 sm:pt-8 pb-2">
-								<div className="flex items-center gap-3 justify-center">
+						<DialogContent className="w-full max-w-lg sm:w-11/12 border border-zinc-700 rounded-3xl shadow-2xl p-0 bg-zinc-900/95 backdrop-blur-xl">
+							<DialogHeader className="px-6 sm:px-8 pt-6 sm:pt-8 pb-4 flex flex-col items-center text-center">
+								<div className="flex items-center gap-3">
 									<Lock
 										className="text-yellow-400"
 										size={28}
@@ -159,65 +157,58 @@ export default function Upgrade() {
 										Upgrade to Pro
 									</DialogTitle>
 								</div>
+								<p className="mt-2 text-sm sm:text-base text-zinc-400">
+									Unlock premium features for just ₹29/month
+								</p>
 							</DialogHeader>
 
-							<div className="px-6 sm:px-8 pb-2 text-center">
-								<h2 className="text-lg sm:text-xl font-semibold mb-2 text-white">
-									Agreement
-								</h2>
-							</div>
-
-							<div className="space-y-4 max-h-64 overflow-y-auto px-6 sm:px-8 pb-2 hide-scrollbar text-left text-zinc-300 text-xs sm:text-sm leading-relaxed">
+							<div className="px-6 sm:px-8 py-4 text-left text-zinc-300 text-sm leading-relaxed max-h-60 overflow-y-auto hide-scrollbar space-y-4">
 								<div>
-									<h3 className="font-semibold text-gray-400">
+									<h3 className="font-semibold text-gray-400 text-base mb-1">
 										Purchase Policy
 									</h3>
-									<p className="mt-2">
+									<p>
 										By purchasing the Pro Plan, you agree to
-										our
+										our{" "}
 										<a
 											href="/terms"
 											className="text-sky-400 underline hover:text-sky-300"
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											{" "}
-											Terms of Service{" "}
-										</a>
-										and
+											Terms of Service
+										</a>{" "}
+										and{" "}
 										<a
 											href="/privacy-policy"
 											className="text-sky-400 underline hover:text-sky-300"
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											{" "}
-											Privacy Statement{" "}
+											Privacy Policy
 										</a>
 										.
 									</p>
-									<p className="mt-2">
-										This is a paid plan. You will be charged
-										₹29 per month. No auto-renewal. No
-										recurring billing. You need to
-										repurchase monthly.
-									</p>
-									<p className="mt-2">
-										<b className="text-red-400">
-											No refunds
-										</b>{" "}
-										will be issued once the purchase is
-										made.
-									</p>
-									<p className="mt-2">
-										We may deny access or terminate accounts
-										without notice for violations of our
-										Terms of Service.
-									</p>
+									<ul className="list-disc ml-5 mt-2 space-y-2 text-xs sm:text-sm text-zinc-400">
+										<li>
+											Flat ₹29/month. No auto-renewal.
+											Manual repurchase needed.
+										</li>
+										<li>
+											<span className="text-red-400 font-semibold">
+												No refunds
+											</span>{" "}
+											after purchase.
+										</li>
+										<li>
+											Accounts may be restricted for
+											policy violations.
+										</li>
+									</ul>
 								</div>
 							</div>
 
-							<div className="flex items-center mt-4 px-6 sm:px-8">
+							<div className="flex items-start mt-3 px-6 sm:px-8">
 								<input
 									id="agree"
 									type="checkbox"
@@ -225,27 +216,33 @@ export default function Upgrade() {
 									onChange={(e) =>
 										setAgreed(e.target.checked)
 									}
-									className="mr-2 accent-yellow-500 w-4 h-4 rounded focus:ring-2 focus:ring-yellow-400 border-zinc-600 bg-zinc-800"
+									className="mt-1 mr-3 accent-yellow-500 w-4 h-4 rounded border-zinc-600 bg-zinc-800 focus:ring-2 focus:ring-yellow-400"
 								/>
 								<label
 									htmlFor="agree"
 									className="text-xs sm:text-sm text-zinc-300 select-none"
 								>
-									I agree to this agreement and
+									I agree to the{" "}
 									<a
 										href="/terms"
 										className="text-sky-400 underline hover:text-sky-300"
+										target="_blank"
 									>
-										{" "}
 										Terms of Service
 									</a>
+									.
 								</label>
 							</div>
 
-							<DialogFooter className="px-6 sm:px-8 pb-6 sm:pb-8 pt-4">
+							<DialogFooter className="px-6 sm:px-8 pb-6 sm:pb-8 pt-5">
 								<CustomButton
 									onClick={handleUpgrade}
-									className="w-full text-base sm:text-lg font-semibold py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-black"
+									disabled={!agreed}
+									className={`w-full text-base sm:text-lg font-semibold py-3 rounded-xl ${
+										agreed
+											? "bg-yellow-500 hover:bg-yellow-600 !text-black"
+											: "bg-gray-600 text-gray-300 cursor-not-allowed"
+									}`}
 								>
 									Proceed to Payment
 								</CustomButton>

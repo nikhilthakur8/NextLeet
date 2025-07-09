@@ -82,7 +82,7 @@ export const Home = () => {
 					className="inline-block ml-2  cursor-pointer hover:text-gray-200 active:scale-90 transition-all duration-200 size-5"
 					onClick={() => {
 						navigator.clipboard.writeText("nextleet.com/potd");
-						toast.success("Copied to clipboard!");
+						toast.info("Copied to clipboard!");
 					}}
 				/>
 				<NewBadge

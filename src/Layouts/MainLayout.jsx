@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { NavBarNew } from "../components/NavBar/NavBar";
 import { Feedback } from "../components/Feedback/Feedback";
 import { Footer } from "../components/Footer/Footer";
 import { useUserContext } from "../context/context";
-import { getCurrentUser } from "../appwrite/auth";
+import axios from "axios";
 
 export const MainLayout = () => {
 	const { login } = useUserContext();
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
-		getCurrentUser()
-			.then((userData) => {
+		axios
+			.get(`${import.meta.env.VITE_BACKEND_URL}/api/user/profile`, {
+				withCredentials: true,
+			})
+			.then(({ data }) => {
+				console.log("User data fetched:", data);
+				const userData = data.data;
 				if (userData) {
 					login(userData);
 				} else {

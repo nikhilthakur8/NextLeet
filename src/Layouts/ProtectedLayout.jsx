@@ -21,9 +21,8 @@ export const ProtectedLayout = () => {
 		);
 	}
 	if (
-		!["pro", "trial", "admin", "int"].some((label) =>
-			userData.labels.includes(label)
-		)
+		!userData.subscription ||
+		!userData.subscription.isActive
 	) {
 		return (
 			<div className="flex flex-col items-center justify-center min-h-svh text-gray-300 px-4">

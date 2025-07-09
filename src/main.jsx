@@ -71,7 +71,10 @@ const router = createBrowserRouter(
 				/>
 				<Route path="/login" element={<Login />} />
 				<Route path="/potd" element={<POTD />} />
-				<Route path="/auth/callback" element={<AuthCallback />} />
+				<Route
+					path="/auth/google/callback"
+					element={<AuthCallback />}
+				/>
 			</Route>
 		</>
 	)
@@ -80,7 +83,7 @@ createRoot(document.getElementById("root")).render(
 	<>
 		<UserContextProvider>
 			<RouterProvider router={router} />
-			<Toaster richColors position="bottom-right" />
+			<Toaster richColors position="bottom-right" theme="dark" />
 			<SpeedInsights />
 		</UserContextProvider>
 	</>

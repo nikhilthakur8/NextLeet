@@ -1,24 +1,10 @@
-import React, { use, useEffect, useState } from "react";
-import subscribeUser, { getTodayPOTD } from "../../appwrite/config";
 import { BackgroundLines } from "../ui/background-lines.jsx";
-import { motion } from "motion/react";
 import { Button } from "../ui/moving-border.jsx";
 import { NewBadge } from "../NewBadge.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export const Hero = () => {
-	const navigate = useNavigate();
-	const [tommorrowsQuestion, setTommorowsQuestion] = useState(
-		"https://leetcode.com/problems/"
-	);
-	useEffect(() => {
-		getTodayPOTD().then((question) => {
-			if (question) {
-				setTommorowsQuestion(question);
-			}
-		});
-	}, []);
 	return (
-		<BackgroundLines className="min-h-svh flex items-center justify-center flex-col">
+		<BackgroundLines className="min-h-svh bg-black flex items-center justify-center flex-col">
 			<div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t pb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
 				NextLeet. Faster. Smarter. Sharper.
 			</div>

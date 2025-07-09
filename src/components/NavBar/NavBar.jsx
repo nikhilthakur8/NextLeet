@@ -83,8 +83,8 @@ export function NavBarNew() {
 			link: "/search/company-tags",
 		},
 	];
+	console.log(userData);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const { planDetails } = useUserContext();
 	const colorComb = {
 		trial: "ring-blue-500",
 		pro: "ring-yellow-500",
@@ -108,15 +108,18 @@ export function NavBarNew() {
 							<Link
 								to="/profile"
 								className={`cursor-pointer ring-2 ring-offset-1 ring-offset-gray-900 ${
-									colorComb[planDetails?.type]
+									colorComb[userData?.subscription?.name]
 								} rounded-full overflow-hidden relative`}
 							>
 								<img
 									className="w-8 h-8 rounded-full"
 									src={
-										userData?.profileImage ||
+										userData?.user?.picture ||
 										`https://api.dicebear.com/9.x/pixel-art/svg?seed=${userData?.name}`
 									}
+									onError={(e) => {
+										console.log(e);
+									}}
 								/>
 							</Link>
 						) : (
@@ -130,22 +133,6 @@ export function NavBarNew() {
 								</CustomButton>
 							</>
 						)}
-						{/* <Link
-							to="/coming-soon"
-							className="cursor-pointer relative"
-						>
-							<RocketIcon className="text-yellow-500 " />
-						</Link>
-						<Link
-							to="https://x.com/NextLeet"
-							target="_blank"
-							className="cursor-pointer shrink-0 relative mr-4"
-						>
-							<img
-								className="w-8 h-8 rounded-full"
-								src="https://img.logo.dev/x.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg"
-							/>
-						</Link> */}
 					</div>
 				</NavBody>
 

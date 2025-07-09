@@ -6,7 +6,7 @@ export const Trick = () => {
 	const handleCopy = () => {
 		const text = "https://nextleet.com/problems/add-two-numbers";
 		navigator.clipboard.writeText(text);
-		toast.success("Link copied to clipboard!");
+		toast.info("Link copied to clipboard!");
 	};
 
 	return (
