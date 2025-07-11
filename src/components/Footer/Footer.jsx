@@ -21,8 +21,8 @@ export const Footer = () => {
 			});
 	};
 	return (
-		<footer className="mt-24 pb-10 max-w-screen text-gray-400">
-			<div className="border border-gray-800 mx-10 md:px-10"></div>
+		<footer className="mt-36 xl:mt-48 pb-10 max-w-screen text-gray-400">
+			<div className="border border-gray-800 mx-5 md:mx-10"></div>
 			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-10  gap-y-10 md:gap-x-12 lg:px-12 px-7 py-12 md:py-16">
 				<div className="xl:col-span-3">
 					<h3 className="font-bold text-3xl sm:text-4xl md:text-5xl mb-3">

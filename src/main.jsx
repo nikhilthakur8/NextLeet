@@ -31,8 +31,8 @@ import { UserContextProvider } from "./context/UserContextProvider.jsx";
 import { Profile } from "./Pages/Profile.jsx";
 import { PaymentStatus } from "./Pages/PaymentStatus.jsx";
 import { TermsOfService } from "./Pages/TermsOfService.jsx";
+import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
-import QuestionInsights from "./Pages/QuestionInsights/Insights.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -60,7 +60,6 @@ const router = createBrowserRouter(
 				<Route path="/privacy-policy" element={<PrivacyPolicy />} />
 				<Route path="/terms" element={<TermsOfService />} />
 			</Route>
-
 			{/* Routes with Auth Layout */}
 			<Route element={<AuthLayout />}>
 				<Route path="/signup" element={<Login />} />
@@ -75,6 +74,7 @@ const router = createBrowserRouter(
 					path="/auth/google/callback"
 					element={<AuthCallback />}
 				/>
+				<Route path="/:id" element={<QuestionRedirect />} />
 			</Route>
 		</>
 	)

@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { Hero } from "./Hero";
 import { UpcomingQuestion } from "../Questions/UpcomingQuestion";
 import { PastQuestion } from "../Questions/PastQuestion";
-import { WeeklyQuestion } from "../Questions/WeeklyQuestion";
 import { ChevronDown, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
 import { NewBadge } from "../NewBadge";
 import { toast } from "sonner";
 import { NewPromotion } from "./NewPromotion";
+import { Features } from "./Features";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
 	const handleScrollClick = () => {
 		setHideScrollBtn(true);
 		const nextSection = document.getElementById("latest-question");
 		if (nextSection) {
-			nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+			nextSection.scrollIntoView({ behavior: "smooth", block: "center" });
 		}
 	};
 	useEffect(() => {
@@ -59,7 +59,7 @@ export const Home = () => {
 		}
 	}, []);
 	return (
-		<div className="px-5 sm:px-8 lg:px-10 flex flex-col space-y-10">
+		<div className="flex flex-col space-y-10 md:space-y-20">
 			<SubscribeDialog open={open} setOpen={setOpen} />
 			<Hero />
 			{!hideScrollBtn && (
@@ -72,8 +72,17 @@ export const Home = () => {
 				</div>
 			)}
 			<NewPromotion />
-			<UpcomingQuestion />
-			<div className="text-gray-200 bg-gray-900 text-sm md:text-lg px-4 py-5 mx-auto w-full md:min-w-xl text-center relative rounded-md">
+			<Features />
+			<div className="space-y-10 bg-gray-950 py-10 md:space-y-20 border-y border-gray-900">
+				<UpcomingQuestion />
+				<PastQuestion />
+			</div>
+		</div>
+	);
+};
+
+{
+	/* <div className="text-gray-200 bg-gray-900 text-sm md:text-lg px-4 py-5 mx-auto w-full md:min-w-xl text-center relative rounded-md">
 				<p className="inline-block font-semibold">Get Today's POTD :</p>
 				<span className="bg-gray-700 text-gray-100 px-4 py-1 rounded-md border border-gray-600 ml-2">
 					nextleet.com/potd
@@ -92,9 +101,5 @@ export const Home = () => {
 				>
 					Trick
 				</NewBadge>
-			</div>
-			<WeeklyQuestion />
-			<PastQuestion />
-		</div>
-	);
-};
+			</div> */
+}

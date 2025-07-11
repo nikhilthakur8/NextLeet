@@ -144,3 +144,12 @@ export const getQuestionDetailsBySlug = async (slug) => {
 	);
 	return data.documents[0] || null;
 };
+
+export const getQuestionById = async (id) => {
+	const data = await databases.listDocuments(
+		import.meta.env.VITE_APPWRITE_QUESTION_CHALLENGES_DATABASE_ID,
+		"686afae40019e6d4394b",
+		[Query.equal("id", id), Query.limit(1)]
+	);
+	return data.documents[0] || null;
+};

@@ -79,8 +79,8 @@ export function NavBarNew() {
 			link: "/search/sheet",
 		},
 		{
-			name: "Q's Company Tags",
-			link: "/search/company-tags",
+			name: "Q's Insights",
+			link: "/insights",
 		},
 	];
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

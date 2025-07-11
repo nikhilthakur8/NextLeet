@@ -18,7 +18,7 @@ export const Question = ({ questions, title, footer, paginationData }) => {
 	return (
 		questions &&
 		questions.length > 0 && (
-			<div id="latest-question">
+			<div id="latest-question" className="mx-5 sm:mx-8 md:mx-10">
 				<p className="text-neutral-300 text-center md:mb-10 mb-5 text-xl md:text-2xl xl:text-4xl">
 					<strong className=" bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-gray-50">
 						{title}
