@@ -33,6 +33,7 @@ import { PaymentStatus } from "./Pages/PaymentStatus.jsx";
 import { TermsOfService } from "./Pages/TermsOfService.jsx";
 import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
+import { Analytics } from "@vercel/analytics/react";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -84,6 +85,7 @@ createRoot(document.getElementById("root")).render(
 		<UserContextProvider>
 			<RouterProvider router={router} />
 			<Toaster richColors position="bottom-right" theme="dark" />
+			<Analytics />
 			<SpeedInsights />
 		</UserContextProvider>
 	</>
