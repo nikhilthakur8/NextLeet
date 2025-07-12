@@ -196,7 +196,7 @@ export default function QuestionInsights({ titleSlug }) {
 		);
 	}
 	return (
-		<div className="relative max-w-7xl mx-auto px-6 space-y-8">
+		<div className="relative max-w-7xl mx-auto space-y-8">
 			<div className="text-center space-y-5">
 				<div className="flex items-center justify-center gap-3">
 					<h1 className="text-2xl  md:text-4xl font-bold pb-2 bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
