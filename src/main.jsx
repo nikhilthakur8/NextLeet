@@ -44,10 +44,6 @@ const router = createBrowserRouter(
 			<Route element={<MainLayout />}>
 				<Route index element={<Home />} />
 				<Route path="/search/sheet" element={<SearchSheet />} />
-				<Route
-					path="/problems/:titleSlug/*"
-					element={<DirectQuestionTag />}
-				/>
 				<Route element={<UserLayout />}>
 					<Route path="/profile" element={<Profile />} />
 				</Route>
@@ -55,6 +51,10 @@ const router = createBrowserRouter(
 					<Route path="/analyze" element={<CodeAnalyzer />} />
 					<Route path="/sheet/:companyName" element={<Sheet />} />
 					<Route path="/insights" element={<QuestionTag />} />
+					<Route
+						path="/problems/:titleSlug/*"
+						element={<DirectQuestionTag />}
+					/>
 				</Route>
 				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
