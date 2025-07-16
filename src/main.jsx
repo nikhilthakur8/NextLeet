@@ -34,6 +34,7 @@ import { TermsOfService } from "./Pages/TermsOfService.jsx";
 import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
+// import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
 					<Route path="/sheet/:companyName" element={<Sheet />} />
 					<Route path="/insights" element={<QuestionTag />} />
 				</Route>
+				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				<Route path="/upgrade" element={<Upgrade />} />
 				<Route path="/payment-status" element={<PaymentStatus />} />

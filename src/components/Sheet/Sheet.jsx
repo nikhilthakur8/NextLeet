@@ -20,8 +20,9 @@ import {
 } from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
 import { NewBadge } from "../NewBadge";
-import { ArrowLeft, ChartLineIcon, RotateCcw } from "lucide-react";
+import { ArrowLeft, ChartLineIcon, RotateCcw, Share2 } from "lucide-react";
 import { CustomButton } from "../CustomButton";
+import { toast } from "sonner";
 export default function Sheet() {
 	const { companyName } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -162,7 +163,7 @@ export default function Sheet() {
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
 				/>
-				
+
 				<TopicFilter
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
@@ -283,10 +284,14 @@ function Header({
 					<ArrowLeft className="inline-block mr-1 size-4" />
 					<span>All Sheets</span>
 				</CustomButton>
-				{/* <CustomButton Tag={Link} to="/go-to-interview-problems">
-					<ChartLineIcon className="inline-block mr-2 size-4" />
-					<span>Interview</span>
-				</CustomButton> */}
+				<CustomButton
+					onClick={() => {
+						navigator.clipboard.writeText(window.location.href);
+						toast.info("Link copied to clipboard!");
+					}}
+				>
+					<Share2 className="inline-block mr-1 size-4" />
+				</CustomButton>
 			</div>
 			<div className="flex flex-row items-center gap-5">
 				<img

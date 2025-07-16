@@ -34,7 +34,7 @@ export const NewPromotion = () => {
 	];
 	return (
 		<div className="text-white text-center mx-5 md:mx-10 rounded-xl py-8 md:py-12 gap-2 flex flex-col items-center bg-gray-950 gap-y-5 px-5">
-			<p className="text-xl md:text-5xl font-bold tracking-wider uppercase bg-linear-65 from-purple-500 via-indigo-500 to-pink-500 text-transparent bg-clip-text">
+			<p className="text-xl md:text-5xl font-extrabold sm:font-bold tracking-wider uppercase bg-linear-65 from-purple-500 via-indigo-500 to-pink-500 text-transparent bg-clip-text">
 				NextLeet's Difficult Tag
 			</p>
 			<div className="flex gap-2 flex-wrap justify-center">

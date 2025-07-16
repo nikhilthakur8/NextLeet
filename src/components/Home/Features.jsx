@@ -1,7 +1,7 @@
 import React from "react";
 import { CustomButton } from "../CustomButton";
 import { Link } from "react-router-dom";
-
+import Marquee from "react-fast-marquee";
 export const Features = () => {
 	const latestCompanySheets = [
 		{
@@ -48,8 +48,8 @@ export const Features = () => {
 		},
 		{
 			name: "Apple",
-			url: "/sheet/salesforce",
-			logo: "https://img.logo.dev/salesforce.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg",
+			url: "/sheet/apple",
+			logo: "https://img.logo.dev/apple.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg",
 			totalProblems: 170,
 		},
 		{
@@ -77,20 +77,23 @@ export const Features = () => {
 					View All Sheets
 				</CustomButton>
 			</div>
-			<div className="overflow-hidden relative mx-3 md:mx-10">
-				<div className="flex animate-scroll gap-6 w-max">
-					{[...latestCompanySheets, ...latestCompanySheets].map(
-						(company, index) => (
-							<CompanyCard
-								key={index}
-								name={company.name}
-								logo={company.logo}
-								totalProblems={company.totalProblems}
-								url={company.url}
-							/>
-						)
-					)}
-				</div>
+			<div className="overflow-hidden relative mx-3 md:mx-10 z-0">
+				<Marquee
+					delay={0}
+					speed={50}
+					gradient={false}
+					pauseOnHover={true}
+				>
+					{latestCompanySheets.map((company, index) => (
+						<CompanyCard
+							key={index}
+							name={company.name}
+							logo={company.logo}
+							totalProblems={company.totalProblems}
+							url={company.url}
+						/>
+					))}
+				</Marquee>
 			</div>
 		</div>
 	);
@@ -99,13 +102,13 @@ export const Features = () => {
 // Company Card Component
 export const CompanyCard = ({ name, logo, totalProblems, url }) => {
 	return (
-		<Link
-			className="bg-zinc-900 border hover:bg-zinc-800/70 cursor-pointer border-zinc-800 my-2 text-white py-5 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all flex flex-col items-center gap-4 px-10"
-			to={url}
+		<div
+			className="bg-zinc-900 border mx-3 hover:bg-zinc-800/70 cursor-pointer border-zinc-800 my-2 text-white py-5 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all flex flex-col items-center gap-4 px-10"
 		>
 			<img
 				src={logo}
 				alt={`${name} Logo`}
+				loading="lazy"
 				className="md:w-16 md:h-16 w-12 h-12 rounded-xl object-contain"
 			/>
 			<h3 className="text-lg md:text-xl font-semibold">{name}</h3>
@@ -116,6 +119,13 @@ export const CompanyCard = ({ name, logo, totalProblems, url }) => {
 				</span>
 				Problems
 			</p>
-		</Link>
+			<CustomButton
+				className="!rounded-full !text-sm md:!text-base !py-1"
+				Tag={Link}
+				to={url}
+			>
+				View Sheet
+			</CustomButton>
+		</div>
 	);
 };
