@@ -19,7 +19,7 @@ export const Hero = () => {
 				to="https://code.nextleet.com"
 				target="_blank"
 			>
-				<span>Premium Question Access</span>
+				<span>Premium Question Content</span>
 				<NewBadge className={"top-0 "}>New</NewBadge>
 			</Link>
 			<Link to={"/potd"} target="_blank">

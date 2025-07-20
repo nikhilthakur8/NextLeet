@@ -35,6 +35,7 @@ import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
 // import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
+import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -51,6 +52,8 @@ const router = createBrowserRouter(
 					<Route path="/analyze" element={<CodeAnalyzer />} />
 					<Route path="/sheet/:companyName" element={<Sheet />} />
 					<Route path="/insights" element={<QuestionTag />} />
+					<Route path="/company-tags" element={<QuestionTag />} />
+					<Route path="/leetcode-challenges" element={<LeetcodeChallenges />} />
 					<Route
 						path="/problems/:titleSlug/*"
 						element={<DirectQuestionTag />}

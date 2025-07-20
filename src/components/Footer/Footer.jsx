@@ -42,7 +42,7 @@ export const Footer = () => {
 							Subscribe for Updates
 						</h2>
 						<p className="text-sm md:text-base">
-							Never Break Your Streak!
+							Never Miss an Update!
 						</p>
 					</div>
 					<form
@@ -75,7 +75,7 @@ export const Footer = () => {
 					</h5>
 					<ul className="space-y-4 text-sm md:text-base text-gray-300">
 						<li>
-							<Link href="/coming-soon">Next Features</Link>
+							<Link to="/coming-soon">Next Features</Link>
 						</li>
 						<li>
 							<Link
@@ -92,7 +92,7 @@ export const Footer = () => {
 						</li> */}
 						<li>
 							<Link
-								to="/search/company-tags"
+								to="/analyze"
 								className="hover:underline"
 							>
 								Analyzer
@@ -119,7 +119,7 @@ export const Footer = () => {
 							</Link>
 						</li>
 						<li>
-							<Link to="https://x.com/nextleet" target="_blank">
+							<Link to="https://x.com/nikhilthakur80" target="_blank" className="hover:underline">
 								X
 							</Link>
 						</li>
@@ -143,7 +143,7 @@ export const Footer = () => {
 								target="_blank"
 								className="hover:underline"
 							>
-								Support US
+								Sponsor
 							</Link>
 						</li>
 					</ul>

@@ -1,14 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Hero } from "./Hero";
-import { UpcomingQuestion } from "../Questions/UpcomingQuestion";
-import { PastQuestion } from "../Questions/PastQuestion";
-import { ChevronDown, Copy, ThumbsDown, ThumbsUp } from "lucide-react";
-import { Footer } from "../Footer/Footer";
 import { SubscribeDialog } from "./Dialog";
 import { NewBadge } from "../NewBadge";
-import { toast } from "sonner";
 import { NewPromotion } from "./NewPromotion";
 import { Features } from "./Features";
+import {OurPlatforms} from "./OurPlatforms";
 export const Home = () => {
 	const [hideScrollBtn, setHideScrollBtn] = React.useState(false);
 	const handleScrollClick = () => {
@@ -62,7 +58,7 @@ export const Home = () => {
 		<div className="flex flex-col space-y-10 md:space-y-20">
 			<SubscribeDialog open={open} setOpen={setOpen} />
 			<Hero />
-			{!hideScrollBtn && (
+			{/* {!hideScrollBtn && (
 				<div
 					className="bottom-0 left-0 w-full flex flex-col justify-between items-center bg-transparent text-neutral-300 fixed m-0 p-0 text-sm sm:text-lg md:text-xl cursor-pointer animate-bounce [animation-duration:2s]"
 					onClick={handleScrollClick}
@@ -70,13 +66,10 @@ export const Home = () => {
 					<p>Scroll to view upcoming questions</p>
 					<ChevronDown />
 				</div>
-			)}
+			)} */}
 			<NewPromotion />
 			<Features />
-			<div className="space-y-10 bg-gray-950 py-10 md:space-y-20 border-y border-gray-900">
-				<UpcomingQuestion />
-				<PastQuestion />
-			</div>
+			<OurPlatforms />
 		</div>
 	);
 };

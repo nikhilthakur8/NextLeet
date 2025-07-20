@@ -5,6 +5,7 @@ import { Feedback } from "../components/Feedback/Feedback";
 import { Footer } from "../components/Footer/Footer";
 import { useUserContext } from "../context/context";
 import axios from "axios";
+import NextleetBanner from "../components/NextleetBanner";
 
 export const MainLayout = () => {
 	const { login } = useUserContext();
@@ -37,6 +38,7 @@ export const MainLayout = () => {
 		</div>
 	) : (
 		<div className="bg-black">
+			<NextleetBanner />
 			<NavBarNew />
 			<Outlet />
 			<Feedback />

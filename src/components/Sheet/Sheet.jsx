@@ -122,6 +122,7 @@ export default function Sheet() {
 		window.document.title = `${formattedCompanyName} Questions Sheet | NextLeet`;
 	}, []);
 
+	// this one get all done question from indexeddb and then filter it 
 	useEffect(() => {
 		getAllDoneQuestions().then((data) => {
 			getTotalDoneQuestions(formattedCompanyName, data, filter).then(
@@ -342,7 +343,7 @@ function Header({
 								totalPages > 0
 									? (allDoneQuestion.length /
 											(totalPages * 20)) *
-									  100
+									100
 									: 0
 							}%`,
 						}}

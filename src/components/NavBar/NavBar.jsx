@@ -33,8 +33,8 @@ export function NavBarNew() {
 			link: "/",
 		},
 		{
-			name: "Upcoming Q's",
-			link: "/#latest-question",
+			name: "LC Challenges",
+			link: "/leetcode-challenges",
 		},
 		{
 			name: "Code Analyzer",
@@ -66,8 +66,8 @@ export function NavBarNew() {
 			link: "/profile",
 		},
 		{
-			name: "Upcoming Q's",
-			link: "/#latest-question",
+			name: "LC Challenges",
+			link: "/leetcode-challenges",
 		},
 		{
 			name: "Code Analyzer",
