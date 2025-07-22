@@ -5,6 +5,7 @@ import { Home } from "./components/Home/Home.jsx";
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
+	Navigate,
 	Route,
 	RouterProvider,
 	Routes,
@@ -36,6 +37,7 @@ import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
 // import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
+import { Hacks } from "./Pages/HacksPage.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -52,13 +54,20 @@ const router = createBrowserRouter(
 					<Route path="/analyze" element={<CodeAnalyzer />} />
 					<Route path="/sheet/:companyName" element={<Sheet />} />
 					<Route path="/insights" element={<QuestionTag />} />
-					<Route path="/company-tags" element={<QuestionTag />} />
-					<Route path="/leetcode-challenges" element={<LeetcodeChallenges />} />
+					<Route
+						path="/search/company-tags"
+						element={<Navigate to="/insights" replace />}
+					/>
+					<Route
+						path="/leetcode-challenges"
+						element={<LeetcodeChallenges />}
+					/>
 					<Route
 						path="/problems/:titleSlug/*"
 						element={<DirectQuestionTag />}
 					/>
 				</Route>
+				<Route path="/hacks" element={<Hacks />} />
 				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				<Route path="/upgrade" element={<Upgrade />} />

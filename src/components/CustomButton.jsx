@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+const colorVariants = {
+	"red" : "bg-red-500/20"
+}
 export const CustomButton = ({
 	children,
 	className = "",

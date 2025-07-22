@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function NextleetBanner() {
 	const [showBanner, setShowBanner] = useState(false);
@@ -27,14 +28,14 @@ export default function NextleetBanner() {
 						{/* Content */}
 						<span className="text-sm md:text-base flex items-center gap-2">
 							✨ Try out{" "}
-							<a
-								href="https://nextleet.com/132"
-								target="_blank"
+							<Link
+								to="/hacks"
+								onClick={() => setShowBanner(false)}
 								rel="noopener noreferrer"
 								className="text-yellow-400 underline hover:text-yellow-300"
 							>
-								nextleet.com/132
-							</a>
+								NextLeet Hacks
+							</Link>
 							<button
 								onClick={() => setShowBanner(false)}
 								className="text-gray-400 hover:text-white cursor-pointer"
