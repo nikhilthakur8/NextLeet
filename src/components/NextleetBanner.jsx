@@ -18,7 +18,7 @@ export default function NextleetBanner() {
 		<AnimatePresence>
 			{showBanner && (
 				<motion.div
-					className="hidden md:flex fixed bottom-10 left-5 z-50"
+					className="flex fixed bottom-5 md:bottom-10 left-5 z-50"
 					initial={{ x: "-120%", opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					exit={{ x: "-120%", opacity: 0 }}
