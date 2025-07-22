@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link2, CalendarDays, Lightbulb } from "lucide-react";
 import { CustomButton } from "../components/CustomButton"; // your existing button
+import { NewBadge } from "../components/NewBadge";
 
 export const Hacks = () => {
 	useEffect(() => {
@@ -93,7 +94,12 @@ export const Hacks = () => {
 					</div>
 
 					{/* Card 3 */}
-					<div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:border-teal-500 transition-colors">
+					<div className="relative bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:border-teal-500 transition-colors">
+						{/* Pro Badge */}
+						<NewBadge className="rounded-full !animate-none bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 ">
+							PRO
+						</NewBadge>
+
 						<h2 className="text-2xl font-bold text-teal-400 mb-3 flex items-center">
 							<Lightbulb className="mr-3 h-7 w-7 text-teal-400" />
 							Instant Insights

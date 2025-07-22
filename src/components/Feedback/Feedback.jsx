@@ -16,17 +16,20 @@ import {
 } from "../ui/dropdown-menu";
 import { submitFeedback } from "../../appwrite/feedback";
 import { toast } from "sonner";
+import { useUserContext } from "../../context/context";
 export const Feedback = () => {
 	const [feedback, setFeedback] = useState({
 		email: "",
 		message: "",
 	});
+	const { userData } = useUserContext();
 	const feedbackHandler = (e) => {
 		if (!feedback.message.trim()) {
 			toast.error("Feedback cannot be empty!");
 			return;
 		}
-		submitFeedback(feedback.message, feedback.email)
+		const email = userData?.user?.email || feedback.email;
+		submitFeedback(feedback.message, email)
 			.then(() => {
 				setFeedback({
 					email: "",
