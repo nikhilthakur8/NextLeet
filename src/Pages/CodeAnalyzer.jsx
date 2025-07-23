@@ -25,9 +25,32 @@ import {
 	SelectValue,
 } from "../components/ui/select";
 import { CustomButton } from "../components/CustomButton";
-
+const supportedModels = [
+	{
+		id: "llama3-70b-8192",
+		shortName: "LLaMA 3 70B",
+		label: "Recommended",
+	},
+	{
+		id: "deepseek-r1-distill-llama-70b",
+		shortName: "DeepSeek 70B",
+	},
+	{
+		id: "meta-llama/llama-4-scout-17b-16e-instruct",
+		shortName: "LLaMA 4 Scout 17B",
+	},
+	{
+		id: "llama-3.3-70b-versatile",
+		shortName: "LLaMA 3.3 70B",
+	},
+	{
+		id: "compound-beta",
+		shortName: "Compound Beta",
+	},
+];
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
+	const [selectedModel, setSelectedModel] = useState(null);
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
@@ -43,6 +66,7 @@ export default function CodeAnalyzer() {
 				`${import.meta.env.VITE_BACKEND_URL}/api/ai/analyze/complexity`,
 				{
 					code,
+					model: selectedModel,
 				},
 				{
 					withCredentials: true,
@@ -94,8 +118,8 @@ export default function CodeAnalyzer() {
 				</p>
 
 				<div className="flex items-center justify-end my-2">
-					<Select disabled>
-						<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+					<Select onValueChange={setSelectedModel}>
+						<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none px-5 min-w-64">
 							<SelectValue
 								placeholder="Select AI Model (Soon)"
 								className="text-gray-400"
@@ -106,13 +130,18 @@ export default function CodeAnalyzer() {
 								<SelectLabel className="text-gray-400">
 									Select AI Model
 								</SelectLabel>
-								{ai.map((model) => (
+								{supportedModels.map((model) => (
 									<SelectItem
-										key={model}
-										value={model.toLowerCase()}
+										key={model.id}
+										value={model.id}
 										className="cursor-pointer text-base md:text-lg rounded-md px-2 py-1 focus:bg-gray-800"
 									>
-										{model}
+										{model.shortName}
+										{model.label && (
+											<span className="text-xs text-gray-500">
+												({model.label})
+											</span>
+										)}
 									</SelectItem>
 								))}
 							</SelectGroup>
