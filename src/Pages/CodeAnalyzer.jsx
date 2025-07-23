@@ -28,17 +28,7 @@ import { CustomButton } from "../components/CustomButton";
 
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
-	const [result, setResult] = useState({
-		timeComplexity: "O(1)",
-		spaceComplexity: "O(1)",
-		timeExplanation:
-			"The code executes a single print statement, which takes constant time.",
-		spaceExplanation:
-			"The code uses a fixed amount of memory to store the output, resulting in constant space usage.",
-		spaceComplexityType: "constant",
-		timeComplexityType: "constant",
-		codeRating: 2,
-	});
+	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
 	const handleSubmit = async () => {
