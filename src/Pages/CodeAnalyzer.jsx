@@ -50,7 +50,7 @@ const supportedModels = [
 ];
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
-	const [selectedModel, setSelectedModel] = useState(null);
+	const [selectedModel, setSelectedModel] = useState("llama3-70b-8192");
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
