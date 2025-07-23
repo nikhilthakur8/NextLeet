@@ -62,7 +62,7 @@ const TimeComplexityChart = ({
 			dataset("constant", (n) => 2),
 			dataset("logarithmic", (n) => Math.log2(n - 2) * 1.7),
 			dataset("linear", (n) => n - 1),
-			dataset("linearithmic", (n) => n * Math.log2(n - 2)),
+			dataset("linearithmic", (n) => n * 0.6 * Math.log2(n - 1)),
 			dataset("quadratic", (n) => (n - 1) * (n - 1)),
 		],
 	};

@@ -4,13 +4,41 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import TimeComplexityChart from "../components/ComplexityChart";
 import { Dialog, DialogContent, DialogTrigger } from "../components/ui/dialog";
-import { Info, Star, ThumbsDown, ThumbsUp } from "lucide-react";
-import { registerFeedback } from "../appwrite/config";
-import { useUserContext } from "../context/context";
+import {
+	Clock,
+	Brain,
+	HardDrive,
+	Info,
+	Star,
+	ThumbsUp,
+	ThumbsDown,
+	BarChart3,
+	LineChart,
+} from "lucide-react";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "../components/ui/select";
+import { CustomButton } from "../components/CustomButton";
 
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
-	const [result, setResult] = useState(null);
+	const [result, setResult] = useState({
+		timeComplexity: "O(1)",
+		spaceComplexity: "O(1)",
+		timeExplanation:
+			"The code executes a single print statement, which takes constant time.",
+		spaceExplanation:
+			"The code uses a fixed amount of memory to store the output, resulting in constant space usage.",
+		spaceComplexityType: "constant",
+		timeComplexityType: "constant",
+		codeRating: 2,
+	});
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
 	const handleSubmit = async () => {
@@ -51,15 +79,6 @@ export default function CodeAnalyzer() {
 			setLoading(false);
 		}
 	};
-	const handleFeedBack = async (feedback) => {
-		registerFeedback(feedback)
-			.then(() => {
-				toast.success(`Thank you for your feedback!`);
-			})
-			.catch((error) => {
-				toast.error(`Error: ${error.message}`);
-			});
-	};
 	useEffect(() => {
 		if (result || loading) {
 			analysisRef.current?.scrollIntoView({
@@ -72,135 +91,170 @@ export default function CodeAnalyzer() {
 		document.title = "Code Analyzer | NextLeet";
 		window.scrollTo(0, 0);
 	}, []);
+	const ai = ["Chat Gpt", "DeepSeek", "Gemini", "Claude", "LLama"];
 	return (
-		<div className="p-4 pt-28 md:pt-36 px-5 md:px-20 min-h-screen text-sm md:text-lg max-w-5xl mx-auto text-gray-300">
+		<div className="p-4 pt-28 md:pt-32 px-5 md:px-20 min-h-screen text-sm md:text-lg max-w-5xl mx-auto text-gray-300">
 			<div className="flex flex-col gap-y-3">
-				<h1 className="text-3xl bg-linear-65 from-purple-500 to-pink-500 text-transparent bg-clip-text text-center md:text-4xl font-bold pb-2">
+				<h1 className="text-3xl bg-gradient-to-l from-blue-500 to-cyan-500 text-transparent bg-clip-text text-center md:text-4xl font-bold pb-2">
 					Code Analyzer <span className="text-yellow-500">✨</span>
 				</h1>
 				<p className="text-center text-sm md:text-lg">
 					⚡️ Blazing fast: Delivers responses in just 300ms — faster
 					than your average ChatGPT!
 				</p>
+
+				<div className="flex items-center justify-end my-2">
+					<Select disabled>
+						<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+							<SelectValue
+								placeholder="Select AI Model (Soon)"
+								className="text-gray-400"
+							/>
+						</SelectTrigger>
+						<SelectContent className="bg-gray-900 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
+							<SelectGroup>
+								<SelectLabel className="text-gray-400">
+									Select AI Model
+								</SelectLabel>
+								{ai.map((model) => (
+									<SelectItem
+										key={model}
+										value={model.toLowerCase()}
+										className="cursor-pointer text-base md:text-lg rounded-md px-2 py-1 focus:bg-gray-800"
+									>
+										{model}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 				<textarea
 					value={code}
 					spellCheck="false"
 					onChange={(e) => setCode(e.target.value)}
-					className="w-full overflow-y-auto resize-none min-h-[40vh] p-4 font-mono hide-scrollbar bg-gray-900 border border-gray-800 rounded-lg shadow  focus:outline-none focus:ring-3 focus:ring-emerald-600"
+					className="w-full overflow-y-auto resize-none min-h-[40vh] p-4 font-mono hide-scrollbar bg-gradient-to-br from-gray-950 to-gray-900 border border-gray-900 rounded-xl shadow  focus:outline-none focus:ring-3 focus:ring-emerald-600 "
 					placeholder={`Paste your C++/Python/JS/Rust/Java/any code here...`}
 				/>
-				<button
+				<CustomButton
+					className="w-fit ml-auto bg-gradient-to-b from-gray-900 via-gray-950 to-gray-900 md:!text-lg !rounded-full !text-gray-300"
 					onClick={handleSubmit}
 					disabled={loading}
-					className="px-5 py-2 bg-gray-900  ml-auto rounded-md transition cursor-pointer hover:scale-105 active:scale-95 border border-gray-800 "
 				>
 					Analyze Code
-				</button>
+				</CustomButton>
 			</div>
 			<div ref={analysisRef}>
 				{(result || loading) && (
-					<div className="p-5 relative rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 shadow-2xl mx-auto mt-10  text-zinc-200 space-y-6">
+					<div className="relative mx-auto mt-8 p-5 md:p-8 rounded-xl bg-gradient-to-br from-gray-950 to-gray-900 border border-gray-800 shadow-[0_0_40px_rgba(0,0,0,0.6)] text-gray-200 space-y-5 md:space-y-8">
 						{loading ? (
 							<Loading />
 						) : result?.error ? (
 							<div className="flex flex-col items-center justify-center space-y-4">
-								<h1 className="font-semibold text-red-700 text-xl md:text-3xl">
-									⚠️ Error Occured
+								<h1 className="font-bold text-red-600 text-xl md:text-3xl tracking-wide text-center">
+									⚠️ Error Occurred
 								</h1>
-								<p className="text-zinc-300">
+								<p className="text-zinc-300 text-center leading-relaxed">
 									{result.error ||
 										"An unexpected error occurred while analyzing your code."}
 								</p>
 							</div>
 						) : (
 							<>
-								<h1 className="text-xl md:text-4xl font-bold text-white">
-									🧠 Code Complexity Analysis
+								{/* Heading */}
+								<h1 className="text-xl md:text-4xl font-bold bg-gradient-to-l from-blue-500 to-cyan-500 pb-2 bg-clip-text text-transparent tracking-wide text-center flex items-center justify-center gap-2">
+									<Brain className="w-5 h-5 md:w-8 md:h-8 text-cyan-400" />
+									Code Complexity Analysis
 								</h1>
 
-								<div className="space-y-2">
-									<p className="font-medium text-zinc-400">
-										⏱️ Time Complexity:
+								{/* Time Complexity */}
+								<div className="space-y-3">
+									<p className="font-medium text-zinc-400 flex items-center gap-x-2 text-base md:text-lg">
+										<Clock className="w-5 h-5 text-lime-400" />
+										Time Complexity:
 									</p>
-									<div className="flex items-center gap-x-2">
+									<div className="flex flex-row items-center gap-2">
 										<p
-											className="text-2xl uppercase font-semibold text-lime-400"
+											className="text-2xl md:text-3xl uppercase font-bold text-lime-400 tracking-wide"
 											dangerouslySetInnerHTML={{
 												__html: result.timeComplexity,
 											}}
 										/>
-										<TimeComplexityChart
-											complexity={result.timeComplexity}
-											complexityType={
-												result.timeComplexityType
-											}
-											name={"Time Complexity"}
-										/>
+										<div className="w-auto">
+											<TimeComplexityChart
+												complexity={
+													result.timeComplexity
+												}
+												complexityType={
+													result.timeComplexityType
+												}
+												name={"Time Complexity"}
+											/>
+										</div>
 									</div>
-									<p className="text-zinc-300">
+									<p className="text-zinc-300 leading-relaxed text-sm md:text-base">
 										{result?.timeExplanation}
 									</p>
 								</div>
 
-								<div className="space-y-2">
-									<p className="font-medium text-zinc-400">
-										🧮 Space Complexity:
+								{/* Space Complexity */}
+								<div className="space-y-3">
+									<p className="font-medium text-zinc-400 flex items-center gap-x-2 text-base md:text-lg">
+										<HardDrive className="w-5 h-5 text-sky-400" />
+										Space Complexity:
 									</p>
-									<div className="flex items-center gap-x-2">
+									<div className="flex flex-row items-center gap-2">
 										<p
-											className="text-2xl uppercase font-semibold text-sky-400"
+											className="text-2xl md:text-3xl uppercase font-bold text-sky-400 tracking-wide"
 											dangerouslySetInnerHTML={{
 												__html: result.spaceComplexity,
 											}}
 										/>
-										<TimeComplexityChart
-											complexity={result.spaceComplexity}
-											complexityType={
-												result.spaceComplexityType
-											}
-											name={"Space Complexity"}
-										/>
+										<div className="w-auto">
+											<TimeComplexityChart
+												complexity={
+													result.spaceComplexity
+												}
+												complexityType={
+													result.spaceComplexityType
+												}
+												name={"Space Complexity"}
+											/>
+										</div>
 									</div>
-									<p className=" text-zinc-300">
+									<p className="text-zinc-300 leading-relaxed text-sm md:text-base">
 										{result?.spaceExplanation}
 									</p>
 								</div>
-								<div className="space-y-2">
-									<span className="font-medium text-zinc-400">
-										📊 Code Rating (out of 5):
-									</span>{" "}
-									{Array.from({ length: 5 }).map(
-										(star, index) => (
-											<span key={index}>
-												<Star
-													size={20}
-													className={`${
-														index <
-														result.codeRating
-															? "fill-yellow-400 text-yellow-400"
-															: "fill-gray-400 text-gray-400"
-													} inline`}
-												/>
-											</span>
-										)
-									)}
+
+								{/* Code Rating */}
+								<div className="space-y-3">
+									<span className="font-medium  flex items-center gap-x-2 text-zinc-400 text-base md:text-lg">
+										<LineChart className="w-5 h-5 text-purple-400" />
+										Code Rating (out of 5):
+									</span>
+									<div className="flex gap-1 mt-2">
+										{Array.from({
+											length: result.codeRating,
+										}).map((_, index) => (
+											<Star
+												key={index}
+												size={24}
+												className={
+													"fill-yellow-400 text-yellow-400 spin-3d"
+												}
+											/>
+										))}
+									</div>
 								</div>
-								<div className="text-xs text-gray-400 flex justify-center items-center md:text-sm space-x-2">
-									<Info size={15} />
-									<p className="text-center">
+
+								{/* Info */}
+								<div className="text-xs md:text-sm text-gray-400 flex justify-center items-center gap-2 mt-4 text-center">
+									<Info size={16} />
+									<p>
 										Only up to O(n²) shown — higher ones
 										skew the graph.
 									</p>
-								</div>
-								<div className="absolute top-5 right-5 cursor-pointer flex items-center gap-x-5">
-									<ThumbsUp
-										className="hover:scale-105 "
-										onClick={() => handleFeedBack("yes")}
-									/>
-									<ThumbsDown
-										className="hover:scale-105"
-										onClick={() => handleFeedBack("no")}
-									/>
 								</div>
 							</>
 						)}
