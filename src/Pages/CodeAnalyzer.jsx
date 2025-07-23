@@ -118,7 +118,7 @@ export default function CodeAnalyzer() {
 				</p>
 
 				<div className="flex items-center justify-end my-2">
-					<Select onValueChange={setSelectedModel}>
+					<Select defaultValue="llama3-70b-8192" onValueChange={setSelectedModel}>
 						<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none px-5 min-w-64">
 							<SelectValue
 								placeholder="Select AI Model (Soon)"
