@@ -69,7 +69,7 @@ export const getAllCompanyNames = async () => {
 		[
 			Query.limit(1000),
 			Query.orderDesc("totalProblems"),
-			Query.select(["name", "totalProblems"]),
+			Query.select(["name", "totalProblems","websiteLink"]),
 		]
 	);
 	return data.documents;

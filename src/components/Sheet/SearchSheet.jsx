@@ -51,7 +51,7 @@ export const SearchSheet = () => {
 			toast.error(`Removed ${company} from favorites`);
 		}
 	};
-
+	
 	return (
 		<div className="text-gray-400 pt-24 md:pt-36 px-5 md:px-12 min-h-svh flex flex-col gap-5">
 			<div>
@@ -162,7 +162,6 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 				setLoading(false);
 			});
 	}, []);
-
 	return (
 		<div className="text-base md:text-lg">
 			<input
@@ -185,13 +184,14 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 								.toLowerCase()}`}
 						>
 							<img
-								src={`https://img.logo.dev/${company.name
-									.split(" ")
-									.join("")
-									.split(".")
-									.join(
-										""
-									)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+								src={`https://img.logo.dev/${
+									company.websiteLink ||
+									company.name
+										.split(" ")
+										.join("")
+										.split(".")
+										.join("") + ".com"
+								}?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
 								className="w-14 h-14 inline-block mr-2 rounded-md"
 								alt=""
 							/>
