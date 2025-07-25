@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../context/context";
 
 export default function NextleetBanner() {
+	const { userData } = useUserContext();
+	const isSubscriptionActive = userData?.subscription?.isActive || false;
 	const [showBanner, setShowBanner] = useState(false);
 
 	// show after 3.5 seconds
@@ -13,7 +16,6 @@ export default function NextleetBanner() {
 		}, 3500);
 		return () => clearTimeout(timer);
 	}, []);
-
 	return (
 		<AnimatePresence>
 			{showBanner && (
@@ -27,15 +29,32 @@ export default function NextleetBanner() {
 					<div className="relative bg-gray-900 text-white shadow-lg overflow-hidden border border-gray-700 w-fit px-5 py-2 rounded-full">
 						{/* Content */}
 						<span className="text-sm md:text-base flex items-center gap-2">
-							✨ Try out{" "}
-							<Link
-								to="/hacks"
-								onClick={() => setShowBanner(false)}
-								rel="noopener noreferrer"
-								className="text-yellow-400 underline hover:text-yellow-300"
-							>
-								NextLeet Hacks
-							</Link>
+							{isSubscriptionActive ? (
+								<>
+									✨ Try out{" "}
+									<Link
+										to="/hacks"
+										onClick={() => setShowBanner(false)}
+										rel="noopener noreferrer"
+										className="text-yellow-400 underline hover:text-yellow-300"
+									>
+										NextLeet Hacks
+									</Link>
+								</>
+							) : (
+								<>
+									<span>⚠️</span>
+									Missing Out ??
+									<Link
+										to="/upgrade"
+										onClick={() => setShowBanner(false)}
+										rel="noopener noreferrer"
+										className="text-red-400 underline hover:text-red-300"
+									>
+										Renew now
+									</Link>
+								</>
+							)}
 							<button
 								onClick={() => setShowBanner(false)}
 								className="text-gray-400 hover:text-white cursor-pointer"

@@ -39,6 +39,7 @@ export function NavBarNew() {
 		{
 			name: "Code Analyzer",
 			link: "/analyze",
+			isNew: true,
 		},
 		{
 			name: "Company Wise Sheet",
@@ -47,7 +48,6 @@ export function NavBarNew() {
 		{
 			name: "Q's Insights",
 			link: "/insights",
-			isNew: true,
 		},
 	];
 	const mobileLoginItems = [
