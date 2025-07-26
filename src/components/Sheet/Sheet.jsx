@@ -20,9 +20,24 @@ import {
 } from "./Filter";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
 import { NewBadge } from "../NewBadge";
-import { ArrowLeft, ChartLineIcon, RotateCcw, Share2 } from "lucide-react";
+import {
+	ArrowLeft,
+	ChartLineIcon,
+	FileText,
+	RotateCcw,
+	Share2,
+} from "lucide-react";
 import { CustomButton } from "../CustomButton";
 import { toast } from "sonner";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "../ui/dialog";
 export default function Sheet() {
 	const { companyName } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -122,7 +137,7 @@ export default function Sheet() {
 		window.document.title = `${formattedCompanyName} Questions Sheet | NextLeet`;
 	}, []);
 
-	// this one get all done question from indexeddb and then filter it 
+	// this one get all done question from indexeddb and then filter it
 	useEffect(() => {
 		getAllDoneQuestions().then((data) => {
 			getTotalDoneQuestions(formattedCompanyName, data, filter).then(
@@ -132,6 +147,36 @@ export default function Sheet() {
 			);
 		});
 	}, [searchParams]);
+
+	// Notes Dialog
+	useEffect(() => {
+		const stored = localStorage.getItem("questionNotes");
+		if (stored) setNotesMap(JSON.parse(stored));
+	}, []);
+
+	const [notesMap, setNotesMap] = useState({});
+	const [notesDialogOpen, setNotesDialogOpen] = useState(false);
+	const [selectedSlug, setSelectedSlug] = useState(null);
+
+	useEffect(() => {
+		localStorage.setItem("questionNotes", JSON.stringify(notesMap));
+	}, [notesMap]);
+
+	const handleSaveNotes = (notes) => {
+		setNotesMap((prev) => ({
+			...prev,
+			[selectedSlug]: notes,
+		}));
+		setSelectedSlug(null);
+		setNotesDialogOpen(false);
+		toast.success("Notes saved successfully!");
+	};
+
+	const handleOpenNotesDialog = (titleSlug) => {
+		setNotesDialogOpen(true);
+		setSelectedSlug(titleSlug);
+	};
+
 	return (
 		<div className="min-h-screen text-gray-400 pt-20 md:pt-28 px-5 md:px-12 flex flex-col gap-5">
 			{/* heading */}
@@ -180,6 +225,13 @@ export default function Sheet() {
 			</div>
 			{/* Search Input */}
 
+			<NotesDialog
+				open={notesDialogOpen}
+				onOpenChange={setNotesDialogOpen}
+				initialNotes={notesMap[selectedSlug] || ""}
+				onSave={handleSaveNotes}
+			/>
+
 			{/*  Questions List */}
 			<div className="bg-gradient-to-l border border-gray-800 from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 py-5 rounded-md">
 				<div className="flex items-center my-5">
@@ -225,6 +277,10 @@ export default function Sheet() {
 													isDone={allDoneQuestion.includes(
 														question.titleSlug
 													)}
+													handleOpenNotesDialog={
+														handleOpenNotesDialog
+													}
+													notesMap={notesMap}
 												/>
 											)
 										)
@@ -254,6 +310,10 @@ export default function Sheet() {
 												isDone={allDoneQuestion.includes(
 													question.titleSlug
 												)}
+												handleOpenNotesDialog={
+													handleOpenNotesDialog
+												}
+												notesMap={notesMap}
 											/>
 										))
 									) : (
@@ -271,6 +331,7 @@ export default function Sheet() {
 	);
 }
 import { Link } from "react-router-dom";
+import { set } from "react-hook-form";
 function Header({
 	companyName = "google",
 	totalPages = 0,
@@ -343,7 +404,7 @@ function Header({
 								totalPages > 0
 									? (allDoneQuestion.length /
 											(totalPages * 20)) *
-									100
+									  100
 									: 0
 							}%`,
 						}}
@@ -353,3 +414,68 @@ function Header({
 		</div>
 	);
 }
+export const NotesDialog = ({
+	open,
+	onOpenChange,
+	initialNotes = "",
+	onSave,
+}) => {
+	const [notes, setNotes] = useState(initialNotes);
+
+	// when initialNotes changes (prop updates), sync it
+	useEffect(() => {
+		setNotes(initialNotes || "");
+	}, [initialNotes]);
+
+	return (
+		<Dialog open={open} onOpenChange={onOpenChange}>
+			<DialogContent
+				className="
+					bg-gray-900 text-gray-100 border border-gray-700
+					w-[90vw] sm:max-w-[66vw] h-[80vh]
+					flex flex-col
+				"
+			>
+				<DialogHeader>
+					<DialogTitle className="flex items-center gap-2 text-gray-100 text-2xl">
+						<FileText className="w-6 h-6 text-gray-300" />
+						Short Notes
+					</DialogTitle>
+					<DialogDescription className="text-gray-400 text-base">
+						Add or edit your quick notes here.
+					</DialogDescription>
+				</DialogHeader>
+
+				<div className="mt-4 flex-1">
+					<textarea
+						className="
+							w-full h-full resize-none bg-gray-800 text-gray-100 focus:outline-none rounded-md placeholder-gray-500 p-3 border border-gray-700"
+						placeholder="Write your notes here..."
+						value={notes}
+						onChange={(e) => setNotes(e.target.value)}
+					/>
+				</div>
+
+				<DialogFooter className="mt-6 flex justify-end gap-2">
+					<DialogClose asChild>
+						<CustomButton
+							variant="outline"
+							className="bg-gray-800 px-10  border-gray-700 text-gray-200 hover:bg-gray-700"
+						>
+							Cancel
+						</CustomButton>
+					</DialogClose>
+					<CustomButton
+						onClick={() => {
+							onSave(notes);
+							onOpenChange(false);
+						}}
+						className="bg-green-700 px-10  hover:bg-green-600 text-gray-100"
+					>
+						Save
+					</CustomButton>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
+	);
+};

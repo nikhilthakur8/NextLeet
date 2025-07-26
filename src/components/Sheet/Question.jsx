@@ -1,6 +1,7 @@
-import { Check, CheckCircle, ExternalLink, Lock } from "lucide-react";
+import { Check, CheckCircle, File, FileText } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { addDoneQuestion, getDoneQuestion } from "../../IndexedStorage/config";
+import { addDoneQuestion } from "../../IndexedStorage/config";
+
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
@@ -33,7 +34,15 @@ const getTimeFrameLabel = (timeframe) => {
 	return "> 1 Year";
 };
 export const Question = React.memo(
-	({ idx, question, isDone = false, setAllDoneQuestion, isTopicVisible }) => {
+	({
+		idx,
+		question,
+		isDone = false,
+		setAllDoneQuestion,
+		isTopicVisible,
+		handleOpenNotesDialog,
+		notesMap,
+	}) => {
 		const colorMap = [
 			"text-green-500",
 			"text-green-500",
@@ -105,7 +114,7 @@ export const Question = React.memo(
 						</div>
 					)}
 				</div>
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-3">
 					<p className="text-gray-300 font-semibold hidden sm:block">
 						{question.acRate?.toFixed(1) || 0}%
 					</p>
@@ -121,7 +130,6 @@ export const Question = React.memo(
 						onClick={(e) => {
 							addDoneQuestion(question.titleSlug, !isDone);
 							setAllDoneQuestion((prev) => {
-								console.log(1);
 								if (prev.includes(question.titleSlug)) {
 									return prev.filter(
 										(t) => t !== question.titleSlug
@@ -136,6 +144,21 @@ export const Question = React.memo(
 						<CheckCircle
 							className={`${
 								isDone ? "text-green-400" : "text-gray-500"
+							}`}
+						/>
+					</p>
+					<p
+						className="text-gray-600 cursor-pointer hidden sm:block hover:bg-gray-700 p-2 rounded-full"
+						onClick={(e) => {
+							e.stopPropagation();
+							handleOpenNotesDialog(question.titleSlug);
+						}}
+					>
+						<File
+							className={`${
+								notesMap[question.titleSlug]
+									? "text-blue-500"
+									: "text-gray-500"
 							}`}
 						/>
 					</p>
