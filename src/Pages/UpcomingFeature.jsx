@@ -7,6 +7,7 @@ import { Loading } from "../components/Loading";
 import { SubscribeDialog } from "../components/Home/Dialog";
 import { NewBadge } from "../components/NewBadge";
 import { Link } from "react-router-dom";
+import { CustomButton } from "../components/CustomButton";
 export const UpcomingFeature = () => {
 	const [featureList, setFeatureList] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -48,7 +49,7 @@ export const UpcomingFeature = () => {
 	return (
 		<div className="pt-28 md:pt-32 px-5 md:px-10 min-h-screen bg-black text-gray-300 p-4 max-w-4xl mx-auto text-sm md:text-lg">
 			<SubscribeDialog open={isDialogOpen} setOpen={setIsDialogOpen} />
-			<div
+			{/* <div
 				className="text-yellow-500 cursor-pointer"
 				onClick={() => {
 					document.getElementById("feedback").scrollIntoView({
@@ -59,8 +60,8 @@ export const UpcomingFeature = () => {
 				}}
 			>
 				Have a feature in mind ? 💡
-			</div>
-			<div className="mt-5 mx-auto scroll-smooth">
+			</div> */}
+			{/* <div className="mt-5 mx-auto scroll-smooth">
 				<div className="flex items-center justify-between">
 					<h1 className="text-xl md:text-3xl font-bold ">
 						Upcoming Features
@@ -122,8 +123,8 @@ export const UpcomingFeature = () => {
 						</p>
 					</div>
 				)}
-			</div>
-			<div className="px-10 h-0.5 w-full mx-auto bg-gray-600 opacity-30  mt-10"></div>
+			</div> */}
+			{/* <div className="px-10 h-0.5 w-full mx-auto bg-gray-600 opacity-30  mt-10"></div> */}
 			<div className="mx-auto mt-10 flex flex-col">
 				<h1 className="text-xl md:text-3xl font-bold">
 					Any Feature Request
@@ -136,12 +137,12 @@ export const UpcomingFeature = () => {
 					className="w-full h-64 mt-7 resize-none p-4 bg-gray-900 border border-gray-800 rounded-lg text-gray-300 focus:outline-none focus:ring-3 focus:ring-emerald-400"
 					placeholder="Leave your Idea here..."
 				/>
-				<button
-					className="w-fit ml-auto px-5 bg-gray-900 mt-4 cursor-pointer hover:bg-gray-800 text-gray-300 py-2 rounded-lg border border-gray-800"
+				<CustomButton
+					className="w-fit ml-auto px-5 mt-4 "
 					onClick={handleSubmitFeedback}
 				>
 					Submit Request
-				</button>
+				</CustomButton>
 			</div>
 		</div>
 	);

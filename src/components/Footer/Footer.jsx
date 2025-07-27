@@ -75,7 +75,9 @@ export const Footer = () => {
 					</h5>
 					<ul className="space-y-4 text-sm md:text-base text-gray-300">
 						<li>
-							<Link to="/coming-soon">Next Features</Link>
+							<Link to="/coming-soon" className="hover:underline">
+								Feature Request
+							</Link>
 						</li>
 						<li>
 							<Link
@@ -91,10 +93,7 @@ export const Footer = () => {
 							</Link>
 						</li> */}
 						<li>
-							<Link
-								to="/analyze"
-								className="hover:underline"
-							>
+							<Link to="/analyze" className="hover:underline">
 								Analyzer
 							</Link>
 						</li>
@@ -119,7 +118,11 @@ export const Footer = () => {
 							</Link>
 						</li>
 						<li>
-							<Link to="https://x.com/nikhilthakur80" target="_blank" className="hover:underline">
+							<Link
+								to="https://x.com/nikhilthakur80"
+								target="_blank"
+								className="hover:underline"
+							>
 								X
 							</Link>
 						</li>

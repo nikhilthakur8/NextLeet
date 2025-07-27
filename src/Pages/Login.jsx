@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export const Login = () => {
 	const [loading, setLoading] = useState(false);
-
+	const [searchParams] = useSearchParams();
+	const redirectUri = searchParams.get("redirect_uri") || "/";
 	const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 	const REDIRECT_URI = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
 	const SCOPE = "openid email profile";
@@ -13,7 +14,7 @@ export const Login = () => {
 		setLoading(true);
 		const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
 			SCOPE
-		)}&prompt=select_account`;
+		)}&prompt=select_account&state=${encodeURIComponent(redirectUri)}`;
 		window.location.href = authUrl;
 	};
 

@@ -11,7 +11,7 @@ export const AuthCallback = () => {
 
 	useEffect(() => {
 		const code = searchParams.get("code");
-
+		const redirectUri = searchParams.get("state") || "/";
 		if (!code) {
 			toast.error("Invalid authentication code");
 			navigate("/login");
@@ -36,7 +36,7 @@ export const AuthCallback = () => {
 					} else {
 						toast.success("Welcome Back!");
 					}
-					if (response.data) navigate("/");
+					if (response.data) navigate(redirectUri);
 				} else {
 					toast.error("Login failed: " + response.data.message);
 					navigate("/login");
