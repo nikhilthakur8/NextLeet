@@ -60,7 +60,7 @@ export const SearchSheet = () => {
 				</h1>
 			</div>
 			<p className="text-sm md:text-base font-normal text-gray-300 text-center">
-				(Last Updated on 10th July 2025)
+				(Last Updated on 26th July 2025)
 			</p>
 			{favoriteCompanies?.length > 0 && (
 				<div className=" bg-gray-900 p-5 rounded-md relative">
