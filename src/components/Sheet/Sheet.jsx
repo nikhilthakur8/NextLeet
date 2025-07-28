@@ -59,7 +59,8 @@ export default function Sheet() {
 			difficulty: searchParams.get("difficulty") || "",
 			timeFrame: searchParams.get("timeframe") || "",
 			topics: searchParams.get("topics")?.split(",") || "",
-			frequency: searchParams.get("frequency") || "",
+			sortBy: searchParams.get("sortBy") || "frequency",
+			order: searchParams.get("order") || "desc",
 			hotQuestions: searchParams.get("hotQuestions") || "",
 		}),
 		[searchParams]
@@ -80,14 +81,14 @@ export default function Sheet() {
 	const fetchQuestions = (isReset = false) => {
 		getQuestionByCompanyTag(
 			formattedCompanyName,
-			isReset ? 0 : pages * 20,
-			20,
+			isReset ? 0 : pages * 100,
+			100,
 			filter
 		)
 			.then(({ documents, total }) => {
 				setQuestions((prev) => [...prev, ...documents]);
 				setPages((prev) => prev + 1);
-				setTotalPages(total / 20);
+				setTotalPages(total / 100);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -106,8 +107,8 @@ export default function Sheet() {
 		searchQuestion(
 			formattedCompanyName,
 			searchTerm,
-			isReset ? 0 : filteredQuestionPages * 20,
-			20,
+			isReset ? 0 : filteredQuestionPages * 100,
+			100,
 			filter
 		)
 			.then(({ documents, total }) => {
@@ -115,7 +116,7 @@ export default function Sheet() {
 					(isReset ? [] : prev).concat(documents)
 				);
 				setFilteredQuestionPages((prev) => prev + 1);
-				setFilteredQuestionTotalPages(total / 20);
+				setFilteredQuestionTotalPages(total / 100);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -374,8 +375,8 @@ function Header({
 					</span>
 					<span className="text-gray-400 text-base md:text-lg">
 						{searchTerm?.length > 0
-							? filteredQuestionTotalPages * 20
-							: totalPages * 20}{" "}
+							? Math.round(filteredQuestionTotalPages * 100)
+							: Math.round(totalPages * 100)}{" "}
 						Problems
 					</span>
 				</div>
@@ -384,13 +385,13 @@ function Header({
 				<p className="mb-2">
 					Progress
 					<span className="text-base md:text-xl text-gray-300 ml-2">
-						{allDoneQuestion.length}/{totalPages * 20}
+						{allDoneQuestion.length}/{Math.round(totalPages * 100)}
 					</span>
 					<span className="text-sm md:text-lg text-gray-300 ml-1 font-semibold">
 						(
 						{(
 							(allDoneQuestion.length /
-								((totalPages || 1) * 20)) *
+								((totalPages || 1) * 100)) *
 							100
 						).toFixed(1)}
 						%)
@@ -403,7 +404,7 @@ function Header({
 							width: `${
 								totalPages > 0
 									? (allDoneQuestion.length /
-											(totalPages * 20)) *
+											(totalPages * 100)) *
 									  100
 									: 0
 							}%`,

@@ -14,10 +14,19 @@ function queryBuilder(query, filter) {
 	if (filter.topics) {
 		query.push(Query.contains("topics", filter.topics));
 	}
-	if (filter.frequency == "asc") {
-		query.push(Query.orderAsc("cumulativeFrequency"));
-	} else {
-		query.push(Query.orderDesc("cumulativeFrequency"));
+
+	if (filter.sortBy == "frequency") {
+		if (filter.order === "asc") {
+			query.push(Query.orderAsc("cumulativeFrequency"));
+		} else {
+			query.push(Query.orderDesc("cumulativeFrequency"));
+		}
+	} else if (filter.sortBy == "questionId") {
+		if (filter.order === "asc") {
+			query.push(Query.orderAsc("frontendId"));
+		} else {
+			query.push(Query.orderDesc("frontendId"));
+		}
 	}
 	if (filter.hotQuestions) {
 		query.push(Query.equal("timeframe", ["thirtyDays"]));
@@ -69,7 +78,7 @@ export const getAllCompanyNames = async () => {
 		[
 			Query.limit(1000),
 			Query.orderDesc("totalProblems"),
-			Query.select(["name", "totalProblems","websiteLink"]),
+			Query.select(["name", "totalProblems", "websiteLink"]),
 		]
 	);
 	return data.documents;

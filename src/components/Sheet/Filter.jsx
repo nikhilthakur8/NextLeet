@@ -21,6 +21,13 @@ import {
 	ArrowUpWideNarrow,
 	ArrowDownNarrowWide,
 } from "lucide-react";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+
 import { NewBadge } from "../NewBadge.jsx";
 export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 	const handleChange = (value) => {
@@ -46,7 +53,7 @@ export const DifficultyFilter = ({ searchParams, setSearchParams }) => {
 				value={searchParams.get("difficulty") || "all"}
 				onValueChange={handleChange}
 			>
-				<SelectTrigger className="w-full md:w-[250px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer md:text-lg text-sm data-[size=default]:h-auto">
+				<SelectTrigger className="w-full md:w-[150px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer md:text-lg text-sm data-[size=default]:h-auto">
 					<div className="flex items-center gap-2 ">
 						<Gauge className="size-5" />
 						<SelectValue placeholder="Difficulty" />
@@ -148,6 +155,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "../ui/popover";
+import { CustomButton } from "../CustomButton.jsx";
 
 export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 	const [selected, setSelected] = useState([]);
@@ -250,30 +258,70 @@ export const TopicFilter = ({ searchParams, setSearchParams, allTopics }) => {
 };
 
 export const FrequencyFilter = ({ searchParams, setSearchParams }) => {
-	const handleFrequencyChange = () => {
-		const value = searchParams.get("frequency");
+	const sortBy = searchParams.get("sortBy") || "frequency";
+	const order = searchParams.get("order") || "desc";
+
+	const handleSortChange = (newValue) => {
 		setSearchParams((prev) => {
 			const params = new URLSearchParams(prev);
-			if (value === "desc") {
-				params.set("frequency", "asc");
+			const currentSortBy = params.get("sortBy") || "frequency";
+			const currentOrder = params.get("order") || "desc";
+
+			if (currentSortBy === newValue) {
+				// If same value clicked, toggle the order
+				const toggledOrder = currentOrder === "asc" ? "desc" : "asc";
+				params.set("order", toggledOrder);
 			} else {
-				params.set("frequency", "desc");
+				// New field selected, reset to default order
+				params.set("order", "desc");
 			}
+			params.set("sortBy", newValue);
 			return params;
 		});
 	};
+
+	const getIcon = (field) => {
+		if (field !== sortBy) return null;
+		return order === "asc" ? (
+			<ArrowDownNarrowWide className="size-5" />
+		) : (
+			<ArrowUpWideNarrow className="size-5" />
+		);
+	};
+
+	const renderLabel = () => {
+		return ` ${sortBy === "frequency" ? "Frequency" : "Question ID"}`;
+	};
+
+	const items = [
+		{ value: "frequency", label: "Frequency" },
+		{ value: "questionId", label: "Question ID" },
+	];
+
 	return (
-		<div
-			className="bg-gray-900 px-3 py-2 text-sm md:text-lg cursor-pointer text-gray-300 rounded-md border border-gray-700"
-			onClick={() => handleFrequencyChange()}
-		>
-			{searchParams.get("frequency") === "asc" ? (
-				<ArrowDownNarrowWide className="inline size-5  mr-2" />
-			) : (
-				<ArrowUpWideNarrow className="inline size-5 mr-2" />
-			)}
-			Frequency
-		</div>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<CustomButton
+					className="w-full md:w-[200px] bg-gray-900 border text-gray-200 border-gray-700 cursor-pointer relative justify-start md:text-lg text-sm data-[size=default]:h-auto space-x-3"
+				>
+					{getIcon(sortBy)}
+					<span>{renderLabel()}</span>
+					<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
+				</CustomButton>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="bg-gray-950 w-full text-gray-300 border-gray-800 rounded-md shadow-lg space-y-2">
+				{items.map((item) => (
+					<DropdownMenuItem
+						key={item.value}
+						onClick={() => handleSortChange(item.value)}
+						className={`w-full md:w-[200px] justify-between data-[highlighted]:bg-gray-800 md:text-lg text-sm`}
+					>
+						<span>{item.label}</span>
+						{getIcon(item.value)}
+					</DropdownMenuItem>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 };
 
@@ -323,7 +371,6 @@ export const HotTopicsFilter = ({ searchParams, setSearchParams }) => {
 			}}
 		>
 			<p>🔥 Hot Questions</p>
-			<NewBadge className={"text-xs md:text-xs"}>New</NewBadge>
 		</div>
 	);
 };
