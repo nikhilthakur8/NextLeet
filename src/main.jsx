@@ -89,6 +89,10 @@ const router = createBrowserRouter(
 					path="/auth/google/callback"
 					element={<AuthCallback />}
 				/>
+				<Route
+					path="/pro"
+					element={<Navigate to="/upgrade" replace />}
+				/>
 				<Route path="/:id" element={<QuestionRedirect />} />
 			</Route>
 		</>
