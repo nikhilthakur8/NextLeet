@@ -38,6 +38,7 @@ import { Analytics } from "@vercel/analytics/react";
 // import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
+// import { Buddy } from "./Pages/Buddy/Buddy.jsx";
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 
 const router = createBrowserRouter(
@@ -49,6 +50,7 @@ const router = createBrowserRouter(
 				<Route path="/search/sheet" element={<SearchSheet />} />
 				<Route element={<UserLayout />}>
 					<Route path="/profile" element={<Profile />} />
+					{/* <Route path="/find-buddy" element={<Buddy />} /> */}
 				</Route>
 				<Route element={<ProtectedLayout />}>
 					<Route path="/analyze" element={<CodeAnalyzer />} />
