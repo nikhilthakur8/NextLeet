@@ -32,7 +32,7 @@ const languages = [
 	{ label: "TypeScript", id: "typescript" },
 ];
 
-export const RegisterBuddy = () => {
+export default function RegisterBuddy() {
 	const [searchParams] = useSearchParams();
 	const editable = searchParams.get("edit") === "true";
 	const {
@@ -638,7 +638,7 @@ export const RegisterBuddy = () => {
 			</motion.div>
 		</div>
 	);
-};
+}
 
 // Input Component
 function Input({ error, placeholder, ...props }) {

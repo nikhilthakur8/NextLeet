@@ -200,7 +200,7 @@ const BuddyCard = ({ buddy }) => {
 };
 
 // Main Page
-export const Buddy = () => {
+export default function Buddy() {
 	const [allbuddies, setAllBuddies] = useState([]);
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -276,4 +276,4 @@ export const Buddy = () => {
 			</div>
 		</div>
 	);
-};
+}
