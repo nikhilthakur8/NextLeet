@@ -202,8 +202,9 @@ const BuddyCard = ({ buddy }) => {
 // Main Page
 export const Buddy = () => {
 	const [allbuddies, setAllBuddies] = useState([]);
-
 	useEffect(() => {
+		window.scrollTo(0, 0);
+		document.title = "Find Your Coding Buddy | NextLeet";
 		axios
 			.get(`${import.meta.env.VITE_BACKEND_URL}/api/getAllBuddies`)
 			.then((res) => {

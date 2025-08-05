@@ -92,6 +92,8 @@ export const RegisterBuddy = () => {
 	const [searchParams] = useSearchParams();
 	const editable = searchParams.get("edit") === "true";
 	useEffect(() => {
+		window.scrollTo(0, 0);
+		window.document.title = "Register Buddy | NextLeet";
 		axios
 			.get(`${import.meta.env.VITE_BACKEND_URL}/api/user/buddy-profile`, {
 				withCredentials: true,

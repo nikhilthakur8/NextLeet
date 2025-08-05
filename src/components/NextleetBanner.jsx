@@ -29,14 +29,14 @@ export default function NextleetBanner() {
 					<div className="relative bg-gray-900 text-white shadow-lg overflow-hidden border border-gray-700 w-fit px-5 py-2 rounded-full">
 						{/* Content */}
 						<span className="text-sm md:text-base flex items-center gap-2">
-							✨ Try out{" "}
+							✨ Try Out{" "}
 							<Link
-								to="/hacks"
+								to="/register-buddy"
 								onClick={() => setShowBanner(false)}
 								rel="noopener noreferrer"
-								className="text-yellow-400 underline hover:text-yellow-300"
+								className="text-purple-400 underline hover:text-purple-300"
 							>
-								NextLeet Hacks
+								DSA Buddy
 							</Link>
 							<button
 								onClick={() => setShowBanner(false)}
