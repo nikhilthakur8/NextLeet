@@ -38,9 +38,11 @@ import { Analytics } from "@vercel/analytics/react";
 // import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
+
+// heavy components
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
-import { Buddy } from "./Pages/Buddy.jsx";
-import { RegisterBuddy } from "./Pages/RegisterBuddy.jsx";
+const Buddy = lazy(() => import("./Pages/Buddy.jsx"));
+const RegisterBuddy = lazy(() => import("./Pages/RegisterBuddy.jsx"));
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<>
