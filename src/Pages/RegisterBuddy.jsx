@@ -33,6 +33,8 @@ const languages = [
 ];
 
 export const RegisterBuddy = () => {
+	const [searchParams] = useSearchParams();
+	const editable = searchParams.get("edit") === "true";
 	const {
 		register,
 		handleSubmit,
@@ -79,6 +81,11 @@ export const RegisterBuddy = () => {
 				}
 			)
 			.then((res) => {
+				if (editable) {
+					toast.success("Buddy profile updated successfully!");
+				} else {
+					toast.success("Buddy profile created successfully!");
+				}
 				toast.success("Registration successful!");
 				navigate("/find-buddy");
 			})
@@ -89,8 +96,7 @@ export const RegisterBuddy = () => {
 				);
 			});
 	};
-	const [searchParams] = useSearchParams();
-	const editable = searchParams.get("edit") === "true";
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		window.document.title = "Register Buddy | NextLeet";
