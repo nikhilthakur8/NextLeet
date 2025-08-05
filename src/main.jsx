@@ -35,7 +35,6 @@ import { TermsOfService } from "./Pages/TermsOfService.jsx";
 import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
 import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
-// import { CustomizedSheet } from "./components/CustomizedSheet/CustomizedSheet.jsx";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
 
