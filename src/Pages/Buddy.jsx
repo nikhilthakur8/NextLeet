@@ -246,12 +246,12 @@ export default function Buddy() {
 	return (
 		<div className="min-h-screen px-5 md:px-16 pt-32 pb-20 flex flex-col  gap-y-5">
 			<div className="max-w-7xl mx-auto text-center ">
-				<h1 className="text-5xl font-extrabold text-white mb-3 flex space-x-2 items-start">
+				<h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 flex space-x-2 items-start justify-center whitespace-nowrap">
 					<span>Find Your</span>
 					<span className="bg-gradient-to-r pb-2 from-purple-400 to-purple-500 text-transparent bg-clip-text">
 						Coding Buddy
 					</span>
-					<Badge className="text-sm font-bold bg-yellow-500 text-black">
+					<Badge className="text-xs md:text-sm font-bold bg-yellow-500 text-black">
 						BETA
 					</Badge>
 				</h1>
