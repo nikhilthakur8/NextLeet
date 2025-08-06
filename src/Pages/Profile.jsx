@@ -67,7 +67,10 @@ export const Profile = () => {
 					className={`ring-4 ring-offset-4 ring-offset-gray-900 ${statusStyle.img} rounded-full overflow-hidden transition-transform hover:scale-105`}
 				>
 					<img
-						src={user?.picture?.split("=")[0]}
+						src={
+							user?.picture ||
+							`https://api.dicebear.com/9.x/pixel-art/svg?seed=${user?.name}`
+						}
 						alt="Profile"
 						className="w-20 h-20 sm:w-28 sm:h-28 object-cover"
 					/>
@@ -120,7 +123,9 @@ export const Profile = () => {
 					)}
 					{subscription?.source === "international" && (
 						<div>
-							<p className="text-xs text-center mb-2 text-gray-400">Currently Free for International Users</p>
+							<p className="text-xs text-center mb-2 text-gray-400">
+								Currently Free for International Users
+							</p>
 							<CustomButton
 								to="https://github.com/sponsors/nikhilthakur8"
 								target="_blank"
