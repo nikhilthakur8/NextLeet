@@ -1,9 +1,7 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
-import { Button } from "../ui/moving-border";
-import { Info } from "lucide-react";
-import { Tweet } from "react-tweet";
 import promo from "../../assets/promo.png";
+import { CustomButton } from "../CustomButton";
 export const NewPromotion = () => {
 	const nextleetLevel = [
 		{
@@ -33,9 +31,9 @@ export const NewPromotion = () => {
 		},
 	];
 	return (
-		<div className="text-white text-center mx-5 md:mx-10 rounded-xl py-8 md:py-12 gap-2 flex flex-col items-center bg-gray-950 gap-y-5 px-5">
-			<p className="text-xl md:text-5xl font-extrabold sm:font-bold tracking-wider uppercase bg-linear-65 from-purple-500 via-indigo-500 to-pink-500 text-transparent bg-clip-text">
-				NextLeet's Difficult Tag
+		<div className="py-12 mx-5 px-5 flex flex-col items-center space-y-6 md:mx-14 text-center rounded-2xl bg-gray-900/40 shadow-2xl backdrop-blur-lg ">
+			<p className="text-3xl md:text-5xl font-extrabold sm:font-bold tracking-wider pb-2 bg-linear-65 from-purple-500 via-indigo-500 to-pink-500 text-transparent bg-clip-text">
+				NEXTLEET'S TAG
 			</p>
 			<div className="flex gap-2 flex-wrap justify-center">
 				{nextleetLevel.map((level) => (
@@ -46,12 +44,18 @@ export const NewPromotion = () => {
 					</span>
 				))}
 			</div>
-			<div className="w-full md:w-3/5 mx-auto text-left">
-				<img src={promo} alt="" />
-			</div>
-			<Button className="cursor-pointer dark:bg-neutral-950/[0.8] text-neutral-400 border-neutral-800  text-base md:text-lg "  as={Link} to="/insights">
-				Try Now
-			</Button>
+			<img
+				src={promo}
+				alt="Code Analyzer Preview"
+				className="rounded-xl overflow-hidden border border-gray-800 shadow-lg w-full md:w-3/6 object-cover hover:scale-[1.04] transition-transform duration-300"
+			/>
+			<CustomButton
+				className="!rounded-full mt-5 !text-sm md:!text-lg !bg-blue-500/30 border !border-blue-500/40 hover:!bg-blue-500/50 px-5 hover:!border-blue-500/60 transition-all duration-300 shadow-md hover:shadow-lg"
+				Tag={Link}
+				to="/insights"
+			>
+				Explore Insights
+			</CustomButton>
 		</div>
 	);
 };

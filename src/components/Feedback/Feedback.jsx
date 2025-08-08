@@ -61,7 +61,7 @@ export const Feedback = () => {
 		};
 	}, []);
 	return (
-		<div className="hide-scrollbar flex items-center justify-center flex-col bottom-5 md:bottom-10 md:space-y-4 space-y-1 right-5 md:right-10 fixed">
+		<div className="hide-scrollbar flex items-center justify-center flex-col bottom-5 md:bottom-10 md:space-y-4 space-y-1 right-5 md:right-10 fixed z-50">
 			<div
 				className="rounded-full sm:ml-auto hidden p-1 animate-bounce [animation-duration:2s] md:p-2 bg-gray-900 border border-gray-800 cursor-pointer"
 				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -76,7 +76,7 @@ export const Feedback = () => {
 					<div className="bg-gray-900  flex p-2 md:px-4 md:py-2 text-sm rounded-full cursor-pointer justify-center items-center text-white border border-gray-700">
 						<MessageSquareMore className=" text-white" />{" "}
 						<p className="hidden sm:inline-block ml-2">
-							Any Feedback
+							Feature Request
 						</p>
 					</div>
 				</DropdownMenuTrigger>
@@ -86,7 +86,7 @@ export const Feedback = () => {
 					}
 					side="top"
 				>
-					<DropdownMenuLabel>Feedback</DropdownMenuLabel>
+					<DropdownMenuLabel>Feature Request</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<div>
 						<input
@@ -114,7 +114,7 @@ export const Feedback = () => {
 								})
 							}
 							className="w-full h-32 p-2 resize-none bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-3 focus:ring-emerald-600"
-							placeholder="Leave your feedback here..."
+							placeholder="Describe your feature request here..."
 						></textarea>
 					</div>
 					<DropdownMenuSeparator />
@@ -124,7 +124,7 @@ export const Feedback = () => {
 								className="ml-auto px-4 cursor-pointer py-2 border border-gray-800 bg-gray-900 rounded-md"
 								onClick={feedbackHandler}
 							>
-								Submit Feedback
+								Submit Request
 							</button>
 						</DropdownMenuItem>
 					</DropdownMenuGroup>

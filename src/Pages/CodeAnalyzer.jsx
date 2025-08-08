@@ -115,13 +115,9 @@ export default function CodeAnalyzer() {
 	return (
 		<div className="p-4 pt-28 md:pt-32 px-5 md:px-20 min-h-screen text-sm md:text-lg max-w-5xl mx-auto text-gray-300">
 			<div className="flex flex-col gap-y-3">
-				<h1 className="text-3xl bg-gradient-to-l from-blue-500 to-cyan-500 text-transparent bg-clip-text text-center md:text-4xl font-bold pb-2">
+				<h1 className="text-3xl md:text-5xl bg-gradient-to-l from-blue-500 to-cyan-500 text-transparent bg-clip-text text-center font-bold pb-2">
 					Code Analyzer <span className="text-yellow-500">✨</span>
 				</h1>
-				<p className="text-center text-sm md:text-lg">
-					⚡️ Blazing fast: Delivers responses in just 300ms — faster
-					than your average ChatGPT!
-				</p>
 
 				<div className="flex items-center justify-end my-2">
 					<Select
