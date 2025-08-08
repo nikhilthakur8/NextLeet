@@ -4,7 +4,7 @@ import { NewBadge } from "../NewBadge.jsx";
 import { Link } from "react-router-dom";
 export const Hero = () => {
 	return (
-		<BackgroundLines className="min-h-svh bg-black flex items-center justify-center flex-col px-5 md:px-10">
+		<div className="min-h-svh bg-black flex items-center justify-center flex-col px-5 md:px-10">
 			<div className="md:text-5xl xl:text-6xl text-4xl font-bold bg-gradient-to-t pb-4 from-neutral-500 to-neutral-200 bg-clip-text text-transparent text-center">
 				NextLeet. Faster. Smarter. Sharper.
 			</div>
@@ -30,6 +30,6 @@ export const Hero = () => {
 					Get POTD Now
 				</Button>
 			</Link>
-		</BackgroundLines>
+		</div>
 	);
 };

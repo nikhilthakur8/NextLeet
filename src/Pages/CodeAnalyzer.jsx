@@ -27,6 +27,11 @@ import {
 import { CustomButton } from "../components/CustomButton";
 const supportedModels = [
 	{
+		id: "openai/gpt-oss-120b",
+		shortName: "GPT-OSS 120B",
+		label: "Experimental",
+	},
+	{
 		id: "llama3-70b-8192",
 		shortName: "LLaMA 3 70B",
 		label: "Recommended",
@@ -34,6 +39,7 @@ const supportedModels = [
 	{
 		id: "deepseek-r1-distill-llama-70b",
 		shortName: "DeepSeek 70B",
+		label:"Thinking Ability"
 	},
 	{
 		id: "meta-llama/llama-4-scout-17b-16e-instruct",
@@ -50,7 +56,7 @@ const supportedModels = [
 ];
 export default function CodeAnalyzer() {
 	const [code, setCode] = useState("");
-	const [selectedModel, setSelectedModel] = useState("llama3-70b-8192");
+	const [selectedModel, setSelectedModel] = useState("openai/gpt-oss-120b");
 	const [result, setResult] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const analysisRef = useRef(null);
@@ -118,7 +124,10 @@ export default function CodeAnalyzer() {
 				</p>
 
 				<div className="flex items-center justify-end my-2">
-					<Select defaultValue="llama3-70b-8192" onValueChange={setSelectedModel}>
+					<Select
+						defaultValue={selectedModel}
+						onValueChange={setSelectedModel}
+					>
 						<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none px-5 min-w-64">
 							<SelectValue
 								placeholder="Select AI Model"
