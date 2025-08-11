@@ -109,13 +109,13 @@ export default function Upgrade() {
 					<p className="text-zinc-300 mb-4 text-base sm:text-lg font-medium">
 						<span className="text-white">Get Pro for just</span>{" "}
 						<span className="text-yellow-400 font-bold text-xl sm:text-3xl">
-							₹29<span className="text-sm">/month</span>
+							₹19<span className="text-sm">/month</span>
 						</span>{" "}
 						<span className="text-zinc-400 text-lg font-normal">
 							<span className="line-through mr-2">₹59/month</span>
 						</span>
 						<p className="text-xs sm:text-sm text-zinc-400 mt-1">
-							Note: You will be charged ₹29 only once. No
+							Note: You will be charged ₹19 only once. No
 							auto-renewal.
 						</p>
 					</p>
@@ -165,7 +165,7 @@ export default function Upgrade() {
 									</DialogTitle>
 								</div>
 								<p className="mt-2 text-sm sm:text-base text-zinc-400">
-									Unlock premium features for just ₹29/month
+									Unlock premium features for just ₹19/month
 								</p>
 							</DialogHeader>
 
@@ -198,7 +198,7 @@ export default function Upgrade() {
 									</p>
 									<ul className="list-disc ml-5 mt-2 space-y-2 text-xs sm:text-sm text-zinc-400">
 										<li>
-											Flat ₹29/month. No auto-renewal.
+											Flat ₹19/month. No auto-renewal.
 											Manual repurchase needed.
 										</li>
 										<li>

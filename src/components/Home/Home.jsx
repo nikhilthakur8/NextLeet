@@ -12,7 +12,7 @@ export const Home = () => {
 		<div className="flex flex-col space-y-10 md:space-y-20">
 			<Hero />
 			<NewPromotion />
-			<CodeAnalyzerFeature />
+			{/* <CodeAnalyzerFeature /> */}
 			<CompanyWiseSheetFeature />
 			<OurPlatforms />
 		</div>
