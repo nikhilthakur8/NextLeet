@@ -37,6 +37,7 @@ import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
+import { SystemDesign } from "./Pages/SystemDesign/SystemDesign.jsx";
 
 // heavy components
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
@@ -65,6 +66,10 @@ const router = createBrowserRouter(
 					<Route
 						path="/leetcode-challenges"
 						element={<LeetcodeChallenges />}
+					/>
+					<Route
+						path="/system-design"
+						element={<SystemDesign />}
 					/>
 					<Route
 						path="/problems/:titleSlug/*"

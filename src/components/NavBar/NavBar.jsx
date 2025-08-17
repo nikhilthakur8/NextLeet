@@ -33,13 +33,13 @@ export function NavBarNew() {
 			link: "/",
 		},
 		{
-			name: "LC Challenges",
-			link: "/leetcode-challenges",
+			name: "System Design",
+			link: "/system-design",
+			isNew: true,
 		},
 		{
 			name: "Code Analyzer",
 			link: "/analyze",
-			isNew: true,
 		},
 		{
 			name: "Company Wise Sheet",
@@ -66,13 +66,13 @@ export function NavBarNew() {
 			link: "/profile",
 		},
 		{
-			name: "LC Challenges",
-			link: "/leetcode-challenges",
+			name: "System Design",
+			link: "/system-design",
+			isNew: true,
 		},
 		{
 			name: "Code Analyzer",
 			link: "/analyze",
-			isNew: true,
 		},
 		{
 			name: "Company Wise Sheet",
