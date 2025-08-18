@@ -50,7 +50,6 @@ export const Input = ({
 			{errors && errors.message && (
 				<p className="text-red-700 text-sm mt-1">{errors.message}</p>
 			)}
-			
 		</div>
 	);
 };
