@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	SidebarProvider,
 	Sidebar,
@@ -24,8 +24,8 @@ import "./SystemDesign.css";
 export const SystemDesign = () => {
 	const [chapters, setChapters] = useState([]);
 	const [activeChapter, setActiveChapter] = useState(null);
-	const [openChapter, setOpenChapter] = useState(null);
 	const [activeSubSection, setActiveSubSection] = useState(null);
+
 	useEffect(() => {
 		const fetchChapters = async () => {
 			try {
@@ -33,19 +33,24 @@ export const SystemDesign = () => {
 					`${import.meta.env.VITE_BACKEND_URL}/api/system-design`
 				);
 				setChapters(response.data);
+				setActiveChapter(0);
 			} catch (error) {
 				console.error("Error fetching chapters:", error);
 			}
 		};
 		fetchChapters();
 	}, []);
+
+	// Toggle chapter (open + set active content)
 	const toggleChapter = (idx) => {
-		setOpenChapter((prev) => (prev === idx ? null : idx)); // Close if same, open new
-		setActiveChapter(idx);
+		setActiveChapter((prev) => (prev === idx ? null : idx));
 		const mainDocument = document.querySelector("main");
-		mainDocument.scrollTo({ top: 0, behavior: "smooth" });
+		if (mainDocument) {
+			mainDocument.scrollTo({ top: 0, behavior: "smooth" });
+		}
 	};
 
+	// Scroll to section and make chapter active
 	const scrollToSection = (slug, chapterIdx) => {
 		const container = document.querySelector("main");
 		const sectionEl = document.getElementById(slug);
@@ -54,7 +59,6 @@ export const SystemDesign = () => {
 			const topPos = sectionEl.offsetTop - container.offsetTop;
 			container.scrollTo({ top: topPos, behavior: "smooth" });
 			setActiveChapter(chapterIdx);
-			setOpenChapter(chapterIdx);
 		}
 	};
 
@@ -64,10 +68,10 @@ export const SystemDesign = () => {
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-black h-[80vh] w-screen sm:w-96  text-neutral-200 border-none transition-all duration-300"
+					className="relative bg-black h-[80vh] w-screen sm:w-96 text-neutral-200 border-none transition-all duration-300"
 					collapsible="icon"
 				>
-					<SidebarContent className="gap-0 bg-black border-t border-r   border-neutral-900">
+					<SidebarContent className="gap-0 bg-black border-t border-r border-neutral-900">
 						<SidebarGroup className="group-data-[collapsible=icon]:hidden">
 							<SidebarMenu>
 								{chapters.map((chapter, idx) => (
@@ -77,23 +81,22 @@ export const SystemDesign = () => {
 									>
 										<Collapsible
 											className="group/collapsible"
-											open={openChapter === idx}
+											open={activeChapter === idx} // ✅ only one state
 										>
 											<CollapsibleTrigger asChild>
-												{/* Chapter Title */}
 												<SidebarMenuButton
 													onClick={() =>
 														toggleChapter(idx)
 													}
 													className="flex text-white items-center justify-between gap-2 h-auto text-base p-3 hover:bg-neutral-900"
 												>
-													<div className="flex  gap-2">
+													<div className="flex gap-2">
 														<span className="font-bold">
 															{idx + 1}.{" "}
 														</span>
 														{chapter.title}
 													</div>
-													{openChapter === idx ? (
+													{activeChapter === idx ? (
 														<ChevronUp size={16} />
 													) : (
 														<ChevronDown
