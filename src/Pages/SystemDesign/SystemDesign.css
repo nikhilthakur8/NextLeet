@@ -1,9 +1,9 @@
-/* Dark Neon Theme for System Design page */
+/* Dark Neon Theme for System Design page - Mobile Responsive */
 
-/* Chapter container with glassmorphism */
+/* Base styles with mobile-first approach */
 .chapter {
 	margin: 0;
-	padding: 2rem;
+	padding: 1rem;
 	background: rgba(10, 10, 15, 0.85);
 	backdrop-filter: blur(12px);
 	border: 1px solid rgba(80, 80, 100, 0.3);
@@ -13,9 +13,11 @@
 	line-height: 1.75;
 	color: #e5e7eb;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
-/* Typography hierarchy with teal-violet gradient */
+/* Typography hierarchy with teal-violet gradient - Mobile optimized */
 .chapter h1,
 .chapter h2,
 .chapter h3,
@@ -25,103 +27,129 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	letter-spacing: -0.025em;
+	word-wrap: break-word;
+	hyphens: auto;
 }
 
 .chapter h1 {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: 700;
-	margin-bottom: 1.5rem;
+	margin-bottom: 1rem;
+	line-height: 1.2;
 }
 .chapter h2 {
-	font-size: 1.875rem;
-	font-weight: 600;
-	margin: 1rem 0 1rem 0;
-}
-.chapter h3 {
-	font-size: 1.5rem;
+	font-size: 1.375rem;
 	font-weight: 600;
 	margin: 1rem 0 0.75rem 0;
+	line-height: 1.3;
+}
+.chapter h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin: 0.75rem 0 0.5rem 0;
+	line-height: 1.3;
 }
 .chapter h4 {
-	font-size: 1.25rem;
+	font-size: 1.125rem;
 	font-weight: 500;
-	margin: 1rem 0 0.5rem 0;
+	margin: 0.75rem 0 0.5rem 0;
+	line-height: 1.4;
 }
 
-/* Clean paragraphs */
+/* Clean paragraphs - Mobile optimized */
 .chapter p {
-	margin: 1rem 0;
-	font-size: 1rem;
+	margin: 0.75rem 0;
+	font-size: 0.9rem;
 	color: #cbd5e1;
 	font-weight: 400;
+	word-wrap: break-word;
+	hyphens: auto;
 }
 
-/* Minimal lists */
+/* Minimal lists - Mobile friendly spacing */
 .chapter ul,
 .chapter ol {
-	margin: 1.25rem 0;
-	padding-left: 1.5rem;
+	margin: 1rem 0;
+	padding-left: 1.25rem;
 	color: #cbd5e1;
+}
+
+.chapter ul {
 	list-style: disc;
+}
+
+.chapter ol {
+	list-style: decimal;
 }
 
 .chapter li {
-	margin: 0.5rem 0;
-	line-height: 1.6;
-	list-style: disc;
+	margin: 0.375rem 0;
+	line-height: 1.5;
+	word-wrap: break-word;
+	font-size: 0.9rem;
 }
 
-.chapter li::marker {
+.chapter ul li::marker {
 	color: #06b6d4;
 }
 
-/* Modern code blocks */
+.chapter ol li::marker {
+	color: #9333ea;
+	font-weight: 600;
+}
+
+/* Modern code blocks - Mobile responsive */
 .chapter pre {
 	background: linear-gradient(135deg, #0f172a, #0a0a0f);
-	padding: 1.5rem;
-	border-radius: 12px;
+	padding: 1rem;
+	border-radius: 8px;
 	overflow-x: auto;
 	font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	color: #f9fafb;
 	border: 1px solid rgba(80, 80, 100, 0.5);
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-	margin: 1.5rem 0;
+	margin: 1rem 0;
+	white-space: pre;
+	-webkit-overflow-scrolling: touch;
 }
 
 .chapter code {
 	background: rgba(45, 55, 72, 0.8);
-	padding: 0.25rem 0.5rem;
-	border-radius: 6px;
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
 	font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	color: #06b6d4;
 	border: 1px solid rgba(80, 80, 100, 0.3);
+	white-space: pre-wrap;
+	word-break: break-all;
 }
 
-/* Elegant blockquotes */
+/* Elegant blockquotes - Mobile responsive */
 .chapter blockquote {
-	margin: 1.5rem 0;
-	padding: 1.25rem 1.5rem;
-	border-left: 4px solid #06b6d4;
+	margin: 1rem 0;
+	padding: 1rem;
+	border-left: 3px solid #06b6d4;
 	background: linear-gradient(
 		135deg,
 		rgba(6, 182, 212, 0.08),
 		rgba(147, 51, 234, 0.05)
 	);
 	color: #e2e8f0;
-	border-radius: 8px;
+	border-radius: 6px;
 	font-style: italic;
 	position: relative;
+	font-size: 0.9rem;
 }
 
 .chapter blockquote::before {
 	content: '"';
-	font-size: 3rem;
+	font-size: 2rem;
 	color: #06b6d4;
 	position: absolute;
-	top: -0.5rem;
-	left: 1rem;
+	top: -0.25rem;
+	left: 0.75rem;
 	opacity: 0.25;
 }
 
@@ -129,10 +157,10 @@
 .chapter img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 12px;
-	margin: 2rem auto;
+	border-radius: 8px;
+	margin: 1.5rem auto;
 	display: block;
-	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 	border: 1px solid rgba(80, 80, 100, 0.3);
 }
 
@@ -143,38 +171,56 @@
 	border-bottom: 1px solid transparent;
 	transition: all 0.2s ease;
 	font-weight: 500;
+	word-break: break-word;
 }
 
-.chapter a:hover {
+.chapter a:hover,
+.chapter a:focus {
 	color: #9333ea;
 	border-bottom-color: #9333ea;
 	text-decoration: none;
 }
 
-/* Clean tables */
+/* Clean tables - Mobile responsive with horizontal scroll */
 .chapter table {
 	width: 100%;
 	border-collapse: collapse;
-	margin: 2rem 0;
+	margin: 1.5rem 0;
 	background: rgba(10, 10, 15, 0.7);
-	border-radius: 12px;
+	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+	display: block;
+	overflow-x: auto;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
+.chapter tbody,
+.chapter thead,
+.chapter tfoot {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	min-width: 300px;
 }
 
 .chapter th,
 .chapter td {
-	padding: 1rem;
+	padding: 0.75rem;
 	text-align: left;
 	border-bottom: 1px solid rgba(80, 80, 100, 0.3);
-	font-size: 0.9rem;
+	font-size: 0.8rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .chapter th {
 	background: rgba(6, 182, 212, 0.08);
 	color: #06b6d4;
 	font-weight: 600;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 }
 
 .chapter td {
@@ -195,10 +241,10 @@
 	scrollbar-width: none;
 }
 
-/* Ultra-slim custom scrollbars */
+/* Ultra-slim custom scrollbars - Mobile friendly */
 .chapter-body::-webkit-scrollbar {
-	width: 4px;
-	height: 4px;
+	width: 3px;
+	height: 3px;
 }
 
 .chapter-body::-webkit-scrollbar-track {
@@ -218,7 +264,7 @@
 
 /* Firefox scrollbar */
 .chapter-body {
-	scrollbar-width: 2px;
+	scrollbar-width: thin;
 	scrollbar-color: #06b6d4 rgba(10, 10, 15, 0.5);
 }
 
@@ -244,4 +290,234 @@
 .chapter * {
 	transition: color 0.2s ease, background-color 0.2s ease,
 		border-color 0.2s ease;
+}
+
+/* Tablet Styles (768px and up) */
+@media (min-width: 768px) {
+	.chapter {
+		padding: 1.5rem;
+		border-radius: 12px;
+	}
+
+	.chapter h1 {
+		font-size: 1.75rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.chapter h2 {
+		font-size: 1.5rem;
+		margin: 1rem 0 0.875rem 0;
+	}
+
+	.chapter h3 {
+		font-size: 1.375rem;
+		margin: 0.875rem 0 0.75rem 0;
+	}
+
+	.chapter h4 {
+		font-size: 1.1875rem;
+		margin: 0.875rem 0 0.5rem 0;
+	}
+
+	.chapter p {
+		font-size: 0.95rem;
+		margin: 0.875rem 0;
+	}
+
+	.chapter pre {
+		padding: 1.25rem;
+		font-size: 0.85rem;
+		border-radius: 10px;
+		margin: 1.25rem 0;
+	}
+
+	.chapter code {
+		font-size: 0.85rem;
+		padding: 0.25rem 0.45rem;
+	}
+
+	.chapter blockquote {
+		padding: 1.125rem;
+		margin: 1.25rem 0;
+		border-left: 4px solid #06b6d4;
+		border-radius: 8px;
+		font-size: 0.95rem;
+	}
+
+	.chapter blockquote::before {
+		font-size: 2.5rem;
+		top: -0.375rem;
+		left: 1rem;
+	}
+
+	.chapter table {
+		display: table;
+		border-radius: 10px;
+		margin: 1.75rem 0;
+	}
+
+	.chapter tbody,
+	.chapter thead,
+	.chapter tfoot {
+		display: table-row-group;
+		width: auto;
+		table-layout: auto;
+		min-width: auto;
+	}
+
+	.chapter th,
+	.chapter td {
+		padding: 0.875rem;
+		font-size: 0.875rem;
+		white-space: normal;
+	}
+
+	.chapter img {
+		border-radius: 10px;
+		margin: 1.75rem auto;
+	}
+}
+
+/* Desktop Styles (1024px and up) */
+@media (min-width: 1024px) {
+	.chapter {
+		padding: 2rem;
+		border-radius: 12px;
+	}
+
+	.chapter h1 {
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.chapter h2 {
+		font-size: 1.875rem;
+		margin: 1rem 0 1rem 0;
+	}
+
+	.chapter h3 {
+		font-size: 1.5rem;
+		margin: 1rem 0 0.75rem 0;
+	}
+
+	.chapter h4 {
+		font-size: 1.25rem;
+		margin: 1rem 0 0.5rem 0;
+	}
+
+	.chapter p {
+		font-size: 1rem;
+		margin: 1rem 0;
+	}
+
+	.chapter ul,
+	.chapter ol {
+		margin: 1.25rem 0;
+		padding-left: 1.5rem;
+	}
+
+	.chapter li {
+		margin: 0.5rem 0;
+		line-height: 1.6;
+		font-size: 0.95rem;
+	}
+
+	.chapter pre {
+		padding: 1.5rem;
+		font-size: 0.9rem;
+		border-radius: 12px;
+		margin: 1.5rem 0;
+	}
+
+	.chapter code {
+		font-size: 0.9rem;
+		padding: 0.25rem 0.5rem;
+		border-radius: 6px;
+	}
+
+	.chapter blockquote {
+		padding: 1.25rem 1.5rem;
+		margin: 1.5rem 0;
+		border-radius: 8px;
+		font-size: 1rem;
+	}
+
+	.chapter blockquote::before {
+		font-size: 3rem;
+		top: -0.5rem;
+		left: 1rem;
+	}
+
+	.chapter table {
+		margin: 2rem 0;
+		border-radius: 12px;
+	}
+
+	.chapter th,
+	.chapter td {
+		padding: 1rem;
+		font-size: 0.9rem;
+	}
+
+	.chapter img {
+		border-radius: 12px;
+		margin: 2rem auto;
+	}
+
+	.chapter-body::-webkit-scrollbar {
+		width: 4px;
+		height: 4px;
+	}
+}
+
+/* Large Desktop Styles (1280px and up) */
+@media (min-width: 1280px) {
+	.chapter {
+		max-width: 100%;
+		margin: 0 auto;
+	}
+}
+
+/* Touch-friendly interactions for mobile */
+@media (hover: none) and (pointer: coarse) {
+	.chapter a {
+		min-height: 44px;
+		display: inline-block;
+		line-height: 1.4;
+		padding: 0.25rem 0;
+	}
+
+	.chapter code {
+		-webkit-touch-callout: text;
+		-webkit-user-select: text;
+		user-select: text;
+	}
+
+	.chapter pre {
+		-webkit-touch-callout: text;
+		-webkit-user-select: text;
+		user-select: text;
+	}
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.chapter {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.chapter * {
+		transition: none;
+	}
 }

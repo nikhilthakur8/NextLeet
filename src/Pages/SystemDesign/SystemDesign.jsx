@@ -64,7 +64,7 @@ export const SystemDesign = () => {
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-black h-[80vh] w-screen sm:w-96  text-neutral-200 border-none transition-all duration-100"
+					className="relative bg-black h-[80vh] w-screen sm:w-96  text-neutral-200 border-none transition-all duration-300"
 					collapsible="icon"
 				>
 					<SidebarContent className="gap-0 bg-black border-t border-r   border-neutral-900">
@@ -149,9 +149,9 @@ export const SystemDesign = () => {
 					</SidebarContent>
 				</Sidebar>
 
-				<SidebarTrigger className="text-white cursor-pointer fixed left-4 sm:relative" />
+				<SidebarTrigger className="text-white cursor-pointer left-4 top-14 sm:top-0 absolute z-[10] sm:relative" />
 
-				<main className="flex-1 p-8 text-white text-lg overflow-x-hidden hide-scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto">
+				<main className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden hide-scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto">
 					{chapters[activeChapter]?.sections?.map((section, idx) => (
 						<div key={idx} className="mb-6 w-full">
 							<p
