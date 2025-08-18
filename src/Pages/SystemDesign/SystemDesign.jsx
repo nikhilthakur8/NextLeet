@@ -34,6 +34,7 @@ export const SystemDesign = () => {
 				);
 				setChapters(response.data);
 				setActiveChapter(0);
+				setActiveSubSection(response.data[0].sections[0].slug);
 			} catch (error) {
 				console.error("Error fetching chapters:", error);
 			}
@@ -81,7 +82,7 @@ export const SystemDesign = () => {
 									>
 										<Collapsible
 											className="group/collapsible"
-											open={activeChapter === idx} // ✅ only one state
+											open={activeChapter === idx} 
 										>
 											<CollapsibleTrigger asChild>
 												<SidebarMenuButton
