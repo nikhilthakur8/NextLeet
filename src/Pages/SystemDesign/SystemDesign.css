@@ -3,11 +3,11 @@
 /* Base styles with mobile-first approach */
 .chapter {
 	margin: 0;
-	padding: 1rem;
+	padding-inline: 1rem;
 	background: rgba(10, 10, 15, 0.85);
 	backdrop-filter: blur(12px);
-	border: 1px solid rgba(80, 80, 100, 0.3);
-	border-radius: 12px;
+	/* border: 1px solid rgba(80, 80, 100, 0.3); */
+	/* border-radius: 12px; */
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter",
 		sans-serif;
 	line-height: 1.75;
@@ -155,7 +155,7 @@
 
 /* Responsive images */
 .chapter img {
-	max-width: 100%;
+	max-width: 70%;
 	height: auto;
 	border-radius: 8px;
 	margin: 1.5rem auto;
@@ -180,13 +180,11 @@
 	border-bottom-color: #9333ea;
 	text-decoration: none;
 }
-
-/* Clean tables - Mobile responsive with horizontal scroll */
 .chapter table {
 	width: 100%;
 	border-collapse: collapse;
 	margin: 1.5rem 0;
-	background: rgba(10, 10, 15, 0.7);
+	background: #0d1b2a; /* Deep navy-blue background */
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
@@ -209,7 +207,7 @@
 .chapter td {
 	padding: 0.75rem;
 	text-align: left;
-	border-bottom: 1px solid rgba(80, 80, 100, 0.3);
+	border-bottom: 1px solid #1e3a5f; /* Medium-dark blue border */
 	font-size: 0.8rem;
 	white-space: nowrap;
 	overflow: hidden;
@@ -217,14 +215,14 @@
 }
 
 .chapter th {
-	background: rgba(6, 182, 212, 0.08);
-	color: #06b6d4;
+	background: #1b263b; /* Slightly lighter navy header */
+	color: #4da6ff; /* Bright bluish header text */
 	font-weight: 600;
 	font-size: 0.8rem;
 }
 
 .chapter td {
-	color: #cbd5e1;
+	color: #d0e6ff; /* Softer bluish-gray text */
 }
 
 .chapter tr:last-child td {
@@ -295,8 +293,8 @@
 /* Tablet Styles (768px and up) */
 @media (min-width: 768px) {
 	.chapter {
-		padding: 1.5rem;
-		border-radius: 12px;
+		padding-inline: 1.5rem;
+		/* border-radius: 12px; */
 	}
 
 	.chapter h1 {
@@ -381,8 +379,8 @@
 /* Desktop Styles (1024px and up) */
 @media (min-width: 1024px) {
 	.chapter {
-		padding: 2rem;
-		border-radius: 12px;
+		padding-inline: 2rem;
+		/* border-radius: 12px; */
 	}
 
 	.chapter h1 {

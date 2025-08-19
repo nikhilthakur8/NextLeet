@@ -157,7 +157,7 @@ export const SystemDesign = () => {
 
 				<main className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden hide-scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto">
 					{chapters[activeChapter]?.sections?.map((section, idx) => (
-						<div key={idx} className="mb-6 w-full">
+						<div key={idx} className="w-full">
 							<p
 								className="chapter"
 								id={section.slug}
