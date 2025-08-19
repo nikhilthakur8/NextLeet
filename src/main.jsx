@@ -68,7 +68,7 @@ const router = createBrowserRouter(
 						element={<LeetcodeChallenges />}
 					/>
 					<Route
-						path="/system-design"
+						path="/system-design/:slug?"
 						element={<SystemDesign />}
 					/>
 					<Route
@@ -102,7 +102,7 @@ const router = createBrowserRouter(
 					path="/pro"
 					element={<Navigate to="/upgrade" replace />}
 				/>
-				<Route path="/:id" element={<QuestionRedirect />} />
+				{/* <Route path="/:id" element={<QuestionRedirect />} /> */}
 			</Route>
 		</>
 	)
