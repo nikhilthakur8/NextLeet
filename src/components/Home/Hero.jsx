@@ -53,8 +53,7 @@ export const Hero = () => {
 
 				<motion.div variants={fadeUp} className="mt-6 inline-block">
 					<Link
-						to={"/search/sheet"}
-						target="_blank"
+						to={"/system-design/scale-from-zero-to-millions-of-users"}
 						rel="noopener noreferrer"
 						className="relative"
 					>
