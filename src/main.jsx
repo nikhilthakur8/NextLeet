@@ -102,7 +102,7 @@ const router = createBrowserRouter(
 					path="/pro"
 					element={<Navigate to="/upgrade" replace />}
 				/>
-				{/* <Route path="/:id" element={<QuestionRedirect />} /> */}
+				<Route path="/:id" element={<QuestionRedirect />} />
 			</Route>
 		</>
 	)
