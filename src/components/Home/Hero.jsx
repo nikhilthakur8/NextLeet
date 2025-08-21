@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Spotlight } from "../ui/Spotlight.jsx";
 import { motion } from "framer-motion"; // or "motion/react" if you prefer
 import { NewBadge } from "../NewBadge.jsx";
+import { Highlighter } from "@/components/magicui/highlighter";
 
 export const Hero = () => {
 	const container = {
@@ -36,10 +37,19 @@ export const Hero = () => {
 				animate="visible"
 			>
 				<motion.h1
-					className="md:text-6xl text-4xl font-bold bg-gradient-to-t pb-4 from-neutral-500 to-neutral-300 bg-clip-text text-transparent"
+					className="md:text-6xl text-4xl font-bold bg-gradient-to-t pb-4 from-neutral-500 to-neutral-300 bg-clip-text space-y-2 relative text-transparent"
 					variants={fadeUp}
 				>
-					NextLeet. <br />
+					<Highlighter
+						action="underline"
+						strokeWidth="1.5px"
+						color="#FF9800"
+						// iterations={5}
+						padding="2px"
+					>
+						NextLeet
+					</Highlighter>
+					<br />
 					Faster. Smarter. Sharper.
 				</motion.h1>
 
@@ -53,7 +63,9 @@ export const Hero = () => {
 
 				<motion.div variants={fadeUp} className="mt-6 inline-block">
 					<Link
-						to={"/system-design/scale-from-zero-to-millions-of-users"}
+						to={
+							"/system-design/scale-from-zero-to-millions-of-users"
+						}
 						rel="noopener noreferrer"
 						className="relative"
 					>
@@ -64,13 +76,10 @@ export const Hero = () => {
 						>
 							System Design Notes
 						</Button>
-						<NewBadge className={"-top-3"}>
-							New
-						</NewBadge>
+						<NewBadge className={"-top-3"}>New</NewBadge>
 					</Link>
 				</motion.div>
 			</motion.div>
 		</div>
 	);
 };
-

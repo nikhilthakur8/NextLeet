@@ -12,6 +12,7 @@ import {
 	SidebarMenuSubItem,
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import {
 	Collapsible,
 	CollapsibleTrigger,
@@ -26,6 +27,7 @@ export const SystemDesign = () => {
 	const [chapterContent, setChapterContent] = useState(null);
 	const [activeChapter, setActiveChapter] = useState(null);
 	const [activeSubSection, setActiveSubSection] = useState(null);
+	const containerRef = React.useRef(null);
 	const navigate = useNavigate();
 	const { slug } = useParams();
 	// Fetch all chapters
@@ -204,7 +206,11 @@ export const SystemDesign = () => {
 
 				<SidebarTrigger className="absolute top-14 left-4 sm:top-0 sm:relative z-[10] text-white bg-neutral-800 p-2 rounded-lg hover:bg-neutral-700" />
 
-				<main className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden hide-scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto">
+				<main
+					className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden -scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto relative"
+					ref={containerRef}
+				>
+					<ScrollProgress targetRef={containerRef} />
 					{chapterContent?.sections?.map((section) => (
 						<div
 							key={section.slug}
