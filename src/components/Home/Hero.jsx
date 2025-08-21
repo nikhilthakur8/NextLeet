@@ -46,6 +46,7 @@ export const Hero = () => {
 						color="#FF9800"
 						// iterations={5}
 						padding="2px"
+						animationDuration={1000}
 					>
 						NextLeet
 					</Highlighter>
