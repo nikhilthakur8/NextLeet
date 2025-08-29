@@ -35,7 +35,7 @@ export function NavBarNew() {
 		{
 			name: "System Design",
 			link: "/system-design",
-			isNew: true,
+			// isNew: true,
 		},
 		{
 			name: "Code Analyzer",

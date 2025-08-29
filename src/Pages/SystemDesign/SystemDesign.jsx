@@ -22,6 +22,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import axios from "axios";
 import "./SystemDesign.css";
 import { useNavigate, useParams } from "react-router-dom";
+
 export const SystemDesign = () => {
 	const [chapters, setChapters] = useState([]);
 	const [chapterContent, setChapterContent] = useState(null);
@@ -30,7 +31,7 @@ export const SystemDesign = () => {
 	const containerRef = React.useRef(null);
 	const navigate = useNavigate();
 	const { slug } = useParams();
-	// Fetch all chapters
+
 	useEffect(() => {
 		const fetchChapters = async () => {
 			try {
@@ -38,9 +39,7 @@ export const SystemDesign = () => {
 					`${
 						import.meta.env.VITE_BACKEND_URL
 					}/api/system-design/chapters`,
-					{
-						withCredentials: true,
-					}
+					{ withCredentials: true }
 				);
 				setChapters(response.data.data);
 			} catch (error) {
@@ -52,7 +51,6 @@ export const SystemDesign = () => {
 		setActiveChapter(slug);
 	}, []);
 
-	// Fetch chapter content when activeChapter changes
 	useEffect(() => {
 		const fetchChapterContent = async () => {
 			if (!activeChapter) return;
@@ -61,9 +59,7 @@ export const SystemDesign = () => {
 					`${
 						import.meta.env.VITE_BACKEND_URL
 					}/api/system-design/chapters/${activeChapter}`,
-					{
-						withCredentials: true,
-					}
+					{ withCredentials: true }
 				);
 				setChapterContent(response.data.data);
 				setActiveSubSection(response.data.data.sections[0].slug);
@@ -74,7 +70,6 @@ export const SystemDesign = () => {
 		fetchChapterContent();
 	}, [activeChapter]);
 
-	// Toggle chapter (open + set active content)
 	const toggleChapter = (slug) => {
 		setActiveChapter((prev) => (prev === slug ? null : slug));
 		const mainDocument = document.querySelector("main");
@@ -83,7 +78,6 @@ export const SystemDesign = () => {
 		}
 	};
 
-	// Scroll to section and mark active subsection
 	const scrollToSection = (slug) => {
 		const container = document.querySelector("main");
 		const sectionEl = document.getElementById(slug);
@@ -99,24 +93,21 @@ export const SystemDesign = () => {
 			container.scrollTo({ top, behavior: "smooth" });
 		};
 
-		// Scroll immediately
 		doScroll();
-
-		// Re-adjust after lazy images may have loaded
 		setTimeout(doScroll, 300);
 		setTimeout(doScroll, 500);
 	};
 
 	return (
-		<div className="h-screen pt-24 pb-20 chapter-body">
+		<div className="h-screen pt-24 pb-20 chapter-body bg-black text-white">
 			<SidebarProvider>
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-black h-[80vh] w-screen sm:w-96 text-neutral-200 border-none transition-all duration-300"
+					className="relative bg-gradient-to-b from-neutral-950 to-black h-[80vh] w-screen sm:w-96 text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
 					collapsible="icon"
 				>
-					<SidebarContent className="gap-0 bg-black border-t border-r border-neutral-900">
+					<SidebarContent className="gap-0 bg-transparent">
 						<SidebarGroup className="group-data-[collapsible=icon]:hidden">
 							<SidebarMenu>
 								{chapters.map((chapter, idx) => (
@@ -137,28 +128,38 @@ export const SystemDesign = () => {
 															`/system-design/${chapter.slug}`
 														);
 													}}
-													className="flex text-white items-center justify-between gap-2 h-auto text-base p-3 hover:bg-neutral-900"
+													className={`flex items-center justify-between gap-2 h-auto text-base px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer
+														${
+															activeChapter ===
+															chapter.slug
+																? "bg-gradient-to-r from-neutral-800 to-neutral-900 text-white shadow-md shadow-black/40"
+																: "hover:bg-neutral-900/80 hover:text-white"
+														}`}
 												>
 													<div className="flex gap-2">
-														<span className="font-bold">
+														<span className="font-bold text-neutral-400">
 															{idx + 1}.
 														</span>
 														{chapter.title}
 													</div>
 													{activeChapter ===
 													chapter.slug ? (
-														<ChevronUp size={16} />
+														<ChevronUp
+															size={16}
+															className="text-neutral-400"
+														/>
 													) : (
 														<ChevronDown
 															size={16}
+															className="text-neutral-500"
 														/>
 													)}
 												</SidebarMenuButton>
 											</CollapsibleTrigger>
 
-											{/* Only show sections if this chapter is active */}
+											{/* Subsections */}
 											<CollapsibleContent>
-												<SidebarMenuSub>
+												<SidebarMenuSub className="ml-3 border-l border-neutral-800/60 pl-3 mt-1 space-y-1">
 													{chapter.sections?.map(
 														(section) => (
 															<SidebarMenuSubItem
@@ -171,12 +172,13 @@ export const SystemDesign = () => {
 																	asChild
 																>
 																	<a
-																		className={`!text-base h-auto cursor-pointer hover:underline hover:bg-neutral-900 px-5 py-2 ${
-																			activeSubSection ===
-																			section.slug
-																				? "bg-neutral-900"
-																				: ""
-																		}`}
+																		className={`!text-base h-auto block rounded-lg px-4 py-2 transition-all cursor-pointer duration-300
+																			${
+																				activeSubSection ===
+																				section.slug
+																					? "bg-neutral-800 text-white shadow-inner shadow-black/50"
+																					: "hover:bg-neutral-900/70 hover:text-white/90 text-neutral-400"
+																			}`}
 																		onClick={(
 																			e
 																		) => {
@@ -204,7 +206,7 @@ export const SystemDesign = () => {
 					</SidebarContent>
 				</Sidebar>
 
-				<SidebarTrigger className="absolute top-14 left-4 sm:top-0 sm:relative z-[10] text-white bg-neutral-800 p-2 rounded-lg hover:bg-neutral-700" />
+				<SidebarTrigger className="absolute top-14 left-4 sm:top-0 sm:relative z-[10] text-white bg-neutral-800 p-2 rounded-lg hover:bg-neutral-700 transition-all shadow-md shadow-black/40" />
 
 				<main
 					className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden -scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto relative"
@@ -228,8 +230,11 @@ export const SystemDesign = () => {
 					))}
 					{chapterContent == null && (
 						<p className="flex items-center justify-center text-center w-full h-full text-gray-300">
-							This Notes is from System Design Interview – An
-							insider's guide by Alex Xu
+							This Notes is from{" "}
+							<i>
+								System Design Interview – An insider's guide by
+								Alex Xu
+							</i>
 						</p>
 					)}
 				</main>
@@ -242,7 +247,7 @@ const AskAi = ({ slug }) => {
 	const handleClick = () => {
 		const section = document.getElementById(slug);
 		if (section) {
-			const context = section.innerText; // or innerHTML if you want rich text
+			const context = section.innerText;
 			const prompt = `Explain the system design concept in brief: ${context}`;
 			const encoded = encodeURIComponent(prompt);
 			window.open(
@@ -255,7 +260,7 @@ const AskAi = ({ slug }) => {
 	return (
 		<button
 			onClick={handleClick}
-			className="flex items-center text-sm  clear-both justify-center rounded-full text-white bg-gray-800 md:px-3 p-1 transition-all duration-300 ease-in-out absolute top-5 right-5 cursor-pointer border-gray-700 border hover:bg-gray-900"
+			className="flex items-center text-sm justify-center rounded-full text-white bg-neutral-800/90 md:px-3 p-1 transition-all duration-300 ease-in-out absolute top-5 right-5 cursor-pointer border border-neutral-700 hover:bg-neutral-700/90 shadow-md shadow-black/40"
 			title="Ask ChatGPT"
 		>
 			<svg
