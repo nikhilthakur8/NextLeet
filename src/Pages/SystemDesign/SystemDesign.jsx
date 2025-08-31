@@ -229,7 +229,7 @@ export const SystemDesign = () => {
 						</div>
 					))}
 					{chapterContent == null && (
-						<p className="flex flex-col items-center justify-center  w-full h-full text-gray-300 whitespace-pre-wrap">
+						<p className="flex flex-col items-center justify-center text-center  w-full h-full text-gray-300 whitespace-pre-wrap">
 							This Notes is from{" "}
 							<i>
 								System Design Interview – An insider's guide by
