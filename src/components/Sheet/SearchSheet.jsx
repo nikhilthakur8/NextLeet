@@ -51,17 +51,14 @@ export const SearchSheet = () => {
 			toast.error(`Removed ${company} from favorites`);
 		}
 	};
-	
+
 	return (
 		<div className="text-gray-400 pt-24 md:pt-36 px-5 md:px-12 min-h-svh flex flex-col gap-5">
 			<div>
-				<h1 className="text-2xl text-gray-400 relative md:text-5xl font-bold text-center">
+				<h1 className="text-2xl text-gray-400 mb-5 relative md:text-5xl font-bold text-center">
 					Search Any Company Sheets
 				</h1>
 			</div>
-			<p className="text-sm md:text-base font-normal text-gray-300 text-center">
-				(Last Updated on 2 August 2025)
-			</p>
 			{favoriteCompanies?.length > 0 && (
 				<div className=" bg-gray-900 p-5 rounded-md relative">
 					<div className="flex justify-between mb-3">
