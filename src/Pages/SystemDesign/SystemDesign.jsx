@@ -108,7 +108,7 @@ export const SystemDesign = () => {
 					collapsible="icon"
 				>
 					<SidebarContent className="gap-0 bg-transparent">
-						<SidebarGroup className="group-data-[collapsible=icon]:hidden">
+						<SidebarGroup className="group-data-[collapsible=icon]:hidden bg-black text-white">
 							<SidebarMenu>
 								{chapters.map((chapter, idx) => (
 									<SidebarMenuItem key={chapter.slug}>
@@ -128,7 +128,7 @@ export const SystemDesign = () => {
 															`/system-design/${chapter.slug}`
 														);
 													}}
-													className={`flex items-center justify-between gap-2 h-auto text-base px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer
+													className={`flex items-center justify-between gap-2 h-auto text-base px-4 py-3 rounded-xl transition-all duration-300  cursor-pointer
 														${
 															activeChapter ===
 															chapter.slug
@@ -229,7 +229,7 @@ export const SystemDesign = () => {
 						</div>
 					))}
 					{chapterContent == null && (
-						<p className="flex items-center justify-center text-center w-full h-full text-gray-300">
+						<p className="flex flex-col items-center justify-center  w-full h-full text-gray-300 whitespace-pre-wrap">
 							This Notes is from{" "}
 							<i>
 								System Design Interview – An insider's guide by
