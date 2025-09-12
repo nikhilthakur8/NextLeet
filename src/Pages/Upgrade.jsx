@@ -94,7 +94,7 @@ export default function Upgrade() {
 		<div className="flex justify-center items-start min-h-screen pt-24 md:pt-32 px-4 sm:px-6 lg:px-8">
 			<div className="w-full max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl shadow-2xl border border-zinc-800 bg-zinc-900/90 relative overflow-hidden">
 				<div className="absolute top-14 md:top-16 -right-16 md:-right-12  w-72 text-center transform rotate-[40deg] bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-extrabold text-[10px] sm:text-xs py-2 shadow-xl tracking-wide">
-					OFFER VALID TILL 31st AUGUST
+					OFFER VALID TILL 31st SEPTEMBER
 				</div>
 
 				<div className="absolute -top-10 -right-10 w-32 h-32 sm:w-40 sm:h-40 bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 rounded-full blur-2xl z-0" />
@@ -109,13 +109,13 @@ export default function Upgrade() {
 					<p className="text-zinc-300 mb-4 text-base sm:text-lg font-medium">
 						<span className="text-white">Get Pro for just</span>{" "}
 						<span className="text-yellow-400 font-bold text-xl sm:text-3xl">
-							₹19<span className="text-sm">/month</span>
+							₹29<span className="text-sm">/month</span>
 						</span>{" "}
 						<span className="text-zinc-400 text-lg font-normal">
 							<span className="line-through mr-2">₹59/month</span>
 						</span>
 						<p className="text-xs sm:text-sm text-zinc-400 mt-1">
-							Note: You will be charged ₹19 only once. No
+							Note: You will be charged ₹29 only once. No
 							auto-renewal.
 						</p>
 					</p>
@@ -165,7 +165,7 @@ export default function Upgrade() {
 									</DialogTitle>
 								</div>
 								<p className="mt-2 text-sm sm:text-base text-zinc-400">
-									Unlock premium features for just ₹19/month
+									Unlock premium features for just ₹29/month
 								</p>
 							</DialogHeader>
 
@@ -198,7 +198,7 @@ export default function Upgrade() {
 									</p>
 									<ul className="list-disc ml-5 mt-2 space-y-2 text-xs sm:text-sm text-zinc-400">
 										<li>
-											Flat ₹19/month. No auto-renewal.
+											Flat ₹29/month. No auto-renewal.
 											Manual repurchase needed.
 										</li>
 										<li>
