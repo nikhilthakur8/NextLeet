@@ -19,12 +19,12 @@ export const Spotlight = ({
 	}, []);
 
 	// Parameters based on screen size
-	const translateY = isMobile ? -200 : -350;
-	const width = isMobile ? 300 : 560;
-	const smallWidth = isMobile ? 130 : 240;
-	const height = isMobile ? 800 : 1380;
+	const translateY = isMobile ? -120 : -350;
+	const width = isMobile ? 220 : 560;
+	const smallWidth = isMobile ? 90 : 240;
+	const height = isMobile ? 500 : 1380;
 	const xOffset = isMobile ? xOffsetMobile : xOffsetDesktop;
-	const blur = isMobile ? "20px" : "30px";
+	const blur = isMobile ? "15px" : "30px";
 
 	const gradientFirst = darkMode
 		? "radial-gradient(68% 68% at 55% 31%, hsla(210, 100%, 75%, 0.35) 0%, hsla(210, 100%, 55%, 0.18) 50%, hsla(210, 100%, 40%, 0.08) 80%)"
@@ -57,7 +57,7 @@ export const Spotlight = ({
 			<motion.div
 				animate={{ x: [0, xOffset, 0] }}
 				transition={{
-					duration,
+					duration: isMobile ? duration * 1.5 : duration,
 					repeat: Infinity,
 					repeatType: "reverse",
 					ease: "easeInOut",
@@ -79,7 +79,9 @@ export const Spotlight = ({
 						left: 0,
 						width: `${smallWidth}px`,
 						background: gradientSecond,
-						transform: "rotate(-45deg) translate(5%, -50%)",
+						transform: isMobile
+							? "rotate(-35deg) translate(0%, -40%)"
+							: "rotate(-45deg) translate(5%, -50%)",
 						transformOrigin: "top left",
 					}}
 				/>
@@ -89,7 +91,9 @@ export const Spotlight = ({
 						left: 0,
 						width: `${smallWidth}px`,
 						background: gradientThird,
-						transform: "rotate(-45deg) translate(-180%, -70%)",
+						transform: isMobile
+							? "rotate(-35deg) translate(-120%, -60%)"
+							: "rotate(-45deg) translate(-180%, -70%)",
 						transformOrigin: "top left",
 					}}
 				/>
@@ -99,7 +103,7 @@ export const Spotlight = ({
 			<motion.div
 				animate={{ x: [0, -xOffset, 0] }}
 				transition={{
-					duration,
+					duration: isMobile ? duration * 1.5 : duration,
 					repeat: Infinity,
 					repeatType: "reverse",
 					ease: "easeInOut",
@@ -121,7 +125,9 @@ export const Spotlight = ({
 						right: 0,
 						width: `${smallWidth}px`,
 						background: gradientSecond,
-						transform: "rotate(45deg) translate(-5%, -50%)",
+						transform: isMobile
+							? "rotate(35deg) translate(0%, -40%)"
+							: "rotate(45deg) translate(-5%, -50%)",
 						transformOrigin: "top right",
 					}}
 				/>
@@ -131,7 +137,9 @@ export const Spotlight = ({
 						right: 0,
 						width: `${smallWidth}px`,
 						background: gradientThird,
-						transform: "rotate(45deg) translate(180%, -70%)",
+						transform: isMobile
+							? "rotate(35deg) translate(120%, -60%)"
+							: "rotate(45deg) translate(180%, -70%)",
 						transformOrigin: "top right",
 					}}
 				/>
