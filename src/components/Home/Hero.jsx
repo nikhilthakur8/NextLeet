@@ -7,7 +7,7 @@ import { Highlighter } from "@/components/magicui/highlighter";
 export const Hero = () => {
 	return (
 		<div className="min-h-svh w-full bg-black z-10 flex items-center justify-center flex-col px-5 md:px-10 space-y-5 relative">
-			<div className="overflow-hidden  sm:block absolute top-0 -z-10 w-full h-[40rem]">
+			<div className="overflow-hidden hidden sm:block absolute top-0 -z-10 w-full h-[40rem]">
 				<Spotlight />
 			</div>
 
