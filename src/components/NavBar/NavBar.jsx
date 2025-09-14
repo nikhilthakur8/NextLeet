@@ -84,7 +84,6 @@ export function NavBarNew() {
 		},
 	];
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const isSubscriptionActive = userData?.subscription?.isActive || false;
 	return (
 		<div className="fixed top-0 w-full z-50 whitespace-nowrap">
 			<Navbar>
@@ -99,25 +98,10 @@ export function NavBarNew() {
 						className={"text-base"}
 					/>
 					<div className="flex items-center gap-3">
-						{userData?.subscription && !isSubscriptionActive && (
-							<CustomButton
-								className="!py-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 !text-gray-800 !rounded-full"
-								to="/upgrade"
-								Tag={Link}
-							>
-								Upgrade
-							</CustomButton>
-						)}
 						{userData ? (
 							<Link
 								to="/profile"
-								className={`cursor-pointer shrink-0 ring-2 ring-offset-1 ring-offset-gray-900 ${
-									userData?.subscription
-										? isSubscriptionActive
-											? "ring-yellow-600"
-											: "ring-red-600"
-										: "ring-gray-600"
-								} rounded-full overflow-hidden relative`}
+								className={`cursor-pointer shrink-0 ring-2 ring-offset-1 ring-offset-gray-900 ring-yellow-600 rounded-full overflow-hidden relative`}
 							>
 								<img
 									className="w-8 h-8 rounded-full"

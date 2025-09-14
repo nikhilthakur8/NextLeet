@@ -79,8 +79,8 @@ const router = createBrowserRouter(
 				<Route path="/hacks" element={<Hacks />} />
 				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
 				<Route path="/coming-soon" element={<UpcomingFeature />} />
-				<Route path="/upgrade" element={<Upgrade />} />
-				<Route path="/payment-status" element={<PaymentStatus />} />
+				{/* <Route path="/upgrade" element={<Upgrade />} /> */}
+				{/* <Route path="/payment-status" element={<PaymentStatus />} /> */}
 				<Route path="/privacy-policy" element={<PrivacyPolicy />} />
 				<Route path="/terms" element={<TermsOfService />} />
 			</Route>

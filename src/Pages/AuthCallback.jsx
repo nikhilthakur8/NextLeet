@@ -32,7 +32,7 @@ export const AuthCallback = () => {
 					// when user visit the home page then we will get the user data
 					const isNewUser = response.data.data.isNewUser;
 					if (isNewUser) {
-						toast.success("🎉 3-day Pro trial activated!");
+						toast.success("Account created successfully!");
 					} else {
 						toast.success("Welcome Back!");
 					}
