@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import {
+	useNavigate,
+	useSearchParams,
+	Link,
+	useParams,
+} from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-import { LoadingIcon } from "../components/LoadingIcon";
+import { LoadingIcon } from "../../components/LoadingIcon";
 
 export const AuthCallback = () => {
 	const navigate = useNavigate();
+	const { provider } = useParams();
 	const [searchParams] = useSearchParams();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const code = searchParams.get("code");
 		const redirectUri = searchParams.get("state") || "/";
-		if (!code) {
-			toast.error("Invalid authentication code");
+
+		if (!code || !provider) {
+			toast.error("Invalid authentication code or provider");
 			navigate("/login");
 			return;
 		}
@@ -23,13 +30,12 @@ export const AuthCallback = () => {
 				const response = await axios.post(
 					`${
 						import.meta.env.VITE_BACKEND_URL
-					}/api/auth/google/callback`,
-					{ code },
+					}/api/auth/oauth/callback`,
+					{ code, provider },
 					{ withCredentials: true }
 				);
 
 				if (response.data.success) {
-					// when user visit the home page then we will get the user data
 					const isNewUser = response.data.data.isNewUser;
 					if (isNewUser) {
 						toast.success("Account created successfully!");

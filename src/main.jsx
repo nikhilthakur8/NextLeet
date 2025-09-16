@@ -19,9 +19,10 @@ import { PrivacyPolicy } from "./Pages/PrivacyPolicy.jsx";
 import { DirectQuestionTag } from "./components/QuestionTag/DirectQuestionTag.jsx";
 import { POTD } from "./components/POTD/POTD.jsx";
 import { UpcomingFeature } from "./Pages/UpcomingFeature.jsx";
-import { Login } from "./Pages/Login.jsx";
+import { Login } from "./Pages/Auth/Login.jsx";
+import { Register } from "./Pages/Auth/Register.jsx";
 import { ForgotPasswordPage } from "./Pages/ForgotPasswordPage.jsx";
-import { AuthCallback } from "./Pages/AuthCallback.jsx";
+import { AuthCallback } from "./Pages/Auth/AuthCallback.jsx";
 import { AuthLayout } from "./Layouts/AuthLayout.jsx";
 import { MainLayout } from "./Layouts/MainLayout.jsx";
 import { ProtectedLayout } from "./Layouts/ProtectedLayout.jsx";
@@ -86,21 +87,17 @@ const router = createBrowserRouter(
 			</Route>
 			{/* Routes with Auth Layout */}
 			<Route element={<AuthLayout />}>
-				<Route path="/signup" element={<Login />} />
-				<Route path="/register" element={<Login />} />
+				<Route path="/signup" element={<Register />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 				<Route
 					path="/forgot-password"
 					element={<ForgotPasswordPage />}
 				/>
-				<Route path="/login" element={<Login />} />
 				<Route path="/potd" element={<POTD />} />
 				<Route
-					path="/auth/google/callback"
+					path="/auth/:provider/callback"
 					element={<AuthCallback />}
-				/>
-				<Route
-					path="/pro"
-					element={<Navigate to="/upgrade" replace />}
 				/>
 				<Route path="/:id" element={<QuestionRedirect />} />
 			</Route>

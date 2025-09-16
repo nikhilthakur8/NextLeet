@@ -212,7 +212,9 @@ export const SystemDesign = () => {
 					className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden -scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto relative"
 					ref={containerRef}
 				>
-					<ScrollProgress targetRef={containerRef} />
+					{chapterContent && (
+						<ScrollProgress targetRef={containerRef} />
+					)}
 					{chapterContent?.sections?.map((section) => (
 						<div
 							key={section.slug}
