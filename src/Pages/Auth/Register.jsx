@@ -16,6 +16,7 @@ import { toast } from "sonner";
 export const Register = () => {
 	const [loading, setLoading] = useState(false);
 	const [searchParams] = useSearchParams();
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const redirectUri = searchParams.get("redirect_uri") || "/";
 	const navigate = useNavigate();
 	const {
@@ -53,7 +54,7 @@ export const Register = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
+		<div className="min-h-svh bg-black flex items-center justify-center px-4 py-8">
 			<Card className="bg-black border border-neutral-800 rounded-xl w-full max-w-sm sm:max-w-md shadow-2xl">
 				<CardHeader className="text-center">
 					<img
@@ -102,7 +103,6 @@ export const Register = () => {
 							className="bg-zinc-900 text-white border border-white/20"
 						/>
 						<Input
-							type="password"
 							placeholder="Password"
 							{...register("password", {
 								required: "Password is required",
@@ -111,12 +111,17 @@ export const Register = () => {
 									message: "Minimum 6 characters",
 								},
 							})}
+							passwordField={{
+								isPasswordVisible,
+								setIsPasswordVisible,
+							}}
+							type={isPasswordVisible ? "text" : "password"}
 							className="bg-zinc-900 text-white border border-white/20"
 							errors={errors.password}
 						/>
 						<CustomButton
 							type="submit"
-							className="w-full"
+							className="w-full text-base"
 							disabled={loading}
 							variant="white"
 						>
@@ -133,7 +138,7 @@ export const Register = () => {
 					{/* Social Login Buttons */}
 					<div className="space-y-2">
 						<CustomButton
-							className="w-full flex items-center justify-center gap-2"
+							className="w-full text-base flex items-center justify-center gap-2"
 							onClick={handleGoogleLogin}
 							disabled={loading}
 							variant="white"

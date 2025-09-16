@@ -53,7 +53,7 @@ export const Footer = () => {
 							id="email"
 							type="email"
 							placeholder="Enter your email"
-							className="w-full border-emerald-700 border rounded-md p-2 text-gray-200 focus:outline-none focus:ring-[3px] focus:ring-emerald-600 placeholder:text-gray-500 transition-all duration-300"
+							className="w-full border-emerald-700 border-2 rounded-md px-4 p-2 text-gray-200 focus:outline-none focus:ring-[2px] focus:ring-emerald-600 placeholder:text-gray-500 transition-all duration-300"
 							required
 							autoComplete="off"
 							autoCorrect="off"
@@ -62,7 +62,7 @@ export const Footer = () => {
 						/>
 						<button
 							type="submit"
-							className="cursor-pointer bg-gray-950/90 text-gray-300 rounded-md border border-gray-600 px-4 py-2"
+							className="cursor-pointer bg-gray-950/90 text-gray-300 rounded-md border-2 border-gray-600 px-4 py-2"
 						>
 							Subscribe
 						</button>

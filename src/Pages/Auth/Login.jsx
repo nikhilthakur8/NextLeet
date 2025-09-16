@@ -17,6 +17,7 @@ import api from "../../api/api";
 export const Login = () => {
 	const [loading, setLoading] = useState(false);
 	const [searchParams] = useSearchParams();
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const redirectUri = searchParams.get("redirect_uri") || "/";
 	const navigate = useNavigate();
 	const {
@@ -54,7 +55,7 @@ export const Login = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
+		<div className="min-h-svh bg-black flex items-center justify-center px-4 py-8">
 			<Card className="bg-black border border-neutral-800 rounded-xl w-full max-w-sm sm:max-w-md shadow-2xl">
 				<CardHeader className="text-center">
 					<img
@@ -89,7 +90,6 @@ export const Login = () => {
 							className="bg-zinc-900 text-white border border-white/20"
 						/>
 						<Input
-							type="password"
 							placeholder="Password"
 							{...register("password", {
 								required: "Password is required",
@@ -98,6 +98,11 @@ export const Login = () => {
 									message: "Minimum 6 characters",
 								},
 							})}
+							passwordField={{
+								isPasswordVisible,
+								setIsPasswordVisible,
+							}}
+							type={isPasswordVisible ? "text" : "password"}
 							className="bg-zinc-900 text-white border border-white/20"
 							errors={errors.password}
 						/>
