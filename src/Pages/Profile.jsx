@@ -3,30 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { CustomButton } from "../components/CustomButton";
 import { useUserContext } from "../context/context";
+import { useState } from "react";
 
 export const Profile = () => {
 	const { userData, logout } = useUserContext();
 	const navigate = useNavigate();
-
+	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		document.title = "Profile | NextLeet";
 	}, []);
 
 	const handleLogout = async () => {
+		setLoading(true);
 		await logout();
+		setLoading(false);
 		navigate("/");
 	};
 
 	const { user } = userData || {};
-
-	if (!userData) {
-		return (
-			<div className="flex items-center justify-center min-h-screen bg-black text-white">
-				<div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
-			</div>
-		);
-	}
 
 	return (
 		<div className="min-h-svh flex items-center justify-center px-4 py-10 text-gray-100">
@@ -58,7 +53,7 @@ export const Profile = () => {
 						className="w-full flex items-center justify-center gap-2 text-sm sm:text-base"
 					>
 						<LogOut size={18} />
-						<span>Logout</span>
+						<span>{loading ? "Logging out..." : "Logout"}</span>
 					</CustomButton>
 				</div>
 			</div>

@@ -107,7 +107,7 @@ export function NavBarNew() {
 									className="w-8 h-8 rounded-full"
 									src={
 										userData?.user?.picture ||
-										`https://api.dicebear.com/9.x/pixel-art/svg?seed=${userData?.name}`
+										`https://api.dicebear.com/9.x/pixel-art/svg?seed=${userData?.user?.name}`
 									}
 									onError={(e) => {
 										console.log(e);
