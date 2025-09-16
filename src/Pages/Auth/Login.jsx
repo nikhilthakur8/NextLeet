@@ -108,7 +108,7 @@ export const Login = () => {
 						/>
 						<CustomButton
 							type="submit"
-							className="w-full"
+							className="w-full !text-base"
 							disabled={loading}
 							variant="white"
 						>
@@ -125,7 +125,7 @@ export const Login = () => {
 					{/* Social Login Buttons */}
 					<div className="space-y-2">
 						<CustomButton
-							className="w-full flex items-center justify-center gap-2"
+							className="w-full !text-base flex items-center justify-center gap-2"
 							onClick={handleGoogleLogin}
 							disabled={loading}
 							variant="white"
@@ -140,7 +140,7 @@ export const Login = () => {
 						</CustomButton>
 
 						<CustomButton
-							className="w-full flex items-center justify-center gap-2"
+							className="w-full flex !text-base items-center justify-center gap-2"
 							onClick={handleGithubLogin}
 							disabled={loading}
 							variant="white"
