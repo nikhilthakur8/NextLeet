@@ -1,6 +1,6 @@
 # NextLeet
 
-![NextLeet Banner](https://nextleet.com/banner-image.png) <!-- Replace with actual image if available -->
+![NextLeet Banner](https://nextleet.com/favicon-96x96.png)
 
 **NextLeet** is a comprehensive platform for **coding interview preparation**. It helps users prepare for coding interviews by providing **company-wise problems**, **code analysis tools**, and **system design notes**. Whether you are a beginner or an experienced developer, NextLeet equips you with the resources to ace your next technical interview.
 
