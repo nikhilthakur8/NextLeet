@@ -321,7 +321,7 @@ export default function Buddy() {
 						}))
 					}
 				>
-					<SelectTrigger className="rounded-xl border text-sm md:text-base border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none px-5 min-w-64">
+					<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none px-5 min-w-64">
 						<SelectValue
 							placeholder="Find By Preferred Language"
 							className="text-gray-400"
