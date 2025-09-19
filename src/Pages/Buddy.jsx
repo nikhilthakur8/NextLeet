@@ -6,7 +6,18 @@ import { CustomButton } from "../components/CustomButton";
 import axios from "axios";
 import { toast } from "sonner";
 import { Badge } from "../components/ui/badge";
-
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "../components/ui/select";
+import api from "../api/api";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Loading } from "../components/Loading";
 // Constants
 const PROGRESS_ITEMS = [
 	{ key: "easySolved", label: "Easy" },
@@ -53,7 +64,7 @@ const SOCIAL_LINKS = [
 ];
 
 // Progress Ring
-const radius = 30;
+const radius = 25;
 const circumference = 2 * Math.PI * radius;
 const CircleProgress = ({ value, max, color }) => {
 	const pct = Math.min(value / max, 1);
@@ -86,7 +97,7 @@ const CircleProgress = ({ value, max, color }) => {
 				dominantBaseline="middle"
 				textAnchor="middle"
 				fill="white"
-				className="text-lg font-semibold"
+				className="text-sm font-semibold"
 			>
 				{value}
 			</text>
@@ -97,8 +108,7 @@ const CircleProgress = ({ value, max, color }) => {
 // BuddyCard
 const BuddyCard = ({ buddy }) => {
 	const handleConnect = (buddyId) => {
-		axios
-			.get(`${import.meta.env.VITE_BACKEND_URL}/api/connect/${buddyId}`)
+		api.get(`/api/connect/${buddyId}`)
 			.then((res) => {
 				toast.success(`Connecting to ${buddy.name}!`);
 				window.open(res.data.data.contactLink, "_blank");
@@ -111,7 +121,7 @@ const BuddyCard = ({ buddy }) => {
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
-			className="bg-gradient-to-br from-gray-950 to-gray-800 rounded-2xl p-6 border border-transparent hover:border-purple-500 shadow-xl transition-all duration-300 flex flex-col"
+			className="bg-gradient-to-br from-gray-950 to-gray-800 rounded-2xl p-4 border border-transparent hover:border-purple-500 shadow-xl transition-all duration-300 flex flex-col"
 		>
 			{/* Header */}
 			<div className="flex items-center gap-4 mb-5">
@@ -135,7 +145,7 @@ const BuddyCard = ({ buddy }) => {
 			</div>
 
 			{/* Progress Circles */}
-			<div className="flex justify-between mb-5">
+			<div className="flex justify-between mb-2">
 				{PROGRESS_ITEMS.map((item, i) => {
 					const colors = ["#22c55e", "#facc15", "#f87171"];
 					return (
@@ -199,54 +209,95 @@ const BuddyCard = ({ buddy }) => {
 	);
 };
 
-// Main Page
+const languagesList = [
+	{ label: "C++", id: "cpp" },
+	{ label: "Java", id: "java" },
+	{ label: "Python", id: "python" },
+	{ label: "JavaScript", id: "javascript" },
+	{ label: "C#", id: "csharp" },
+	{ label: "Ruby", id: "ruby" },
+	{ label: "Go", id: "go" },
+	{ label: "PHP", id: "php" },
+	{ label: "Swift", id: "swift" },
+	{ label: "Kotlin", id: "kotlin" },
+	{ label: "Rust", id: "rust" },
+	{ label: "TypeScript", id: "typescript" },
+];
+
 export default function Buddy() {
+	const [filters, setFilters] = useState({ preferredLanguage: "" });
 	const [allbuddies, setAllBuddies] = useState([]);
+	const [page, setPage] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
+	const limit = 50;
+
+	async function fetchBuddies(pageNumber) {
+		try {
+			const res = await api.get(
+				`api/getAllBuddies?${new URLSearchParams({
+					...filters,
+					page: pageNumber,
+					limit,
+				})}`
+			);
+			const paginationData = res.data.pagination;
+
+			const mapped = res.data.data.map((item) => {
+				const stats = item.leetcodeData?.stats || {};
+				const easySolved = stats.easySolved || 0;
+				const mediumSolved = stats.mediumSolved || 0;
+				const hardSolved = stats.hardSolved || 0;
+				const totalSolved = easySolved + mediumSolved + hardSolved;
+
+				return {
+					id: item._id,
+					name: item.leetcodeData?.profile?.realName || "Anonymous",
+					avatar: item.leetcodeData?.profile?.userAvatar || "",
+					leetcodeId:
+						item.leetcodeData?.profile?.username || "unknown",
+					description: item.description || "No description provided.",
+					preferredLanguage: item.preferredLanguage || "",
+					progress: {
+						easySolved,
+						mediumSolved,
+						hardSolved,
+						totalSolved,
+					},
+					socialLinks: {
+						...item.socialLinks,
+					},
+				};
+			});
+
+			setHasMore(paginationData.hasMore);
+
+			if (pageNumber === 1) {
+				setAllBuddies(mapped);
+			} else {
+				setAllBuddies((prev) => [...prev, ...mapped]);
+			}
+
+			setPage(paginationData.page + 1);
+		} catch (error) {
+			console.error("Error fetching buddies:", error);
+			toast.error(
+				error.response?.data?.message || "Failed to fetch buddies"
+			);
+		}
+	}
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		document.title = "Find Your Coding Buddy | NextLeet";
-		axios
-			.get(`${import.meta.env.VITE_BACKEND_URL}/api/getAllBuddies`)
-			.then((res) => {
-				const mapped = res.data.data.map((item) => {
-					const stats = item.leetcodeData?.stats || {};
-					const easySolved = stats.easySolved || 0;
-					const mediumSolved = stats.mediumSolved || 0;
-					const hardSolved = stats.hardSolved || 0;
-					const totalSolved = easySolved + mediumSolved + hardSolved;
-
-					return {
-						id: item._id,
-						name:
-							item.leetcodeData?.profile?.realName || "Anonymous",
-						avatar: item.leetcodeData?.profile?.userAvatar || "",
-						leetcodeId:
-							item.leetcodeData?.profile?.username || "unknown",
-						description:
-							item.description || "No description provided.",
-						preferredLanguage: item.preferredLanguage || "",
-						progress: {
-							easySolved,
-							mediumSolved,
-							hardSolved,
-							totalSolved,
-						},
-						socialLinks: {
-							...item.socialLinks,
-						},
-					};
-				});
-				setAllBuddies(mapped);
-			})
-			.catch((err) => {
-				console.error("Failed to fetch buddies:", err);
-			});
-	}, []);
+		setPage(1);
+		setHasMore(true);
+		fetchBuddies(1);
+	}, [filters]);
 
 	return (
-		<div className="min-h-screen px-5 md:px-16 pt-32 pb-20 flex flex-col  gap-y-5">
+		<div className="min-h-screen px-5 md:px-16 pt-24 md:pt-32 pb-20 flex flex-col  gap-y-7">
 			<div className="max-w-7xl mx-auto text-center ">
-				<h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 flex space-x-2 items-start justify-center whitespace-nowrap">
+				<h1 className="text-3xl md:text-5xl font-bold text-white flex space-x-2 items-start justify-center flex-wrap break-words whitespace-nowrap">
 					<span>Find Your</span>
 					<span className="bg-gradient-to-r pb-2 from-purple-400 to-purple-500 text-transparent bg-clip-text">
 						Coding Buddy
@@ -255,25 +306,64 @@ export default function Buddy() {
 						BETA
 					</Badge>
 				</h1>
-				<p className="text-gray-400 max-w-2xl mx-auto text-lg">
+				<p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg">
 					Connect with like-minded developers to collaborate, learn,
 					and grow together.
 				</p>
 			</div>
-			<div className="text-end">
+			<div className="flex  flex-col sm:flex-row justify-between items-start  gap-4">
+				<Select
+					defaultValue={filters.preferredLanguage}
+					onValueChange={(value) =>
+						setFilters((prev) => ({
+							...prev,
+							preferredLanguage: value,
+						}))
+					}
+				>
+					<SelectTrigger className="rounded-xl border text-sm md:text-base border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none px-5 min-w-64">
+						<SelectValue
+							placeholder="Find By Preferred Language"
+							className="text-gray-400"
+						/>
+					</SelectTrigger>
+					<SelectContent className="bg-gray-900 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
+						<SelectGroup>
+							<SelectLabel className="text-gray-400">
+								Find By Preferred Language
+							</SelectLabel>
+							{languagesList.map((lang) => (
+								<SelectItem
+									key={lang.id}
+									value={lang.id}
+									className="cursor-pointer text-base md:text-lg rounded-md px-2 py-1 focus:bg-purple-800"
+								>
+									{lang.label}
+								</SelectItem>
+							))}
+						</SelectGroup>
+					</SelectContent>
+				</Select>
 				<CustomButton
 					Tag={Link}
 					to="/register-buddy?edit=true"
-					className="inline-flex items-center gap-2 bg-purple-600  !rounded-full hover:bg-purple-700 transition-colors duration-300"
+					className="!w-auto gap-2 bg-purple-600  !rounded-full hover:bg-purple-700"
 				>
 					Edit Your Profile
 				</CustomButton>
 			</div>
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-				{allbuddies.map((buddy, idx) => (
-					<BuddyCard key={`buddy-${idx}`} buddy={buddy} />
-				))}
-			</div>
+			<InfiniteScroll
+				dataLength={allbuddies.length}
+				next={() => fetchBuddies(page)}
+				hasMore={hasMore}
+				loader={<Loading />}
+			>
+				<div className="grid grid-cols-1 mt-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 overflow-hidden">
+					{allbuddies.map((buddy, idx) => (
+						<BuddyCard key={`buddy-${idx}`} buddy={buddy} />
+					))}
+				</div>
+			</InfiniteScroll>
 		</div>
 	);
 }
