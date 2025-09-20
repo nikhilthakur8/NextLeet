@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
-import { CustomButton } from "../components/CustomButton";
-import { Card, CardContent } from "../components/ui/card";
+import { CustomButton } from "../../components/CustomButton";
+import { Card, CardContent } from "../../components/ui/card";
 import {
 	Select,
 	SelectContent,
@@ -14,7 +14,7 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "../components/ui/select";
+} from "../../components/ui/select";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const languages = [

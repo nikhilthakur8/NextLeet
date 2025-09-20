@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-	Command,
-	CommandInput,
-	CommandList,
-	CommandItem,
-	CommandEmpty,
-} from "../ui/command"; // from shadcn
-import { getAllCompanyNames } from "../../appwrite/leetcode.companyTag";
-import { Link, useNavigate } from "react-router-dom";
-import { Badge, Edit, Star, X } from "lucide-react";
+
+import { Link } from "react-router-dom";
+import { Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { Loading } from "../Loading";
 import { NewBadge } from "../NewBadge";
-import { useUserContext } from "../../context/context";
+import api from "../../api/api";
 const getAllFavoriteCompanies = () => {
 	return JSON.parse(localStorage.getItem("favoriteCompanies")) || [];
 };
@@ -26,7 +19,6 @@ export const SearchSheet = () => {
 		getAllFavoriteCompanies()
 	);
 	const [isEditing, setIsEditing] = useState(false);
-	const navigate = useNavigate();
 
 	const addInFavorite = (company) => {
 		const favoriteCompanies =
@@ -136,24 +128,21 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 	const [search, setSearch] = useState("");
 	const [companies, setCompanies] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const navigate = useNavigate();
 	const filteredCompanies = companies.filter(({ name }) =>
 		name.toLowerCase().includes(search.toLowerCase())
 	);
-	const { allCompanyName, setAllCompanyName } = useUserContext();
 	useEffect(() => {
-		if (allCompanyName.length > 0) {
-			setCompanies(allCompanyName);
-			return;
-		}
 		setLoading(true);
-		getAllCompanyNames()
-			.then((data) => {
-				setCompanies(data);
-				setAllCompanyName(data);
+		api.get("/api/all-companies")
+			.then(({ data }) => {
+				setCompanies(data.data);
 			})
 			.catch((error) => {
-				toast.error(error.message || "Failed to fetch company names");
+				toast.error(
+					error.response?.data.message ||
+						error.message ||
+						"Failed to fetch company names"
+				);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -181,14 +170,7 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 								.toLowerCase()}`}
 						>
 							<img
-								src={`https://img.logo.dev/${
-									company.websiteLink ||
-									company.name
-										.split(" ")
-										.join("")
-										.split(".")
-										.join("") + ".com"
-								}?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+								src={`https://img.logo.dev/${company.website}?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
 								className="w-14 h-14 inline-block mr-2 rounded-md"
 								alt=""
 							/>

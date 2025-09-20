@@ -32,13 +32,8 @@ function queryBuilder(query, filter) {
 		query.push(Query.equal("timeframe", ["thirtyDays"]));
 	}
 }
-export const getQuestionByCompanyTag = async (
-	companyName = [],
-	skip = 0,
-	limit = 20,
-	filter
-) => {
-	const query = [Query.limit(limit), Query.offset(skip)];
+export const getQuestionByCompanyTag = async (companyName = [], filter) => {
+	const query = [Query.limit(10000), Query.offset(0)];
 	if (companyName && companyName.length > 0) {
 		query.push(Query.equal("companyName", companyName));
 	} else return { documents: [], total: 0 };

@@ -1,5 +1,5 @@
-import { Check, CheckCircle, File, FileText } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { CheckCircle, File } from "lucide-react";
+import React from "react";
 import { addDoneQuestion } from "../../IndexedStorage/config";
 
 import { toast } from "sonner";
@@ -38,7 +38,7 @@ export const Question = React.memo(
 		idx,
 		question,
 		isDone = false,
-		setAllDoneQuestion,
+		setCompletedQuestions,
 		isTopicVisible,
 		handleOpenNotesDialog,
 		notesMap,
@@ -129,7 +129,7 @@ export const Question = React.memo(
 						className="text-gray-600 hidden sm:block hover:bg-gray-700 p-2 rounded-full"
 						onClick={(e) => {
 							addDoneQuestion(question.titleSlug, !isDone);
-							setAllDoneQuestion((prev) => {
+							setCompletedQuestions((prev) => {
 								if (prev.includes(question.titleSlug)) {
 									return prev.filter(
 										(t) => t !== question.titleSlug

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
 	getAllQuestionTopics,
@@ -18,15 +18,9 @@ import {
 	TopicFilter,
 	TopicsVisibiltyFilter,
 } from "./Filter";
+import { Link } from "react-router-dom";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
-import { NewBadge } from "../NewBadge";
-import {
-	ArrowLeft,
-	ChartLineIcon,
-	FileText,
-	RotateCcw,
-	Share2,
-} from "lucide-react";
+import { ArrowLeft, FileText, RotateCcw, Share2 } from "lucide-react";
 import { CustomButton } from "../CustomButton";
 import { toast } from "sonner";
 import {
@@ -43,17 +37,24 @@ export default function Sheet() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	// intial All Question Loading
 	const [questions, setQuestions] = useState([]);
-	const [pages, setPages] = useState(0);
-	const [totalPages, setTotalPages] = useState(0);
-	const [allDoneQuestion, setAllDoneQuestion] = useState([]);
+	const [completedQuestions, setCompletedQuestions] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [isTopicVisible, setTopicVisible] = useState(false);
+	const [search, setSearch] = useState("");
+	const [allTopics, setAllTopics] = useState([]);
+
 	const formattedCompanyName = useMemo(() => {
 		return companyName
 			.replace(/-/g, " ")
 			.replace(/_/g, " ")
 			.replace(/\b\w/g, (c) => c.toUpperCase());
 	}, [companyName]);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		window.document.title = `${formattedCompanyName} Questions Sheet | NextLeet`;
+	}, []);
+
 	const filter = useMemo(
 		() => ({
 			difficulty: searchParams.get("difficulty") || "",
@@ -66,84 +67,40 @@ export default function Sheet() {
 		[searchParams]
 	);
 
-	const [allTopics, setAllTopics] = useState([]);
 	useEffect(() => {
 		getAllQuestionTopics(formattedCompanyName).then((data) => {
 			setAllTopics(data);
 		});
 	}, []);
+
 	// search question state
-	const [searchTerm, setSearchTerm] = useState("");
-	const [filteredQuestions, setFilteredQuestions] = useState([]);
-	const [filteredQuestionPages, setFilteredQuestionPages] = useState(0);
-	const [filteredQuestionTotalPages, setFilteredQuestionTotalPages] =
-		useState(0);
-	const fetchQuestions = (isReset = false) => {
-		getQuestionByCompanyTag(
-			formattedCompanyName,
-			isReset ? 0 : pages * 100,
-			100,
-			filter
-		)
-			.then(({ documents, total }) => {
-				setQuestions((prev) => [...prev, ...documents]);
-				setPages((prev) => prev + 1);
-				setTotalPages(total / 100);
+	const fetchQuestions = () => {
+		setLoading(true);
+		getQuestionByCompanyTag(formattedCompanyName, filter)
+			.then(({ documents }) => {
+				setQuestions(documents);
 			})
 			.finally(() => {
 				setLoading(false);
 			});
 	};
+
 	useEffect(() => {
-		setLoading(true);
-		setQuestions([]);
-		setPages(0);
-		setTotalPages(0);
-		fetchQuestions(true);
+		fetchQuestions();
 	}, [companyName, searchParams]);
 
-	// Fetch filtered questions based on search term
-	const fetchFilteredQuestions = (isReset = false) => {
-		searchQuestion(
-			formattedCompanyName,
-			searchTerm,
-			isReset ? 0 : filteredQuestionPages * 100,
-			100,
-			filter
-		)
-			.then(({ documents, total }) => {
-				setFilteredQuestions((prev) =>
-					(isReset ? [] : prev).concat(documents)
-				);
-				setFilteredQuestionPages((prev) => prev + 1);
-				setFilteredQuestionTotalPages(total / 100);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	};
-
-	useEffect(() => {
-		setFilteredQuestions([]);
-		setFilteredQuestionPages(1);
-		setFilteredQuestionTotalPages(0);
-		if (searchTerm.length > 0) {
-			fetchFilteredQuestions(true);
-			setLoading(true);
-		}
-	}, [searchTerm]);
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-		window.document.title = `${formattedCompanyName} Questions Sheet | NextLeet`;
-	}, []);
+	const filteredQuestion = questions.filter(
+		({ title, frontendId }) =>
+			title.toLowerCase().includes(search.toLowerCase()) ||
+			String(frontendId).toLowerCase().includes(search.toLowerCase())
+	);
 
 	// this one get all done question from indexeddb and then filter it
 	useEffect(() => {
 		getAllDoneQuestions().then((data) => {
 			getTotalDoneQuestions(formattedCompanyName, data, filter).then(
 				(doneQuestions) => {
-					setAllDoneQuestion(doneQuestions);
+					setCompletedQuestions(doneQuestions);
 				}
 			);
 		});
@@ -183,10 +140,9 @@ export default function Sheet() {
 			{/* heading */}
 			<Header
 				companyName={companyName}
-				totalPages={totalPages}
-				allDoneQuestion={allDoneQuestion}
-				searchTerm={searchTerm}
-				filteredQuestionTotalPages={filteredQuestionTotalPages}
+				totalQuestions={questions.length}
+				completedQuestions={completedQuestions.length}
+				search={search}
 			/>
 			{/* Filters and Search */}
 			<div className="flex flex-col flex-wrap md:flex-row justify-center md:justify-start gap-3 leading-5 bg-gradient-to-l border border-gray-800  from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 py-5 rounded-md relative">
@@ -241,7 +197,7 @@ export default function Sheet() {
 						className="w-full px-4 py-2 bg-gray-800 border border-gray-700 focus:border-none text-base md:text-lg ring-3 ring-transparent rounded-md focus:outline-none  focus:ring-emerald-600 text-gray-200"
 						onChange={(e) => {
 							setTimeout(() => {
-								setSearchTerm(e.target.value);
+								setSearch(e.target.value);
 							}, 1000);
 						}}
 						placeholder="Search questions..."
@@ -252,78 +208,32 @@ export default function Sheet() {
 				) : (
 					<div className="">
 						<div className="text-sm md:text-lg">
-							{searchTerm.length > 0 ? (
-								<InfiniteScroll
-									dataLength={filteredQuestions?.length || 0}
-									next={fetchFilteredQuestions}
-									hasMore={
-										filteredQuestionTotalPages >=
-										filteredQuestionPages
-									}
-									loader={<Loading />}
-								>
-									{filteredQuestions.length > 0 ? (
-										filteredQuestions.map(
-											(question, idx) => (
-												<Question
-													key={question.$id}
-													question={question}
-													isTopicVisible={
-														isTopicVisible
-													}
-													idx={idx + 1}
-													setAllDoneQuestion={
-														setAllDoneQuestion
-													}
-													isDone={allDoneQuestion.includes(
-														question.titleSlug
-													)}
-													handleOpenNotesDialog={
-														handleOpenNotesDialog
-													}
-													notesMap={notesMap}
-												/>
-											)
-										)
-									) : (
-										<p className="text-gray-500 text-center mt-5">
-											No questions found.
-										</p>
-									)}
-								</InfiniteScroll>
-							) : (
-								<InfiniteScroll
-									dataLength={questions?.length || 0}
-									next={fetchQuestions}
-									hasMore={totalPages >= pages}
-									loader={<Loading />}
-								>
-									{questions.length > 0 ? (
-										questions.map((question, idx) => (
-											<Question
-												key={question.$id}
-												question={question}
-												isTopicVisible={isTopicVisible}
-												idx={idx + 1}
-												setAllDoneQuestion={
-													setAllDoneQuestion
-												}
-												isDone={allDoneQuestion.includes(
-													question.titleSlug
-												)}
-												handleOpenNotesDialog={
-													handleOpenNotesDialog
-												}
-												notesMap={notesMap}
-											/>
-										))
-									) : (
-										<p className="text-gray-500 text-center mt-5">
-											No questions found.
-										</p>
-									)}
-								</InfiniteScroll>
-							)}
+							<div>
+								{filteredQuestion.length > 0 ? (
+									filteredQuestion.map((question, idx) => (
+										<Question
+											key={question.$id}
+											question={question}
+											isTopicVisible={isTopicVisible}
+											idx={idx + 1}
+											setCompletedQuestions={
+												setCompletedQuestions
+											}
+											isDone={completedQuestions.includes(
+												question.titleSlug
+											)}
+											handleOpenNotesDialog={
+												handleOpenNotesDialog
+											}
+											notesMap={notesMap}
+										/>
+									))
+								) : (
+									<p className="text-gray-500 text-center mt-5">
+										No questions found.
+									</p>
+								)}
+							</div>
 						</div>
 					</div>
 				)}
@@ -331,14 +241,10 @@ export default function Sheet() {
 		</div>
 	);
 }
-import { Link } from "react-router-dom";
-import { set } from "react-hook-form";
 function Header({
 	companyName = "google",
-	totalPages = 0,
-	allDoneQuestion = [],
-	searchTerm = "",
-	filteredQuestionTotalPages = 0,
+	totalQuestions = 0,
+	completedQuestions = 0,
 }) {
 	return (
 		<div className="bg-gradient-to-l border border-gray-800 from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 space-y-5 rounded-md py-5">
@@ -374,10 +280,7 @@ function Header({
 							.replace(/\b\w/g, (c) => c.toUpperCase())}
 					</span>
 					<span className="text-gray-400 text-base md:text-lg">
-						{searchTerm?.length > 0
-							? Math.round(filteredQuestionTotalPages * 100)
-							: Math.round(totalPages * 100)}{" "}
-						Problems
+						{Math.round(totalQuestions)} Problems
 					</span>
 				</div>
 			</div>
@@ -385,13 +288,13 @@ function Header({
 				<p className="mb-2">
 					Progress
 					<span className="text-base md:text-xl text-gray-300 ml-2">
-						{allDoneQuestion.length}/{Math.round(totalPages * 100)}
+						{completedQuestions}/{Math.round(totalQuestions)}
 					</span>
 					<span className="text-sm md:text-lg text-gray-300 ml-1 font-semibold">
 						(
 						{(
-							(allDoneQuestion.length /
-								((totalPages || 1) * 100)) *
+							(completedQuestions /
+								((totalQuestions / 100 || 1) * 100)) *
 							100
 						).toFixed(1)}
 						%)
@@ -402,9 +305,8 @@ function Header({
 						className="h-full transform duration-300 bg-emerald-700"
 						style={{
 							width: `${
-								totalPages > 0
-									? (allDoneQuestion.length /
-											(totalPages * 100)) *
+								totalQuestions > 0
+									? (completedQuestions / totalQuestions) *
 									  100
 									: 0
 							}%`,

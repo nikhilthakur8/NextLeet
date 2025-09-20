@@ -31,10 +31,8 @@ import { Toaster } from "./components/ui/sonner.jsx";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { UserContextProvider } from "./context/UserContextProvider.jsx";
 import { Profile } from "./Pages/Profile.jsx";
-import { PaymentStatus } from "./Pages/PaymentStatus.jsx";
 import { TermsOfService } from "./Pages/TermsOfService.jsx";
 import { QuestionRedirect } from "./Pages/QuestionRedirect.jsx";
-import Upgrade from "./Pages/Upgrade.jsx";
 import { Analytics } from "@vercel/analytics/react";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
@@ -42,8 +40,9 @@ import { SystemDesign } from "./Pages/SystemDesign/SystemDesign.jsx";
 
 // heavy components
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
-const Buddy = lazy(() => import("./Pages/Buddy.jsx"));
-const RegisterBuddy = lazy(() => import("./Pages/RegisterBuddy.jsx"));
+const Buddy = lazy(() => import("./Pages/Buddy/Buddy.jsx"));
+const RegisterBuddy = lazy(() => import("./Pages/Buddy/RegisterBuddy.jsx"));
+
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<>

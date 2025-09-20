@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CustomButton } from "../components/CustomButton";
-import axios from "axios";
+import { CustomButton } from "../../components/CustomButton";
 import { toast } from "sonner";
-import { Badge } from "../components/ui/badge";
+import { Badge } from "../../components/ui/badge";
 import {
 	Select,
 	SelectContent,
@@ -14,10 +13,10 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "../components/ui/select";
-import api from "../api/api";
+} from "../../components/ui/select";
+import api from "../../api/api";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Loading } from "../components/Loading";
+import { Loading } from "../../components/Loading";
 // Constants
 const PROGRESS_ITEMS = [
 	{ key: "easySolved", label: "Easy" },
@@ -323,14 +322,14 @@ export default function Buddy() {
 				>
 					<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none px-5 min-w-64">
 						<SelectValue
-							placeholder="Find By Preferred Language"
+							placeholder="Find By DSA Preferred Language"
 							className="text-gray-400"
 						/>
 					</SelectTrigger>
 					<SelectContent className="bg-gray-900 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
 						<SelectGroup>
 							<SelectLabel className="text-gray-400">
-								Find By Preferred Language
+								Find By DSA Preferred Language
 							</SelectLabel>
 							{languagesList.map((lang) => (
 								<SelectItem

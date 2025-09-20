@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import promo from "../../assets/promo.png";
+import promo from "../../assets/promo.webp";
 import { CustomButton } from "../CustomButton";
 export const NewPromotion = () => {
 	const nextleetLevel = [
