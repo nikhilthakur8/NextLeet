@@ -4,10 +4,9 @@ import {
 	getAllQuestionTopics,
 	getQuestionByCompanyTag,
 	getTotalDoneQuestions,
-	searchQuestion,
 } from "../../appwrite/leetcode.companyTag";
 import { Question } from "./Question";
-import InfiniteScroll from "react-infinite-scroll-component";
+import * as XLSX from "xlsx";
 import { Loading } from "../Loading";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -20,7 +19,7 @@ import {
 } from "./Filter";
 import { Link } from "react-router-dom";
 import { getAllDoneQuestions } from "../../IndexedStorage/config";
-import { ArrowLeft, FileText, RotateCcw, Share2 } from "lucide-react";
+import { ArrowLeft, Download, FileText, RotateCcw, Share2 } from "lucide-react";
 import { CustomButton } from "../CustomButton";
 import { toast } from "sonner";
 import {
@@ -32,6 +31,13 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "../ui/dialog";
+import {
+	TooltipContent,
+	TooltipTrigger,
+	Tooltip,
+	TooltipProvider,
+} from "../ui/tooltip";
+
 export default function Sheet() {
 	const { companyName } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -143,6 +149,7 @@ export default function Sheet() {
 				totalQuestions={questions.length}
 				completedQuestions={completedQuestions.length}
 				search={search}
+				questions={questions}
 			/>
 			{/* Filters and Search */}
 			<div className="flex flex-col flex-wrap md:flex-row justify-center md:justify-start gap-3 leading-5 bg-gradient-to-l border border-gray-800  from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 py-5 rounded-md relative">
@@ -245,6 +252,7 @@ function Header({
 	companyName = "google",
 	totalQuestions = 0,
 	completedQuestions = 0,
+	questions = [],
 }) {
 	return (
 		<div className="bg-gradient-to-l border border-gray-800 from-gray-950 from-5% via-90%  via-gray-900 to-gray-950 px-5 md:px-10 space-y-5 rounded-md py-5">
@@ -253,14 +261,63 @@ function Header({
 					<ArrowLeft className="inline-block mr-1 size-4" />
 					<span>All Sheets</span>
 				</CustomButton>
-				<CustomButton
-					onClick={() => {
-						navigator.clipboard.writeText(window.location.href);
-						toast.info("Link copied to clipboard!");
-					}}
-				>
-					<Share2 className="inline-block mr-1 size-4" />
-				</CustomButton>
+				<div className="flex gap-2">
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<CustomButton
+									onClick={() =>
+										handleSheetDownload(
+											questions,
+											`${
+												companyName
+													.charAt(0)
+													.toUpperCase() +
+												companyName
+													.slice(1)
+													.toLowerCase()
+											}-Sheet.xlsx`
+										)
+									}
+								>
+									<Download className="inline-block size-4" />
+								</CustomButton>
+							</TooltipTrigger>
+							<TooltipContent
+								className="bg-gray-900 text-normal flex flex-col border-none  text-gray-300"
+								tooltipClassName="fill-gray-900"
+								side="bottom"
+								align="center"
+							>
+								Download Sheet
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<CustomButton
+									onClick={() => {
+										navigator.clipboard.writeText(
+											window.location.href
+										);
+										toast.info("Link copied to clipboard!");
+									}}
+								>
+									<Share2 className="inline-block size-4" />
+								</CustomButton>
+							</TooltipTrigger>
+							<TooltipContent
+								className="bg-gray-900 text-normal flex flex-col border-none  text-gray-300"
+								tooltipClassName="fill-gray-900"
+								side="bottom"
+								align="center"
+							>
+								Share with Folks
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
 			</div>
 			<div className="flex flex-row items-center gap-5">
 				<img
@@ -381,4 +438,71 @@ export const NotesDialog = ({
 			</DialogContent>
 		</Dialog>
 	);
+};
+
+const handleSheetDownload = (questions, fileName = "questions.xlsx") => {
+	if (!Array.isArray(questions) || questions.length === 0) return;
+
+	const workbook = XLSX.utils.book_new();
+
+	// Loop through each question to build rows
+	const rows = questions.map((q) => {
+		const link = q.isPaid
+			? "https://code.nextleet.com/problem/binary-tree-upside-down"
+			: `https://leetcode.com/problems/${q.titleSlug}`;
+
+		return {
+			"LeetCode Question Number": q.frontendId,
+			Title: q.title,
+			"Title Slug": { f: `HYPERLINK("${link}","${q.titleSlug}")` },
+			Difficulty: q.difficulty,
+			"AC Rate": q.acRate,
+			Topics: q.topics?.join(", ") || "",
+			Timeframe: q.timeframe?.join(", ") || "",
+		};
+	});
+
+	// Prepend company name header
+	const companyName = questions[0]?.companyName || "Company";
+	const headerRow = [{ "LeetCode Question Number": companyName }];
+
+	const worksheetData = [...headerRow, ...rows];
+
+	// Create worksheet
+	const worksheet = XLSX.utils.json_to_sheet(worksheetData, {
+		skipHeader: true,
+	});
+
+	// Merge first row for company name
+	const range = XLSX.utils.decode_range(worksheet["!ref"]);
+	worksheet["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: range.e.c } }];
+
+	// Apply blue + underline style to "Title Slug" column
+	for (let R = 1; R <= questions.length; ++R) {
+		const cellAddress = `C${R + 1}`; // Column C = "Title Slug", +1 because header row
+		const cell = worksheet[cellAddress];
+		if (cell) {
+			cell.s = {
+				font: { color: { rgb: "0000FF" }, underline: true },
+			};
+		}
+	}
+
+	XLSX.utils.book_append_sheet(workbook, worksheet, "Questions");
+
+	const excelBuffer = XLSX.write(workbook, {
+		bookType: "xlsx",
+		type: "array",
+		cellStyles: true,
+	});
+	const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement("a");
+	link.href = url;
+	link.download = fileName;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	URL.revokeObjectURL(url);
 };
