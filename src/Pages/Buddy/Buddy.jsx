@@ -17,6 +17,7 @@ import {
 import api from "../../api/api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Loading } from "../../components/Loading";
+import { Input } from "../../components/ui/input";
 // Constants
 const PROGRESS_ITEMS = [
 	{ key: "easySolved", label: "Easy" },
@@ -229,7 +230,7 @@ export default function Buddy() {
 	const [page, setPage] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const limit = 50;
-
+	const [search, setSearch] = useState("");
 	async function fetchBuddies(pageNumber) {
 		try {
 			const res = await api.get(
@@ -237,6 +238,7 @@ export default function Buddy() {
 					...filters,
 					page: pageNumber,
 					limit,
+					search: search || "",
 				})}`
 			);
 			const paginationData = res.data.pagination;
@@ -288,10 +290,14 @@ export default function Buddy() {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		document.title = "Find Your Coding Buddy | NextLeet";
-		setPage(1);
-		setHasMore(true);
-		fetchBuddies(1);
-	}, [filters]);
+		const debounce = setTimeout(() => {
+			setPage(1);
+			setHasMore(true);
+			fetchBuddies(1);
+		}, 500);
+
+		return () => clearTimeout(debounce);
+	}, [filters, search]);
 
 	return (
 		<div className="min-h-screen px-5 md:px-16 pt-24 md:pt-32 pb-20 flex flex-col  gap-y-7">
@@ -311,38 +317,48 @@ export default function Buddy() {
 				</p>
 			</div>
 			<div className="flex  flex-col sm:flex-row justify-between items-start  gap-4">
-				<Select
-					defaultValue={filters.preferredLanguage}
-					onValueChange={(value) =>
-						setFilters((prev) => ({
-							...prev,
-							preferredLanguage: value,
-						}))
-					}
-				>
-					<SelectTrigger className="rounded-xl border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none px-5 min-w-64">
-						<SelectValue
-							placeholder="Find By DSA Preferred Language"
-							className="text-gray-400"
-						/>
-					</SelectTrigger>
-					<SelectContent className="bg-gray-900 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
-						<SelectGroup>
-							<SelectLabel className="text-gray-400">
-								Find By DSA Preferred Language
-							</SelectLabel>
-							{languagesList.map((lang) => (
-								<SelectItem
-									key={lang.id}
-									value={lang.id}
-									className="cursor-pointer text-base md:text-lg rounded-md px-2 py-1 focus:bg-purple-800"
-								>
-									{lang.label}
-								</SelectItem>
-							))}
-						</SelectGroup>
-					</SelectContent>
-				</Select>
+				<div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto flex-1">
+					<Input
+						type="text"
+						placeholder="Search by name or LeetCode username"
+						value={search}
+						onChange={(e) => setSearch(e.target.value)}
+						className="bg-gray-900 text-sm md:text-base py-2 md:!py-2.5 -mt-[3px] border border-gray-800 text-white placeholder-gray-500 focus:border-purple-600 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+					/>
+					<Select
+						defaultValue={filters.preferredLanguage}
+						onValueChange={(value) =>
+							setFilters((prev) => ({
+								...prev,
+								preferredLanguage: value,
+							}))
+						}
+					>
+						<SelectTrigger className="rounded-lg border text-sm md:text-lg border-gray-800 bg-gray-900 text-gray-200 hover:border-purple-600 focus:ring-2 focus:ring-purple-500 !h-auto  focus:outline-none px-5 min-w-64">
+							<SelectValue
+								placeholder="Find By DSA Preferred Language"
+								className="text-gray-400"
+							/>
+						</SelectTrigger>
+						<SelectContent className="bg-gray-900 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
+							<SelectGroup>
+								<SelectLabel className="text-gray-400">
+									Find By DSA Preferred Language
+								</SelectLabel>
+								{languagesList.map((lang) => (
+									<SelectItem
+										key={lang.id}
+										value={lang.id}
+										className="cursor-pointer text-base md:text-lg rounded-md px-2 py-1 focus:bg-purple-800"
+									>
+										{lang.label}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
+
 				<CustomButton
 					Tag={Link}
 					to="/register-buddy?edit=true"
