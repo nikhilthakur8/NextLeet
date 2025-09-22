@@ -7,6 +7,7 @@ import {
 	CheckCircle,
 	AlertCircle,
 	CircleDot,
+	XCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +15,7 @@ import { useEffect } from "react";
 
 export const FeatureRequestCard = ({ request, onVote }) => {
 	const [voting, setVoting] = useState({ upvote: false, downvote: false });
-	
+
 	const handleVote = async (voteType) => {
 		setVoting((prev) => ({ ...prev, [voteType]: true }));
 		try {
@@ -37,6 +38,12 @@ export const FeatureRequestCard = ({ request, onVote }) => {
 					icon: AlertCircle,
 					color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
 					label: "In Progress",
+				};
+			case "rejected":
+				return {
+					icon: XCircle,
+					color: "bg-red-500/20 text-red-400 border-red-500/30",
+					label: "Rejected",
 				};
 			default:
 				return {
