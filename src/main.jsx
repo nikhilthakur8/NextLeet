@@ -39,6 +39,9 @@ import { Hacks } from "./Pages/HacksPage.jsx";
 import { SystemDesign } from "./Pages/SystemDesign/SystemDesign.jsx";
 
 // heavy components
+const FeatureRequest = lazy(() =>
+	import("./Pages/FeatureRequest/FeatureRequest.jsx")
+);
 const CodeAnalyzer = lazy(() => import("./Pages/CodeAnalyzer.jsx"));
 const Buddy = lazy(() => import("./Pages/Buddy/Buddy.jsx"));
 const RegisterBuddy = lazy(() => import("./Pages/Buddy/RegisterBuddy.jsx"));
@@ -77,8 +80,12 @@ const router = createBrowserRouter(
 					/>
 				</Route>
 				<Route path="/hacks" element={<Hacks />} />
+				<Route path="/feature-requests" element={<FeatureRequest />} />
+				<Route
+					path="/coming-soon"
+					element={<Navigate to={"/feature-requests"} />}
+				/>
 				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
-				<Route path="/coming-soon" element={<UpcomingFeature />} />
 				{/* <Route path="/upgrade" element={<Upgrade />} /> */}
 				{/* <Route path="/payment-status" element={<PaymentStatus />} /> */}
 				<Route path="/privacy-policy" element={<PrivacyPolicy />} />
