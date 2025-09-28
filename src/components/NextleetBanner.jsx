@@ -29,12 +29,13 @@ export default function NextleetBanner() {
 						<span className="text-sm md:text-base flex items-center gap-2">
 							✨ Try Out{" "}
 							<Link
-								to="/register-buddy"
+								to="https://search.nextleet.com"
+								target="_blank"
 								onClick={() => setShowBanner(false)}
 								rel="noopener noreferrer"
-								className="text-purple-400 underline hover:text-purple-300"
+								className="text-emerald-400 underline hover:text-emerald-300"
 							>
-								DSA Buddy
+								Search Leetcode Friends
 							</Link>
 							<button
 								onClick={() => setShowBanner(false)}
