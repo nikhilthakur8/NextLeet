@@ -99,12 +99,12 @@ export const SystemDesign = () => {
 	};
 
 	return (
-		<div className="h-screen pt-24 pb-20 chapter-body bg-black text-white">
+		<div className="h-screen pt-20 pb-20 chapter-body bg-black text-white">
 			<SidebarProvider>
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-gradient-to-b from-neutral-950 to-black h-[80vh] w-screen sm:w-96 text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
+					className="relative bg-gradient-to-b from-neutral-950 to-black h-[85vh] w-screen sm:w-sm text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
 					collapsible="icon"
 				>
 					<SidebarContent className="gap-0 bg-transparent">
@@ -209,7 +209,7 @@ export const SystemDesign = () => {
 				<SidebarTrigger className="absolute top-14 left-4 sm:top-0 sm:relative z-[10] text-white bg-neutral-800 p-2 rounded-lg hover:bg-neutral-700 transition-all shadow-md shadow-black/40" />
 
 				<main
-					className="flex-1 px-5 md:p-8 text-white text-lg overflow-x-hidden -scrollbar whitespace-pre-wrap h-[80vh] overflow-y-auto relative"
+					className="flex-1 px-5 md:p-8 text-white text-base overflow-x-hidden -scrollbar whitespace-pre-wrap h-[85vh] overflow-y-auto relative"
 					ref={containerRef}
 				>
 					{chapterContent && (
@@ -218,7 +218,7 @@ export const SystemDesign = () => {
 					{chapterContent?.sections?.map((section) => (
 						<div
 							key={section.slug}
-							className="w-full mb-10 relative"
+							className="w-full mb-4 relative"
 						>
 							<p
 								className="chapter"
