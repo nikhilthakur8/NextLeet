@@ -64,7 +64,7 @@ export const CompanyWiseSheetFeature = () => {
 	];
 
 	return (
-		<div className="py-12 mx-5 px-5 md:mx-14 rounded-2xl bg-gray-900/40 shadow-2xl">
+		<div className="py-12 px-5 md:mx-14 md:rounded-2xl bg-gray-900/40 shadow-2xl">
 			<h2 className="text-center text-3xl md:text-5xl bg-clip-text text-transparent bg-linear-to-t from-gray-500 to-gray-200 font-bold animate-shine pb-3">
 				Company Wise Sheet
 			</h2>
