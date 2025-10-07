@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import promo from "../../assets/promo.webp";
 import { CustomButton } from "../CustomButton";
@@ -31,10 +30,10 @@ export const NewPromotion = () => {
 		},
 	];
 	return (
-		<div className="py-12 mx-5 px-5 flex flex-col items-center space-y-6 md:mx-14 text-center rounded-2xl bg-gray-900/40 shadow-2xl backdrop-blur-lg ">
-			<p className="text-3xl md:text-5xl font-extrabold sm:font-bold tracking-wider pb-2 bg-linear-65 from-purple-500 via-indigo-500 to-pink-500 text-transparent bg-clip-text">
-				NEXTLEET'S TAG
-			</p>
+		<div className="py-12 px-5 flex flex-col items-center space-y-6 md:mx-14 text-center md:rounded-2xl bg-gray-900/40 shadow-2xl backdrop-blur-lg ">
+			<h2 className="text-3xl md:text-5xl font-bold bg-linear-to-t pb-3 from-gray-500 to-gray-200 bg-clip-text text-transparent">
+				NEXTLEET TAG'S
+			</h2>
 			<div className="flex gap-2 flex-wrap justify-center">
 				{nextleetLevel.map((level) => (
 					<span
