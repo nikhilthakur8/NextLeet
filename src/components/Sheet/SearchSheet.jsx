@@ -90,7 +90,7 @@ export const SearchSheet = () => {
 													.split(".")
 													.join(
 														""
-													)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+													)}.com?token=pk_SZwSrcK7RbqFRDZt3Pe2yQ`}
 												className="w-6 h-6 inline-block mr-2 rounded-full"
 												alt=""
 											/>
@@ -170,7 +170,7 @@ function CompanySearchBox({ favoriteCompanies, addInFavorite }) {
 								.toLowerCase()}`}
 						>
 							<img
-								src={`https://img.logo.dev/${company.website}?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+								src={`https://img.logo.dev/${company.website}?token=pk_SZwSrcK7RbqFRDZt3Pe2yQ`}
 								className="w-14 h-14 inline-block mr-2 rounded-md"
 								alt=""
 							/>

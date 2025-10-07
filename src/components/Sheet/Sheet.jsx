@@ -325,7 +325,7 @@ function Header({
 						.split(" ")
 						.join("")
 						.split(".")
-						.join("")}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+						.join("")}.com?token=pk_SZwSrcK7RbqFRDZt3Pe2yQ`}
 					className="h-16 w-16 md:w-20 md:h-20 inline-block mr-2 rounded-xl"
 					alt=""
 				/>

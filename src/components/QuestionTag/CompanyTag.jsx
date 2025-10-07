@@ -170,7 +170,7 @@ export const CompanyTag = ({ titleSlug }) => {
 									.split(" ")
 									.join(
 										""
-									)}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+									)}.com?token=pk_SZwSrcK7RbqFRDZt3Pe2yQ`}
 								className="w-5 h-5 mr-2 rounded-full"
 								alt={`${tag.companyName} logo`}
 							/>

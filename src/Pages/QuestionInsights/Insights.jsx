@@ -443,7 +443,7 @@ function CompanyTag({ tag, idx }) {
 				<img
 					src={`https://img.logo.dev/${tag.companyName
 						.split(" ")
-						.join("")}.com?token=pk_Ovv0aVUwQNK80p_PGY_xcg`}
+						.join("")}.com?token=pk_SZwSrcK7RbqFRDZt3Pe2yQ`}
 					className="w-5 h-5 rounded-full"
 					alt={`${tag.companyName} logo`}
 				/>
