@@ -18,7 +18,7 @@ import {
 	CollapsibleTrigger,
 	CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp, X, Download } from "lucide-react";
+import { ChevronDown, ChevronUp, X, Download, CheckCheck, RotateCcw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import {
 	Select,
@@ -35,41 +35,89 @@ export const SystemDesign = () => {
 	const [chapterContent, setChapterContent] = useState(null);
 	const [activeChapter, setActiveChapter] = useState(null);
 	const [activeSubSection, setActiveSubSection] = useState(null);
+	const [completedSections, setCompletedSections] = useState(new Set());
 	const containerRef = React.useRef(null);
 	const navigate = useNavigate();
 	const { slug } = useParams();
+	const [targetSectionSlug, setTargetSectionSlug] = useState(null);
+	const lastChapterSwitchRef = React.useRef(Date.now());
 
 	useEffect(() => {
-		const fetchChapters = async () => {
+		const fetchInitialData = async () => {
 			try {
-				const response = await axios.get(
-					`${
-						import.meta.env.VITE_BACKEND_URL
-					}/api/system-design/chapters`,
-					{ withCredentials: true }
-				);
-				setChapters(response.data.data);
+				const [chaptersRes, progressRes] = await Promise.all([
+					axios.get(
+						`${import.meta.env.VITE_BACKEND_URL}/api/system-design/chapters`,
+						{ withCredentials: true }
+					),
+					axios.get(
+						`${import.meta.env.VITE_BACKEND_URL}/api/system-design/progress`,
+						{ withCredentials: true }
+					),
+				]);
+				const chaptersData = chaptersRes.data.data;
+				const progressData = progressRes.data.data;
+
+				setChapters(chaptersData);
+
+				// Flatten progress into a Set of "chapterSlug:sectionSlug"
+				const completedSet = new Set();
+				progressData.forEach(p => {
+					p.completedSections.forEach(sSlug => {
+						completedSet.add(`${p.chapterSlug}:${sSlug}`);
+					});
+				});
+				setCompletedSections(completedSet);
+
+				// Handle last read chapter/section
+				if (progressData.length > 0) {
+					const latestProgress = [...progressData].sort((a, b) =>
+						new Date(b.updatedAt) - new Date(a.updatedAt)
+					)[0];
+
+					if (!slug && latestProgress.chapterSlug) {
+						navigate(`/system-design/${latestProgress.chapterSlug}`, { replace: true });
+						setActiveChapter(latestProgress.chapterSlug);
+						setTargetSectionSlug(latestProgress.currentSectionSlug);
+					} else if (slug) {
+						// If chapter matches URL, find its specific progress
+						const currentProgress = progressData.find(p => p.chapterSlug === slug);
+						if (currentProgress) {
+							setTargetSectionSlug(currentProgress.currentSectionSlug);
+						}
+					}
+				}
 			} catch (error) {
-				console.error("Error fetching chapters:", error);
+				console.error("Error fetching system design data:", error);
 			}
 		};
-		fetchChapters();
-		if (!slug) return;
-		setActiveChapter(slug);
+		fetchInitialData();
+		if (slug) {
+			setActiveChapter(slug);
+		}
 	}, []);
 
 	useEffect(() => {
 		const fetchChapterContent = async () => {
 			if (!activeChapter) return;
+			lastChapterSwitchRef.current = Date.now();
 			try {
 				const response = await axios.get(
-					`${
-						import.meta.env.VITE_BACKEND_URL
+					`${import.meta.env.VITE_BACKEND_URL
 					}/api/system-design/chapters/${activeChapter}`,
 					{ withCredentials: true }
 				);
 				setChapterContent(response.data.data);
-				setActiveSubSection(response.data.data.sections[0].slug);
+
+				if (targetSectionSlug) {
+					// Moderate delay for initial content render and scroll
+					setTimeout(() => {
+						scrollToSection(targetSectionSlug);
+						setTargetSectionSlug(null);
+					}, 600);
+				} else {
+					setActiveSubSection(response.data.data.sections[0].slug);
+				}
 			} catch (error) {
 				console.error("Error fetching chapter content:", error);
 			}
@@ -82,6 +130,82 @@ export const SystemDesign = () => {
 		const mainDocument = document.querySelector("main");
 		if (mainDocument) {
 			mainDocument.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	};
+
+	const handleToggleChapterProgress = (e, chapter) => {
+		e.stopPropagation();
+		const slugs = chapter.sections?.map((s) => s.slug) ?? [];
+		if (!slugs.length) return;
+		const allDone = slugs.every((s) => completedSections.has(`${chapter.slug}:${s}`));
+
+		if (allDone) {
+			// Unmark all
+			setCompletedSections((prev) => {
+				const next = new Set(prev);
+				slugs.forEach((s) => next.delete(`${chapter.slug}:${s}`));
+				return next;
+			});
+			axios
+				.delete(
+					`${import.meta.env.VITE_BACKEND_URL}/api/system-design/progress/chapter`,
+					{
+						data: {
+							chapterSlug: chapter.slug,
+							sectionSlugs: slugs
+						},
+						withCredentials: true
+					}
+				)
+				.catch((err) => console.error("Failed to unmark chapter:", err));
+		} else {
+			// Mark all
+			setCompletedSections((prev) => {
+				const next = new Set(prev);
+				slugs.forEach((s) => next.add(`${chapter.slug}:${s}`));
+				return next;
+			});
+			axios
+				.post(
+					`${import.meta.env.VITE_BACKEND_URL}/api/system-design/progress/chapter`,
+					{
+						chapterId: chapter._id,
+						chapterNo: chapter.chapterNo,
+						chapterSlug: chapter.slug,
+						sectionSlugs: slugs
+					},
+					{ withCredentials: true }
+				)
+				.catch((err) => console.error("Failed to mark chapter:", err));
+		}
+	};
+
+	const handleSectionVisible = (sectionSlug) => {
+		setActiveSubSection(sectionSlug);
+		if (!chapterContent) return;
+
+		// Ignore visibility events within 1 second of chapter switch to prevent accidental bulk completion
+		if (Date.now() - lastChapterSwitchRef.current < 1000) return;
+
+		const fullSlug = `${chapterContent.slug}:${sectionSlug}`;
+		if (!completedSections.has(fullSlug)) {
+			setCompletedSections((prev) => new Set(prev).add(fullSlug));
+
+			const sectionIndex = chapterContent.sections.findIndex(s => s.slug === sectionSlug);
+
+			axios
+				.post(
+					`${import.meta.env.VITE_BACKEND_URL}/api/system-design/progress/section`,
+					{
+						chapterId: chapterContent._id,
+						chapterNo: chapterContent.chapterNo,
+						chapterSlug: chapterContent.slug,
+						sectionSlug,
+						sectionIndex
+					},
+					{ withCredentials: true }
+				)
+				.catch((err) => console.error("Failed to save progress:", err));
 		}
 	};
 
@@ -111,103 +235,138 @@ export const SystemDesign = () => {
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-gradient-to-b from-neutral-950 to-black h-[85vh] w-screen sm:w-[300px] text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
+					className="relative bg-gradient-to-b from-neutral-950 to-black h-[85vh] w-screen sm:w-sm text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
 					collapsible="icon"
 				>
 					<SidebarContent className="gap-0 bg-transparent">
 						<SidebarGroup className="group-data-[collapsible=icon]:hidden bg-black text-white">
 							<SidebarMenu>
-								{chapters.map((chapter, idx) => (
-									<SidebarMenuItem key={chapter.slug}>
-										<Collapsible
-											className="group/collapsible"
-											open={
-												activeChapter === chapter.slug
-											}
-										>
-											<CollapsibleTrigger asChild>
-												<SidebarMenuButton
-													onClick={() => {
-														toggleChapter(
-															chapter.slug
-														);
-														navigate(
-															`/system-design/${chapter.slug}`
-														);
-													}}
-													className={`flex items-center justify-between gap-2 h-auto text-base px-4 py-3 rounded-xl transition-all duration-300  cursor-pointer
-														${
-															activeChapter ===
-															chapter.slug
+								{chapters.map((chapter, idx) => {
+									const completedCount = chapter.sections?.filter((s) => completedSections.has(`${chapter.slug}:${s.slug}`)).length ?? 0;
+									const totalCount = chapter.sections?.length ?? 0;
+									return (
+										<SidebarMenuItem key={chapter.slug}>
+											<Collapsible
+												className="group/collapsible"
+												open={
+													activeChapter === chapter.slug
+												}
+											>
+												<CollapsibleTrigger asChild>
+													<SidebarMenuButton
+														onClick={() => {
+															toggleChapter(
+																chapter.slug
+															);
+															navigate(
+																`/system-design/${chapter.slug}`
+															);
+														}}
+														className={`flex items-center justify-between gap-2 h-auto text-sm px-4 py-3 rounded-xl transition-all duration-300  cursor-pointer
+														${activeChapter ===
+																chapter.slug
 																? "bg-gradient-to-r from-neutral-800 to-neutral-900 text-white shadow-md shadow-black/40"
 																: "hover:bg-neutral-900/80 hover:text-white"
-														}`}
-												>
-													<div className="flex gap-2">
-														<span className="font-bold text-neutral-400">
-															{idx + 1}.
-														</span>
-														{chapter.title}
-													</div>
-													{activeChapter ===
-													chapter.slug ? (
-														<ChevronUp
-															size={16}
-															className="text-neutral-400"
-														/>
-													) : (
-														<ChevronDown
-															size={16}
-															className="text-neutral-500"
-														/>
-													)}
-												</SidebarMenuButton>
-											</CollapsibleTrigger>
-
-											{/* Subsections */}
-											<CollapsibleContent>
-												<SidebarMenuSub className="ml-3 border-l border-neutral-800/60 pl-3 mt-1 space-y-1">
-													{chapter.sections?.map(
-														(section) => (
-															<SidebarMenuSubItem
-																key={
-																	section.slug
-																}
-																className="text-white"
-															>
-																<SidebarMenuSubButton
-																	asChild
+															}`}
+													>
+														<div className="flex gap-2">
+															<span className="font-bold text-neutral-400">
+																{idx + 1}.
+															</span>
+															{chapter.title}
+														</div>
+														<div className="flex items-center gap-2">
+															{totalCount > 0 && (
+																<span className="text-xs text-neutral-500 tabular-nums">
+																	{completedCount}/{totalCount}
+																</span>
+															)}
+															{totalCount > 0 && (
+																<button
+																	onClick={(e) => handleToggleChapterProgress(e, chapter)}
+																	className="p-0.5 rounded hover:bg-neutral-700 transition-colors"
+																	title={completedCount === totalCount ? "Mark as incomplete" : "Mark all as complete"}
 																>
-																	<a
-																		className={`!text-base h-auto block rounded-lg px-4 py-2 transition-all cursor-pointer duration-300
-																			${
-																				activeSubSection ===
-																				section.slug
+																	{completedCount === totalCount ? (
+																		<RotateCcw size={13} className="text-green-500" />
+																	) : (
+																		<CheckCheck size={13} className="text-neutral-500 hover:text-green-400" />
+																	)}
+																</button>
+															)}
+															{activeChapter ===
+																chapter.slug ? (
+																<ChevronUp
+																	size={16}
+																	className="text-neutral-400"
+																/>
+															) : (
+																<ChevronDown
+																	size={16}
+																	className="text-neutral-500"
+																/>
+															)}
+														</div>
+													</SidebarMenuButton>
+												</CollapsibleTrigger>
+
+												{/* Progress bar */}
+												{totalCount > 0 && (
+													<div className="mx-4 mb-1 h-0.5 rounded-full bg-neutral-800">
+														<div
+															className="h-full rounded-full bg-green-500/60 transition-all duration-500"
+															style={{ width: `${(completedCount / totalCount) * 100}%` }}
+														/>
+													</div>
+												)}
+
+												{/* Subsections */}
+												<CollapsibleContent>
+													<SidebarMenuSub className="ml-3 border-l border-neutral-800/60 pl-3 mt-1 space-y-1">
+														{chapter.sections?.map(
+															(section) => (
+																<SidebarMenuSubItem
+																	key={
+																		section.slug
+																	}
+																	className="text-white"
+																>
+																	<SidebarMenuSubButton
+																		asChild
+																	>
+																		<a
+																			className={`!text-sm h-auto block rounded-lg px-4 py-2 transition-all cursor-pointer duration-300
+																			${activeSubSection ===
+																					section.slug
 																					? "bg-neutral-800 text-white shadow-inner shadow-black/50"
 																					: "hover:bg-neutral-900/70 hover:text-white/90 text-neutral-400"
-																			}`}
-																		onClick={(
-																			e
-																		) => {
-																			e.preventDefault();
-																			scrollToSection(
-																				section.slug
-																			);
-																		}}
-																	>
-																		{
-																			section.heading
-																		}
-																	</a>
-																</SidebarMenuSubButton>
-															</SidebarMenuSubItem>
-														)
-													)}
-												</SidebarMenuSub>
-											</CollapsibleContent>
-										</Collapsible>
-									</SidebarMenuItem>
-								))}
+																				}`}
+																			onClick={(
+																				e
+																			) => {
+																				e.preventDefault();
+																				scrollToSection(
+																					section.slug
+																				);
+																			}}
+																		>
+																			<span className="flex items-center gap-2">
+																				{completedSections.has(`${chapter.slug}:${section.slug}`) && (
+																					<span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+																				)}
+																				{section.heading}
+																			</span>
+																		</a>
+																	</SidebarMenuSubButton>
+																</SidebarMenuSubItem>
+															)
+														)}
+													</SidebarMenuSub>
+												</CollapsibleContent>
+											</Collapsible>
+										</SidebarMenuItem>
+									);
+								})}
 							</SidebarMenu>
 						</SidebarGroup>
 					</SidebarContent>
@@ -227,7 +386,7 @@ export const SystemDesign = () => {
 							key={section.slug}
 							section={section}
 							containerEl={containerRef.current}
-							onVisible={setActiveSubSection}
+							onVisible={handleSectionVisible}
 						/>
 					))}
 					{chapterContent == null && (
@@ -250,7 +409,7 @@ const Section = ({ section, containerEl, onVisible }) => {
 
 	const { ref } = useInView({
 		root: containerEl,
-		rootMargin: "0px 0px -60% 0px",
+		rootMargin: "0px 0px -80% 0px",
 		threshold: 0,
 		onChange: (inView) => {
 			if (inView) onVisible(section.slug);
@@ -365,7 +524,7 @@ const AskAi = ({ slug }) => {
 	return (
 		<div className="z-10">
 			<Select onValueChange={handleSelect}>
-				<SelectTrigger className="!py-0.5 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
+				<SelectTrigger style={{ height: "2rem" }} className="gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
 					<span>Ask AI</span>
 				</SelectTrigger>
 				<SelectContent className="bg-neutral-900 border-neutral-700 text-white min-w-[140px]">
