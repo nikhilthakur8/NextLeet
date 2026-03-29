@@ -365,7 +365,7 @@ const AskAi = ({ slug }) => {
 	return (
 		<div className="z-10">
 			<Select onValueChange={handleSelect}>
-				<SelectTrigger className="!h-2 !py-0 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
+				<SelectTrigger className="!py-0.5 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
 					<span>Ask AI</span>
 				</SelectTrigger>
 				<SelectContent className="bg-neutral-900 border-neutral-700 text-white min-w-[140px]">
