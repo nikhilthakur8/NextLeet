@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../context/context";
 
 export default function NextleetBanner() {
+	const { userData } = useUserContext();
+	const isSubscriptionActive = userData?.subscription?.isActive || false;
 	const [showBanner, setShowBanner] = useState(false);
 
 	// show after 3.5 seconds

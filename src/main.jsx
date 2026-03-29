@@ -37,6 +37,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { LeetcodeChallenges } from "./Pages/LeetcodeChallenges.jsx";
 import { Hacks } from "./Pages/HacksPage.jsx";
 import { SystemDesign } from "./Pages/SystemDesign/SystemDesign.jsx";
+import Upgrade from "./Pages/Upgrade.jsx";
+import { PaymentStatus } from "./Pages/PaymentStatus.jsx";
 
 // heavy components
 const FeatureRequest = lazy(() =>
@@ -86,8 +88,8 @@ const router = createBrowserRouter(
 					element={<Navigate to={"/feature-requests"} />}
 				/>
 				{/* <Route path="/customize-sheet" element={<CustomizedSheet />} /> */}
-				{/* <Route path="/upgrade" element={<Upgrade />} /> */}
-				{/* <Route path="/payment-status" element={<PaymentStatus />} /> */}
+				<Route path="/upgrade" element={<Upgrade />} />
+				<Route path="/payment-status" element={<PaymentStatus />} />
 				<Route path="/privacy-policy" element={<PrivacyPolicy />} />
 				<Route path="/terms" element={<TermsOfService />} />
 			</Route>

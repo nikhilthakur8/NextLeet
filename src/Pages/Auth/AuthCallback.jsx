@@ -38,7 +38,7 @@ export const AuthCallback = () => {
 				if (response.data.success) {
 					const isNewUser = response.data.data.isNewUser;
 					if (isNewUser) {
-						toast.success("Account created successfully!");
+						toast.success("🎉 3-day Pro trial activated!");
 					} else {
 						toast.success("Welcome Back!");
 					}

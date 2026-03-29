@@ -27,23 +27,23 @@ export const ProtectedLayout = () => {
 			</div>
 		);
 	}
-	// if (!userData.subscription || !userData.subscription.isActive) {
-	// 	return (
-	// 		<div className="flex flex-col items-center justify-center min-h-svh text-gray-300 px-4">
-	// 			<h2 className="text-3xl font-bold mb-4">Upgrade to Pro</h2>
-	// 			<CustomButton
-	// 				to={`/upgrade?redirect_uri=${encodeURIComponent(
-	// 					location.pathname
-	// 				)}`}
-	// 				Tag={Link}
-	// 				className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 !text-black font-semibold px-6  rounded-xl shadow hover:opacity-90 transition-all flex items-center"
-	// 			>
-	// 				<ArrowUpRight size={16} className="mr-2" />
-	// 				Upgrade to Pro
-	// 			</CustomButton>
-	// 		</div>
-	// 	);
-	// }
+	if (!userData.subscription || !userData.subscription.isActive) {
+		return (
+			<div className="flex flex-col items-center justify-center min-h-svh text-gray-300 px-4">
+				<h2 className="text-3xl font-bold mb-4">Upgrade to Pro</h2>
+				<CustomButton
+					to={`/upgrade?redirect_uri=${encodeURIComponent(
+						location.pathname
+					)}`}
+					Tag={Link}
+					className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 !text-black font-semibold px-6  rounded-xl shadow hover:opacity-90 transition-all flex items-center"
+				>
+					<ArrowUpRight size={16} className="mr-2" />
+					Upgrade to Pro
+				</CustomButton>
+			</div>
+		);
+	}
 
 	return (
 		<div>
