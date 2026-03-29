@@ -18,7 +18,7 @@ import {
 	CollapsibleTrigger,
 	CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, X, Download } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import {
 	Select,
@@ -246,6 +246,8 @@ export const SystemDesign = () => {
 };
 
 const Section = ({ section, containerEl, onVisible }) => {
+	const [fullscreenSrc, setFullscreenSrc] = useState(null);
+
 	const { ref } = useInView({
 		root: containerEl,
 		rootMargin: "0px 0px -60% 0px",
@@ -257,20 +259,50 @@ const Section = ({ section, containerEl, onVisible }) => {
 
 	const handleImageClick = (e) => {
 		if (e.target.tagName !== "IMG") return;
-		e.target.requestFullscreen?.();
+		setFullscreenSrc(e.target.src);
 	};
 
 	return (
-		<div ref={ref} className="w-full mb-2" onClick={handleImageClick}>
-			<div className="flex justify-end mb-1">
-				<AskAi slug={section.slug} />
+		<>
+			{fullscreenSrc && (
+				<div
+					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+					onClick={() => setFullscreenSrc(null)}
+				>
+					<div className="absolute top-4 right-4 flex gap-2">
+						<a
+							href={fullscreenSrc}
+							download
+							className="text-white bg-neutral-800 hover:bg-neutral-700 rounded-full p-2 transition-colors"
+							onClick={(e) => e.stopPropagation()}
+						>
+							<Download size={20} />
+						</a>
+						<button
+							className="text-white bg-neutral-800 hover:bg-neutral-700 rounded-full p-2 transition-colors"
+							onClick={() => setFullscreenSrc(null)}
+						>
+							<X size={20} />
+						</button>
+					</div>
+					<img
+						src={fullscreenSrc}
+						className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+						onClick={(e) => e.stopPropagation()}
+					/>
+				</div>
+			)}
+			<div ref={ref} className="w-full mb-2" onClick={handleImageClick}>
+				<div className="flex justify-end mb-1">
+					<AskAi slug={section.slug} />
+				</div>
+				<p
+					className="chapter"
+					id={section.slug}
+					dangerouslySetInnerHTML={{ __html: section.content }}
+				/>
 			</div>
-			<p
-				className="chapter"
-				id={section.slug}
-				dangerouslySetInnerHTML={{ __html: section.content }}
-			/>
-		</div>
+		</>
 	);
 };
 
@@ -333,7 +365,7 @@ const AskAi = ({ slug }) => {
 	return (
 		<div className="z-10">
 			<Select onValueChange={handleSelect}>
-				<SelectTrigger className="h-2 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
+				<SelectTrigger className="!h-2 !py-0 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
 					<span>Ask AI</span>
 				</SelectTrigger>
 				<SelectContent className="bg-neutral-900 border-neutral-700 text-white min-w-[140px]">
