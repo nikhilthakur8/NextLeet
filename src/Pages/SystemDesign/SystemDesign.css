@@ -175,13 +175,13 @@
 
 /* Tables */
 .chapter table {
-	width: 100%;
+	display: block;
+	overflow-x: auto;
+	max-width: 100%;
 	border-collapse: collapse;
 	margin: 1rem 0;
 	background: #0d1b2a;
 	border-radius: 6px;
-	overflow: hidden;
-	overflow-x: auto;
 	white-space: nowrap;
 }
 .chapter th,

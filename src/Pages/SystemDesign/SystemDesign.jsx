@@ -261,13 +261,15 @@ const Section = ({ section, containerEl, onVisible }) => {
 	};
 
 	return (
-		<div ref={ref} className="w-full mb-2 relative" onClick={handleImageClick}>
+		<div ref={ref} className="w-full mb-2" onClick={handleImageClick}>
+			<div className="flex justify-end mb-1">
+				<AskAi slug={section.slug} />
+			</div>
 			<p
 				className="chapter"
 				id={section.slug}
 				dangerouslySetInnerHTML={{ __html: section.content }}
 			/>
-			<AskAi slug={section.slug} />
 		</div>
 	);
 };
@@ -329,10 +331,10 @@ const AskAi = ({ slug }) => {
 	};
 
 	return (
-		<div className="absolute top-3 right-3 z-10">
+		<div className="z-10">
 			<Select onValueChange={handleSelect}>
-				<SelectTrigger className="h-5 gap-1 px-3 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-28">
-					<span className="hidden md:inline">Ask AI</span>
+				<SelectTrigger className="h-2 gap-1 px-2 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-auto">
+					<span>Ask AI</span>
 				</SelectTrigger>
 				<SelectContent className="bg-neutral-900 border-neutral-700 text-white min-w-[140px]">
 					{AI_OPTIONS.map((ai) => (
