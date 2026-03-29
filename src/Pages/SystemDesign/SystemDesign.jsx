@@ -19,6 +19,13 @@ import {
 	CollapsibleContent,
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+} from "@/components/ui/select";
 import axios from "axios";
 import "./SystemDesign.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -104,7 +111,7 @@ export const SystemDesign = () => {
 				<Sidebar
 					side="left"
 					variant="sidebar"
-					className="relative bg-gradient-to-b from-neutral-950 to-black h-[85vh] w-screen sm:w-sm text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
+					className="relative bg-gradient-to-b from-neutral-950 to-black h-[85vh] w-screen sm:w-[300px] text-neutral-300 border-r border-neutral-800 shadow-lg shadow-black/40 transition-all duration-300"
 					collapsible="icon"
 				>
 					<SidebarContent className="gap-0 bg-transparent">
@@ -216,19 +223,12 @@ export const SystemDesign = () => {
 						<ScrollProgress targetRef={containerRef} />
 					)}
 					{chapterContent?.sections?.map((section) => (
-						<div
+						<Section
 							key={section.slug}
-							className="w-full mb-4 relative"
-						>
-							<p
-								className="chapter"
-								id={section.slug}
-								dangerouslySetInnerHTML={{
-									__html: section.content,
-								}}
-							/>
-							<AskAi slug={section.slug} />
-						</div>
+							section={section}
+							containerEl={containerRef.current}
+							onVisible={setActiveSubSection}
+						/>
 					))}
 					{chapterContent == null && (
 						<p className="flex flex-col items-center justify-center text-center  w-full h-full text-gray-300 whitespace-pre-wrap">
@@ -245,36 +245,110 @@ export const SystemDesign = () => {
 	);
 };
 
-const AskAi = ({ slug }) => {
-	const handleClick = () => {
-		const section = document.getElementById(slug);
-		if (section) {
-			const context = section.innerText;
-			const prompt = `Explain the system design concept in brief: ${context}`;
-			const encoded = encodeURIComponent(prompt);
-			window.open(
-				`https://chat.openai.com/?hints=think&prompt=${encoded}`,
-				"_blank"
-			);
-		}
+const Section = ({ section, containerEl, onVisible }) => {
+	const { ref } = useInView({
+		root: containerEl,
+		rootMargin: "0px 0px -60% 0px",
+		threshold: 0,
+		onChange: (inView) => {
+			if (inView) onVisible(section.slug);
+		},
+	});
+
+	const handleImageClick = (e) => {
+		if (e.target.tagName !== "IMG") return;
+		e.target.requestFullscreen?.();
 	};
 
 	return (
-		<button
-			onClick={handleClick}
-			className="flex items-center text-sm justify-center rounded-full text-white bg-neutral-800/90 md:px-3 p-1 transition-all duration-300 ease-in-out absolute top-5 right-5 cursor-pointer border border-neutral-700 hover:bg-neutral-700/90 shadow-md shadow-black/40"
-			title="Ask ChatGPT"
-		>
-			<svg
-				fill="currentColor"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				className="w-4 h-4"
-			>
-				<title>OpenAI</title>
-				<path d="M21.55 10.004a5.416 5.416 0 00-.478-4.501c-1.217-2.09-3.662-3.166-6.05-2.66A5.59 5.59 0 0010.831 1C8.39.995 6.224 2.546 5.473 4.838A5.553 5.553 0 001.76 7.496a5.487 5.487 0 00.691 6.5 5.416 5.416 0 00.477 4.502c1.217 2.09 3.662 3.165 6.05 2.66A5.586 5.586 0 0013.168 23c2.443.006 4.61-1.546 5.361-3.84a5.553 5.553 0 003.715-2.66 5.488 5.488 0 00-.693-6.497v.001zm-8.381 11.558a4.199 4.199 0 01-2.675-.954c.034-.018.093-.05.132-.074l4.44-2.53a.71.71 0 00.364-.623v-6.176l1.877 1.069c.02.01.033.029.036.05v5.115c-.003 2.274-1.87 4.118-4.174 4.123zM4.192 17.78a4.059 4.059 0 01-.498-2.763c.032.02.09.055.131.078l4.44 2.53c.225.13.504.13.73 0l5.42-3.088v2.138a.068.068 0 01-.027.057L9.9 19.288c-1.999 1.136-4.552.46-5.707-1.51h-.001zM3.023 8.216A4.15 4.15 0 015.198 6.41l-.002.151v5.06a.711.711 0 00.364.624l5.42 3.087-1.876 1.07a.067.067 0 01-.063.005l-4.489-2.559c-1.995-1.14-2.679-3.658-1.53-5.63h.001zm15.417 3.54l-5.42-3.088L14.896 7.6a.067.067 0 01.063-.006l4.489 2.557c1.998 1.14 2.683 3.662 1.529 5.633a4.163 4.163 0 01-2.174 1.807V12.38a.71.71 0 00-.363-.623zm1.867-2.773a6.04 6.04 0 00-.132-.078l-4.44-2.53a.731.731 0 00-.729 0l-5.42 3.088V7.325a.068.068 0 01.027-.057L14.1 4.713c2-1.137 4.555-.46 5.707 1.513.487.833.664 1.809.499 2.757h.001zm-11.741 3.81l-1.877-1.068a.065.065 0 01-.036-.051V6.559c.001-2.277 1.873-4.122 4.181-4.12.976 0 1.92.338 2.671.954-.034.018-.092.05-.131.073l-4.44 2.53a.71.71 0 00-.365.623l-.003 6.173v.002zm1.02-2.168L12 9.25l2.414 1.375v2.75L12 14.75l-2.415-1.375v-2.75z"></path>
+		<div ref={ref} className="w-full mb-2 relative" onClick={handleImageClick}>
+			<p
+				className="chapter"
+				id={section.slug}
+				dangerouslySetInnerHTML={{ __html: section.content }}
+			/>
+			<AskAi slug={section.slug} />
+		</div>
+	);
+};
+
+const AI_OPTIONS = [
+	{
+		value: "chatgpt",
+		label: "ChatGPT",
+		url: (prompt) =>
+			`https://chat.openai.com/?hints=think&prompt=${prompt}`,
+		icon: (
+			<svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+				<path d="M21.55 10.004a5.416 5.416 0 00-.478-4.501c-1.217-2.09-3.662-3.166-6.05-2.66A5.59 5.59 0 0010.831 1C8.39.995 6.224 2.546 5.473 4.838A5.553 5.553 0 001.76 7.496a5.487 5.487 0 00.691 6.5 5.416 5.416 0 00.477 4.502c1.217 2.09 3.662 3.165 6.05 2.66A5.586 5.586 0 0013.168 23c2.443.006 4.61-1.546 5.361-3.84a5.553 5.553 0 003.715-2.66 5.488 5.488 0 00-.693-6.497v.001zm-8.381 11.558a4.199 4.199 0 01-2.675-.954c.034-.018.093-.05.132-.074l4.44-2.53a.71.71 0 00.364-.623v-6.176l1.877 1.069c.02.01.033.029.036.05v5.115c-.003 2.274-1.87 4.118-4.174 4.123zM4.192 17.78a4.059 4.059 0 01-.498-2.763c.032.02.09.055.131.078l4.44 2.53c.225.13.504.13.73 0l5.42-3.088v2.138a.068.068 0 01-.027.057L9.9 19.288c-1.999 1.136-4.552.46-5.707-1.51h-.001zM3.023 8.216A4.15 4.15 0 015.198 6.41l-.002.151v5.06a.711.711 0 00.364.624l5.42 3.087-1.876 1.07a.067.067 0 01-.063.005l-4.489-2.559c-1.995-1.14-2.679-3.658-1.53-5.63h.001zm15.417 3.54l-5.42-3.088L14.896 7.6a.067.067 0 01.063-.006l4.489 2.557c1.998 1.14 2.683 3.662 1.529 5.633a4.163 4.163 0 01-2.174 1.807V12.38a.71.71 0 00-.363-.623zm1.867-2.773a6.04 6.04 0 00-.132-.078l-4.44-2.53a.731.731 0 00-.729 0l-5.42 3.088V7.325a.068.068 0 01.027-.057L14.1 4.713c2-1.137 4.555-.46 5.707 1.513.487.833.664 1.809.499 2.757h.001zm-11.741 3.81l-1.877-1.068a.065.065 0 01-.036-.051V6.559c.001-2.277 1.873-4.122 4.181-4.12.976 0 1.92.338 2.671.954-.034.018-.092.05-.131.073l-4.44 2.53a.71.71 0 00-.365.623l-.003 6.173v.002zm1.02-2.168L12 9.25l2.414 1.375v2.75L12 14.75l-2.415-1.375v-2.75z" />
 			</svg>
-			<span className="ml-2 hidden md:inline">Ask AI</span>
-		</button>
+		),
+	},
+	{
+		value: "claude",
+		label: "Claude",
+		url: (prompt) => `https://claude.ai/new?q=${prompt}`,
+		icon: (
+			<svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+				<path d="M13.827 3.52h3.603L24 20h-3.603l-6.57-16.48zm-3.654 0H6.57L0 20h3.603l1.498-3.818h6.702l1.497 3.818h3.604L10.173 3.52zm-3.894 9.2 2.29-5.858 2.29 5.858H6.279z" />
+			</svg>
+		),
+	},
+	{
+		value: "grok",
+		label: "Grok",
+		url: (prompt) => `https://grok.com/?q=${prompt}`,
+		icon: (
+			<svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+				<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+			</svg>
+		),
+	},
+	{
+		value: "sarvam",
+		label: "Sarvam AI",
+		url: (prompt) => `https://sarvam.ai/chat?message=${prompt}`,
+		icon: (
+			<svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+				<text x="2" y="18" fontSize="18" fontWeight="bold" fontFamily="serif">स</text>
+			</svg>
+		),
+	},
+];
+
+const AskAi = ({ slug }) => {
+	const handleSelect = (value) => {
+		const section = document.getElementById(slug);
+		if (!section) return;
+		const context = section.innerText;
+		const prompt = encodeURIComponent(
+			`Explain the system design concept in brief: ${context}`
+		);
+		const ai = AI_OPTIONS.find((o) => o.value === value);
+		if (ai) window.open(ai.url(prompt), "_blank");
+	};
+
+	return (
+		<div className="absolute top-3 right-3 z-10">
+			<Select onValueChange={handleSelect}>
+				<SelectTrigger className="h-5 gap-1 px-3 text-xs rounded-full bg-neutral-800/90 border-neutral-700 text-white hover:bg-neutral-700/90 shadow-md shadow-black/40 cursor-pointer w-28">
+					<span className="hidden md:inline">Ask AI</span>
+				</SelectTrigger>
+				<SelectContent className="bg-neutral-900 border-neutral-700 text-white min-w-[140px]">
+					{AI_OPTIONS.map((ai) => (
+						<SelectItem
+							key={ai.value}
+							value={ai.value}
+							className="cursor-pointer focus:bg-neutral-800 focus:text-white"
+						>
+							<div className="flex items-center gap-2">
+								{ai.icon}
+								<span>{ai.label}</span>
+							</div>
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+		</div>
 	);
 };

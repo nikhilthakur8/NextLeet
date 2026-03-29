@@ -2,19 +2,19 @@
 
 /* Base styles - mobile-first */
 .chapter {
-	margin-top: 1.5rem;
-	padding: 1.5rem 0.75rem 0.75rem 0.75rem;
+	margin-top: 0.75rem;
+	padding: 0.75rem 0.75rem 0.5rem 0.75rem;
 	background: rgba(10, 10, 15, 0.85);
 	backdrop-filter: blur(12px);
 	border-radius: 8px;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter",
 		sans-serif;
-	line-height: 1.6;
+	line-height: 1.55;
 	color: #e5e7eb;
 	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
 	max-width: 100%;
 	overflow-x: hidden;
-	font-size: 0.95rem; /* smaller base font for mobile */
+	font-size: 0.95rem;
 }
 
 /* Gradient headings */
@@ -29,34 +29,34 @@
 	letter-spacing: -0.02em;
 	word-wrap: break-word;
 	hyphens: auto;
-	margin-top: 1rem;
-	margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.25rem;
 }
 
 .chapter h1 {
-	font-size: 1.5rem;
+	font-size: 1.4rem;
 	font-weight: 700;
 	line-height: 1.2;
 }
 .chapter h2 {
-	font-size: 1.35rem;
+	font-size: 1.25rem;
 	font-weight: 600;
 	line-height: 1.25;
 }
 .chapter h3 {
-	font-size: 1.15rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 	line-height: 1.3;
 }
 .chapter h4 {
-	font-size: 1rem;
+	font-size: 0.95rem;
 	font-weight: 500;
 	line-height: 1.35;
 }
 
 /* Paragraphs */
 .chapter p {
-	margin: 0.5rem 0;
+	margin: 0.25rem 0;
 	font-size: 0.9rem;
 	color: #cbd5e1;
 	font-weight: 400;
@@ -67,7 +67,7 @@
 /* Lists */
 .chapter ul,
 .chapter ol {
-	margin: 0.75rem 0;
+	margin: 0.35rem 0;
 	padding-left: 1rem;
 	color: #cbd5e1;
 }
@@ -78,8 +78,8 @@
 	list-style: decimal;
 }
 .chapter li {
-	margin: 0.25rem 0;
-	line-height: 1.5;
+	margin: 0.1rem 0;
+	line-height: 1.45;
 	font-size: 0.9rem;
 }
 .chapter ul li::marker {
@@ -93,7 +93,7 @@
 /* Code blocks */
 .chapter pre {
 	background: linear-gradient(135deg, #0f172a, #0a0a0f);
-	padding: 0.75rem;
+	padding: 0.6rem;
 	border-radius: 6px;
 	overflow-x: auto;
 	font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
@@ -102,7 +102,7 @@
 	color: #f9fafb;
 	border: 1px solid rgba(80, 80, 100, 0.5);
 	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
-	margin: 0.75rem 0;
+	margin: 0.4rem 0;
 	white-space: pre;
 }
 .chapter code {
@@ -119,8 +119,8 @@
 
 /* Blockquotes */
 .chapter blockquote {
-	margin: 0.75rem 0;
-	padding: 0.75rem;
+	margin: 0.4rem 0;
+	padding: 0.5rem 0.75rem;
 	border-left: 3px solid #06b6d4;
 	background: linear-gradient(
 		135deg,
@@ -145,13 +145,18 @@
 
 /* Images */
 .chapter img {
-	max-width: 90%;
+	max-width: 75%;
+	max-height: 360px;
+	width: auto;
 	height: auto;
-	border-radius: 6px;
-	margin: 1rem auto;
+	border-radius: 8px;
+	margin: 0.6rem auto;
 	display: block;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-	border: 1px solid rgba(80, 80, 100, 0.3);
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(6, 182, 212, 0.15);
+	border: 1px solid rgba(80, 80, 100, 0.35);
+	background: rgba(15, 23, 42, 0.6);
+	object-fit: contain;
+	cursor: zoom-in;
 }
 
 /* Links */
@@ -243,72 +248,57 @@
 @media (min-width: 768px) {
 	.chapter {
 		padding-inline: 1rem;
-		font-size: 1rem;
+		font-size: 0.95rem;
 	}
-	.chapter h1 {
-		font-size: 1.7rem;
-	}
-	.chapter h2 {
-		font-size: 1.5rem;
-	}
-	.chapter h3 {
-		font-size: 1.3rem;
-	}
-	.chapter h4 {
-		font-size: 1.15rem;
-	}
+	.chapter h1 { font-size: 1.5rem; }
+	.chapter h2 { font-size: 1.3rem; }
+	.chapter h3 { font-size: 1.1rem; }
+	.chapter h4 { font-size: 1rem; }
 	.chapter p,
 	.chapter li,
 	.chapter code,
 	.chapter blockquote {
-		font-size: 1rem;
+		font-size: 0.95rem;
 	}
 	.chapter pre {
-		font-size: 0.9rem;
-		padding: 1rem;
+		font-size: 0.875rem;
+		padding: 0.75rem;
 	}
 	.chapter table th,
 	.chapter table td {
-		font-size: 0.9rem;
-		padding: 0.75rem;
+		font-size: 0.875rem;
+		padding: 0.5rem 0.75rem;
 	}
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
 	.chapter {
-		padding-inline: 1.5rem;
-		font-size: 1.05rem;
+		padding-inline: 1.25rem;
+		font-size: 1rem;
 	}
-	.chapter h1 {
-		font-size: 2rem;
-	}
-	.chapter h2 {
-		font-size: 1.7rem;
-	}
-	.chapter h3 {
-		font-size: 1.45rem;
-	}
-	.chapter h4 {
-		font-size: 1.2rem;
-	}
+	.chapter h1 { font-size: 1.6rem; }
+	.chapter h2 { font-size: 1.4rem; }
+	.chapter h3 { font-size: 1.2rem; }
+	.chapter h4 { font-size: 1.05rem; }
 	.chapter p,
 	.chapter li,
 	.chapter code,
 	.chapter blockquote {
-		font-size: 1.05rem;
+		font-size: 1rem;
 	}
 	.chapter pre {
-		font-size: 0.95rem;
-		padding: 1.25rem;
+		font-size: 0.9rem;
+		padding: 0.875rem;
 	}
 	.chapter table th,
 	.chapter table td {
-		font-size: 0.95rem;
-		padding: 0.875rem;
+		font-size: 0.9rem;
+		padding: 0.6rem 0.875rem;
 	}
 	.chapter img {
-		max-width: 80%;
+		max-width: 70%;
+		max-height: 400px;
 	}
 }
 
