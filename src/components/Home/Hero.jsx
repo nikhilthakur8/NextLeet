@@ -34,7 +34,7 @@ export const Hero = () => {
 				<div className="mt-6 inline-block">
 					<Link
 						to={
-							"/system-design/scale-from-zero-to-millions-of-users"
+							"https://playground.nextleet.com"
 						}
 						rel="noopener noreferrer"
 						className="relative"
@@ -44,7 +44,7 @@ export const Hero = () => {
 							className="bg-white cursor-pointer dark:bg-neutral-950/[0.8] text-black dark:text-neutral-400 px-5 border-neutral-200 dark:border-neutral-800 text-base md:text-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
 							duration={5000}
 						>
-							System Design Notes
+							NextLeet Playground
 						</Button>
 						<NewBadge className="-top-3">New</NewBadge>
 					</Link>
